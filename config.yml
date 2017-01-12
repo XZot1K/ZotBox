@@ -1,0 +1,7 @@
+# Tells the library if it needs to setup packets for plugins that are using it on enable. #
+setup-packets: true
+
+# These are some messages you can customize. #
+no-permission-message: "&cYou don't have permission to use this."
+reload-message: "&aSuccessfully reloaded the library."
+usage-message: "&cUsage: /zotlib <reload>"
