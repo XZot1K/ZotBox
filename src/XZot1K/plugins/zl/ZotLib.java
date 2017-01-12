@@ -1,5 +1,6 @@
 package XZot1K.plugins.zl;
 
+import XZot1K.plugins.zl.libraries.CalculationLibrary;
 import XZot1K.plugins.zl.libraries.GeneralLibrary;
 import XZot1K.plugins.zl.libraries.PacketLibrary;
 import XZot1K.plugins.zl.libraries.inventorylib.InventoryLibrary;
@@ -15,6 +16,7 @@ public class ZotLib extends JavaPlugin
     private InventoryLibrary inventoryLibrary;
     private GeneralLibrary generalLibrary;
     private PacketLibrary packetLibrary;
+    private CalculationLibrary calculationLibrary;
 
     @Override
     public void onEnable()
@@ -24,6 +26,7 @@ public class ZotLib extends JavaPlugin
         inventoryLibrary = new InventoryLibrary();
         generalLibrary = new GeneralLibrary();
         packetLibrary = new PacketLibrary();
+        calculationLibrary = new CalculationLibrary();
         if (getConfig().getBoolean("setup-packets"))
         {
             getPacketLibrary().setupPackets();
@@ -91,6 +94,11 @@ public class ZotLib extends JavaPlugin
     public String getPrefix()
     {
         return "&bZotLib &7-> ";
+    }
+
+    public CalculationLibrary getCalculationLibrary()
+    {
+        return calculationLibrary;
     }
 
 }
