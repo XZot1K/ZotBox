@@ -1,5 +1,6 @@
 package XZot1K.plugins.zl.utils;
 
+import XZot1K.plugins.zl.Manager;
 import XZot1K.plugins.zl.ZotLib;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -9,14 +10,13 @@ import java.io.Serializable;
 public class SerializableLocation implements Serializable
 {
     private static final long serialVersionUID = 1L;
-    private ZotLib plugin;
+    private ZotLib plugin = Manager.getPlugin();
     private double x, y, z;
     private float yaw, pitch;
     private String worldName;
 
-    public SerializableLocation(ZotLib plugin, Location location)
+    public SerializableLocation(Location location)
     {
-        this.plugin = plugin;
         if (location == null)
         {
             return;
