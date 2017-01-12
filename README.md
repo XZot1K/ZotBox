@@ -1,4 +1,3 @@
 <p align="center">
-![Alt text](http://imgur.com/aVaeUPE.png "ZotLib")
-
+<img src="http://imgur.com/aVaeUPE.png" width="350"/>
 </p>
