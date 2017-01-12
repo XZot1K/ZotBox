@@ -9,16 +9,21 @@ public class GeneralLibrary
 
     private ZotLib plugin = Manager.getPlugin();
 
-    /*
-    The "color" method will go through the fed text and use the & symbol to color code it.
-    After this process is done it will return your new message.
-    */
+    /**
+     * Color codes the given text
+     *
+     * @param msg The message you want colored.
+     * @return The message color coded.
+     */
     public String color(String msg)
     {
         return ChatColor.translateAlternateColorCodes('&', msg);
     }
 
-    // The "sendConsoleMessage" method sends the console a message of your choice through the ZotLib.
+    /**
+     * Sends the console a message of your choice through the ZotLib.
+     * @param message The message you want to send to console.
+     */
     public void sendConsoleMessage(String message)
     {
         plugin.getServer().getConsoleSender().sendMessage(color(plugin.getPrefix() + message));
