@@ -2,7 +2,6 @@ package XZot1K.plugins.zl.libraries.inventorylib;
 
 import XZot1K.plugins.zl.Manager;
 import XZot1K.plugins.zl.ZotLib;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
@@ -132,78 +131,6 @@ public class InventoryLibrary
             }
         }
         return false;
-    }
-
-    /** The "doesInventoryTitleMatch" method allows you to check if a inventory's title matches the given text with or without color.
-     *
-     * @param inventory The inventory you want to check.
-     * @param text The title text you want to compare to the inventory's title.
-     * @param stripColor Whether you want to check with or without color.
-     * @return Whether the inventory's title and the text match or not.
-     */
-    public boolean doesInventoryTitleMatch(Inventory inventory, String text, boolean stripColor)
-    {
-        if (stripColor)
-        {
-            return ChatColor.stripColor(inventory.getTitle()).equals(ChatColor.stripColor(plugin.getGeneralLibrary().color(text)));
-        } else
-        {
-            return inventory.getTitle().equals(plugin.getGeneralLibrary().color(text));
-        }
-    }
-
-    /**
-     * Checks if a inventory's title contains the given text with or without color.
-     * @param inventory The inventory you want to check.
-     * @param text The title text you want to see if the inventory's title contains it.
-     * @param stripColor Whether you want to check with or without color.
-     * @return Whether the inventory's title contains the text or not.
-     */
-    public boolean doesInventoryTitleContain(Inventory inventory, String text, boolean stripColor)
-    {
-        if (stripColor)
-        {
-            return ChatColor.stripColor(inventory.getTitle()).contains(ChatColor.stripColor(plugin.getGeneralLibrary().color(text)));
-        } else
-        {
-            return inventory.getTitle().contains(plugin.getGeneralLibrary().color(text));
-        }
-    }
-
-    /**
-     * The "doesInventoryTitleMatch" method allows you to check if a inventory's title ends with the given text with or without color.
-     * @param inventory The inventory you want to check.
-     * @param text The title text you want to see if the inventory's title ends with.
-     * @param stripColor Whether you want to check with or without color.
-     * @return Whether the inventory's title ends with the text or not.
-     */
-    public boolean doesInventoryTitleEndWith(Inventory inventory, String text, boolean stripColor)
-    {
-        if (stripColor)
-        {
-            return ChatColor.stripColor(inventory.getTitle()).endsWith(ChatColor.stripColor(plugin.getGeneralLibrary().color(text)));
-        } else
-        {
-            return inventory.getTitle().endsWith(plugin.getGeneralLibrary().color(text));
-        }
-    }
-
-    /**
-     * The "doesInventoryTitleMatch" method allows you to check if a inventory's title starts with the given text with or without color.
-     * @param inventory The inventory you want to check.
-     * @param text The title text you want to see if the inventory's title starts with.
-     * @param stripColor Whether you want to check with or without color.
-     * @return Whether the inventory's title starts with the text or not.
-     */
-    public boolean doesInventoryTitleStartWith(Inventory inventory, String text, boolean stripColor)
-    {
-        if (stripColor)
-        {
-            return ChatColor.stripColor(inventory.getTitle()).startsWith(ChatColor.stripColor(plugin.getGeneralLibrary().color(text)));
-        } else
-        {
-            return inventory.getTitle().startsWith(plugin.getGeneralLibrary().color(text));
-        }
     }
 
 }
