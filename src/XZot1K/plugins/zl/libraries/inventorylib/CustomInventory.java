@@ -46,7 +46,11 @@ public class CustomInventory
     {
         for (int i = 0; i < getInventory().getSize(); i++)
         {
-            setSlot(i, itemStack);
+            ItemStack item = getInventory().getItem(i);
+            if (item == null || item.getType() == Material.AIR)
+            {
+                setSlot(i, itemStack);
+            }
         }
     }
 
