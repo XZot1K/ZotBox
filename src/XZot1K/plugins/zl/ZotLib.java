@@ -1,9 +1,11 @@
 package XZot1K.plugins.zl;
 
 import XZot1K.plugins.zl.libraries.CalculationLibrary;
+import XZot1K.plugins.zl.libraries.DatabaseLibrary;
 import XZot1K.plugins.zl.libraries.GeneralLibrary;
 import XZot1K.plugins.zl.libraries.PacketLibrary;
 import XZot1K.plugins.zl.libraries.inventorylib.InventoryLibrary;
+import XZot1K.plugins.zl.libraries.locationlib.LocationLibrary;
 import metrics.Metrics;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -17,6 +19,8 @@ public class ZotLib extends JavaPlugin
     private GeneralLibrary generalLibrary;
     private PacketLibrary packetLibrary;
     private CalculationLibrary calculationLibrary;
+    private LocationLibrary locationLibrary;
+    private DatabaseLibrary databaseLibrary;
 
     @Override
     public void onEnable()
@@ -27,6 +31,8 @@ public class ZotLib extends JavaPlugin
         generalLibrary = new GeneralLibrary();
         packetLibrary = new PacketLibrary();
         calculationLibrary = new CalculationLibrary();
+        locationLibrary = new LocationLibrary();
+        databaseLibrary = new DatabaseLibrary();
         if (getConfig().getBoolean("setup-packets"))
         {
             getPacketLibrary().setupPackets();
@@ -101,4 +107,13 @@ public class ZotLib extends JavaPlugin
         return calculationLibrary;
     }
 
+    public LocationLibrary getLocationLibrary()
+    {
+        return locationLibrary;
+    }
+
+    public DatabaseLibrary getDatabaseLibrary()
+    {
+        return databaseLibrary;
+    }
 }
