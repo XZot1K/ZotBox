@@ -77,7 +77,10 @@ public class MCUpdate implements Listener
             task = pl.getServer().getScheduler().runTaskTimerAsynchronously(pl, () ->
             {
                 report();
-                pl.getServer().getConsoleSender().sendMessage(format(updateMessage));
+                if (!upToDate)
+                {
+                    pl.getServer().getConsoleSender().sendMessage(format(updateMessage));
+                }
             }, 0, PING_INTERVAL * 20);
         }
 
