@@ -152,4 +152,27 @@ public class CustomItem
         return plugin.getInventoryLibrary().doItemsMatch(getItemStack(), itemStack);
     }
 
+    public void replaceInLore(String placeholder, String value)
+    {
+        if (getItemMeta().hasLore())
+        {
+            List<String> lore = getItemMeta().getLore();
+            for (String line : lore)
+            {
+                line.replace(placeholder, value);
+            }
+            setLore(lore);
+        }
+    }
+
+    public void replaceInDisplayName(String placeholder, String value)
+    {
+        if (getItemMeta().hasDisplayName())
+        {
+            String displayName = getItemMeta().getDisplayName();
+            displayName.replace(placeholder, value);
+            setDisplayName(displayName);
+        }
+    }
+
 }

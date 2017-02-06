@@ -6,7 +6,8 @@ import XZot1K.plugins.zl.libraries.GeneralLibrary;
 import XZot1K.plugins.zl.libraries.PacketLibrary;
 import XZot1K.plugins.zl.libraries.inventorylib.InventoryLibrary;
 import XZot1K.plugins.zl.libraries.locationlib.LocationLibrary;
-import metrics.Metrics;
+import XZot1K.plugins.zl.statistichosts.mcupdate.MCUpdate;
+import XZot1K.plugins.zl.statistichosts.metrics.Metrics;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -33,18 +34,8 @@ public class ZotLib extends JavaPlugin
         calculationLibrary = new CalculationLibrary();
         locationLibrary = new LocationLibrary();
         databaseLibrary = new DatabaseLibrary();
-        if (getConfig().getBoolean("setup-packets"))
-        {
-            getPacketLibrary().setupPackets();
-        }
-        try
-        {
-            Metrics metrics = new Metrics(this);
-            metrics.start();
-        } catch (Exception e)
-        {
-            getGeneralLibrary().sendConsoleMessage("&cMetrics failed to start. Please check your connection.");
-        }
+        connectToStatisticHosts();
+        getPacketLibrary().setupPackets();
         getCommand("zotlib").setExecutor(this);
     }
 
@@ -75,6 +66,28 @@ public class ZotLib extends JavaPlugin
             }
         }
         return false;
+    }
+
+    private void connectToStatisticHosts()
+    {
+        try
+        {
+            Metrics metrics = new Metrics(this);
+            metrics.start();
+            getGeneralLibrary().sendConsoleMessage("&aMetrics has been enabled and loaded successfully.");
+        } catch (Exception e)
+        {
+            getGeneralLibrary().sendConsoleMessage("&cMetrics failed to start. Please check your connection.");
+        }
+
+        try
+        {
+            new MCUpdate(this, true);
+            getGeneralLibrary().sendConsoleMessage("&aMCUpdate has been enabled and loaded successfully.");
+        } catch (Exception e)
+        {
+            getGeneralLibrary().sendConsoleMessage("&cMCUpdate failed to start. Please check your connection.");
+        }
     }
 
     public InventoryLibrary getInventoryLibrary()

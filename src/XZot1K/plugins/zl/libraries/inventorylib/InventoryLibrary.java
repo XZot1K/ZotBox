@@ -14,7 +14,7 @@ public class InventoryLibrary
     private ZotLib plugin = Manager.getPlugin();
 
     /**
-     * Remove a specific item from an inventory.
+     * Remove a specific item from a player's inventory.
      *
      * @param inventory The inventory you want to remove the item from.
      * @param itemStack The itemstack you want to remove.
