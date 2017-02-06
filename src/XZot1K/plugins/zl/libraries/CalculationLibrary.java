@@ -17,6 +17,15 @@ public class CalculationLibrary
     }
 
     /*
+     The "getRandomDouble" method will generate a random decimal value between the minimum and maximum number you feed it,
+     Much like the "getRandomMethod" method.
+      */
+    public static double getRandomDouble(double min, double max)
+    {
+        return (Math.random() * (max - min)) + min;
+    }
+
+    /*
     The "calculateFormula" method will allow you to feed it a String formula and it will calculate it
     based on the variables and symbols it knows.
     */
@@ -148,15 +157,6 @@ public class CalculationLibrary
     }
 
     /*
-     The "getRandomDouble" method will generate a random decimal value between the minimum and maximum number you feed it,
-     Much like the "getRandomMethod" method.
-      */
-    public static double getRandomDouble(double min, double max)
-    {
-        return (Math.random() * (max - min)) + min;
-    }
-
-    /*
     The "isChance" method allows you to feed it a "percentage of happening" and a "maximum percentage". It will then generate a random
     integer between 0 and the "maximum percentage" you fed it. Once it has this integer it will then check if the integer
     is less than or equal to the "percentage of happening" that you fed it, if it is not less than or equal to the "percentage of happening"
@@ -166,6 +166,11 @@ public class CalculationLibrary
     {
         int chance = (int) (Math.random() * maximumPercentage);
         return chance < percentageOfHappening;
+    }
+
+    public int getChance(int percentageOfHappening, int maximumPercentage)
+    {
+        return (int) (Math.random() * maximumPercentage);
     }
 
 }
