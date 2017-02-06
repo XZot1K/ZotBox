@@ -156,11 +156,11 @@ public class CalculationLibrary
         return random.nextInt(max - min + 1) + min;
     }
 
-    /*
-    The "isChance" method allows you to feed it a "percentage of happening" and a "maximum percentage". It will then generate a random
-    integer between 0 and the "maximum percentage" you fed it. Once it has this integer it will then check if the integer
-    is less than or equal to the "percentage of happening" that you fed it, if it is not less than or equal to the "percentage of happening"
-    then it will return false otherwise it will return true.
+    /**
+     * Chance system
+     *  @param percentageOfHappening Chance if this happening.
+     * @param maximumPercentage Maximum percentage. (Recommend 100)
+     * @return If the chance value was less than or equal to the "percentageOfHappening".
      */
     public boolean isChance(int percentageOfHappening, int maximumPercentage)
     {
@@ -168,6 +168,13 @@ public class CalculationLibrary
         return chance < percentageOfHappening;
     }
 
+    /**
+     * Chance system
+     *
+     * @param percentageOfHappening Chance if this happening.
+     * @param maximumPercentage     Maximum percentage. (Recommend 100)
+     * @return The chance value between 0 and the maximum amount.
+     */
     public int getChance(int percentageOfHappening, int maximumPercentage)
     {
         return (int) (Math.random() * maximumPercentage);

@@ -33,6 +33,7 @@ public final class Main extends JavaPlugin
         if(zotLib != null)
         {
             setZotLib(zotLib);
+            return true;
         }
         return false;
     }
