@@ -1,4 +1,4 @@
-package XZot1K.plugins.zl.statistichosts.mcupdate;
+package XZot1K.plugins.zl.statistichosts;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

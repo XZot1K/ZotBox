@@ -1,15 +1,14 @@
 package XZot1K.plugins.zl;
 
+import XZot1K.plugins.zl.commands.ZotLibCommand;
 import XZot1K.plugins.zl.libraries.CalculationLibrary;
 import XZot1K.plugins.zl.libraries.DatabaseLibrary;
 import XZot1K.plugins.zl.libraries.GeneralLibrary;
 import XZot1K.plugins.zl.libraries.PacketLibrary;
 import XZot1K.plugins.zl.libraries.inventorylib.InventoryLibrary;
 import XZot1K.plugins.zl.libraries.locationlib.LocationLibrary;
-import XZot1K.plugins.zl.statistichosts.mcupdate.MCUpdate;
-import XZot1K.plugins.zl.statistichosts.metrics.Metrics;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
+import XZot1K.plugins.zl.statistichosts.MCUpdate;
+import XZot1K.plugins.zl.statistichosts.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class ZotLib extends JavaPlugin
@@ -26,55 +25,36 @@ public class ZotLib extends JavaPlugin
     @Override
     public void onEnable()
     {
+        long startTime = System.currentTimeMillis();
         saveDefaultConfig();
         new Manager(this);
+        setupLibraries();
+        connectToStatisticHosts();
+        getPacketLibrary().setupPackets();
+        getCommand("zotlib").setExecutor(new ZotLibCommand());
+        long endTime = System.currentTimeMillis();
+        getGeneralLibrary().sendConsoleMessage("&aSuccessfully loaded and enabled &eZotLib&a! (Took &e" + (endTime - startTime) + "ms&a)");
+    }
+
+    private void setupLibraries()
+    {
         inventoryLibrary = new InventoryLibrary();
         generalLibrary = new GeneralLibrary();
         packetLibrary = new PacketLibrary();
         calculationLibrary = new CalculationLibrary();
         locationLibrary = new LocationLibrary();
         databaseLibrary = new DatabaseLibrary();
-        connectToStatisticHosts();
-        getPacketLibrary().setupPackets();
-        getCommand("zotlib").setExecutor(this);
-    }
-
-    @Override
-    public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args)
-    {
-        if (command.getName().equalsIgnoreCase("zotlib"))
-        {
-            if (commandSender.hasPermission("zotlib.reload"))
-            {
-                if (args.length == 1)
-                {
-                    if (args[0].equalsIgnoreCase("reload"))
-                    {
-                        reloadConfig();
-                        getPacketLibrary().setupPackets();
-                        commandSender.sendMessage(getGeneralLibrary().color(getPrefix() + getConfig().getString("reload-message")));
-                        return true;
-                    }
-                }
-
-                commandSender.sendMessage(getGeneralLibrary().color(getPrefix() + getConfig().getString("usage-message")));
-                return true;
-            } else
-            {
-                commandSender.sendMessage(getGeneralLibrary().color(getPrefix() + getConfig().getString("no-permission-message")));
-                return true;
-            }
-        }
-        return false;
     }
 
     private void connectToStatisticHosts()
     {
         try
         {
+            long startTime = System.currentTimeMillis();
             Metrics metrics = new Metrics(this);
             metrics.start();
-            getGeneralLibrary().sendConsoleMessage("&aMetrics has been enabled and loaded successfully.");
+            long endTime = System.currentTimeMillis();
+            getGeneralLibrary().sendConsoleMessage("&aMetrics has been successfully connected. (Took &e" + (endTime - startTime) + "ms&a)");
         } catch (Exception e)
         {
             getGeneralLibrary().sendConsoleMessage("&cMetrics failed to start. Please check your connection.");
@@ -82,8 +62,10 @@ public class ZotLib extends JavaPlugin
 
         try
         {
+            long startTime = System.currentTimeMillis();
             new MCUpdate(this, true);
-            getGeneralLibrary().sendConsoleMessage("&aMCUpdate has been enabled and loaded successfully.");
+            long endTime = System.currentTimeMillis();
+            getGeneralLibrary().sendConsoleMessage("&aMCUpdate has been successfully connected. (Took &e" + (endTime - startTime) + "ms&a)");
         } catch (Exception e)
         {
             getGeneralLibrary().sendConsoleMessage("&cMCUpdate failed to start. Please check your connection.");
@@ -129,4 +111,5 @@ public class ZotLib extends JavaPlugin
     {
         return databaseLibrary;
     }
+
 }

@@ -71,12 +71,15 @@ public class LocationLibrary
         return blocks;
     }
 
-    public List<Entity> getEntitiesInRadius(Location centerLocation, int xRadius, int yRadius, int zRadius)
+    public List<Entity> getEntitiesInRadius(Location centerLocation, double distance)
     {
         List<Entity> entities = new ArrayList<>();
-        for (Entity entity : centerLocation.getWorld().getNearbyEntities(centerLocation, xRadius, yRadius, zRadius))
+        for (Entity entity : centerLocation.getWorld().getEntities())
         {
-            entities.add(entity);
+            if (entity.getLocation().distance(centerLocation) <= distance)
+            {
+                entities.add(entity);
+            }
         }
         return entities;
     }
