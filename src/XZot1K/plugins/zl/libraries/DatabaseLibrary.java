@@ -25,7 +25,7 @@ public class DatabaseLibrary
         try
         {
             Class.forName("com.mysql.jdbc.Driver");
-            String cd = "jdbc:mysql://" + databaseHost + ":" + databasePort + "/?user=" + databaseUsername + "&password=" + databasePassword;
+            String cd = "jdbc:mysql://" + databaseHost + ":" + databasePort + "/?user=" + databaseUsername + "&password=" + databasePassword + "?autoReconnect=true";
             connection = DriverManager.getConnection(cd);
             plugin.getGeneralLibrary().sendConsoleMessage("&aSuccessfully established a new connection with the following information: "
                     + " &eHost: &6" + databaseHost + " &ePort: &6" + databasePort);
@@ -54,7 +54,7 @@ public class DatabaseLibrary
         try
         {
             Class.forName("com.mysql.jdbc.Driver");
-            String url = "jdbc:mysql://" + databaseHost + ":" + databasePort + "/" + databaseName;
+            String url = "jdbc:mysql://" + databaseHost + ":" + databasePort + "/" + databaseName + "?autoReconnect=true";
             connection = DriverManager.getConnection(url, databaseUsername, databasePassword);
             plugin.getGeneralLibrary().sendConsoleMessage("&aSuccessfully established a new connection with the following information: "
                     + " &eHost: &6" + databaseHost + " &ePort: &6" + databasePort + " &eDatabase: &6" + databaseName);
