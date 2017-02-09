@@ -37,7 +37,7 @@ public class PlayerSaver
         setHunger(player.getFoodLevel());
     }
 
-    public void restoreToPlayer(Player player, boolean restoreFlight, boolean restoreGameMode, boolean restoreInventory,
+    public void restoreToPlayer(Player player, boolean restoreLocation, boolean restoreFlight, boolean restoreGameMode, boolean restoreInventory,
                                 boolean restoreExperience, boolean restoreHealthAndFood, boolean restorePotionEffects, boolean notifyConsole)
     {
         if (restoreFlight)
@@ -76,6 +76,11 @@ public class PlayerSaver
             {
                 player.addPotionEffect(potionEffect);
             }
+        }
+
+        if (restoreLocation)
+        {
+            player.teleport(getLocation());
         }
 
         if (notifyConsole)
