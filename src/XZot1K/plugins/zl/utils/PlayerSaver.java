@@ -37,20 +37,45 @@ public class PlayerSaver
         setHunger(player.getFoodLevel());
     }
 
-    public void restoreToPlayer(Player player, boolean notifyConsole)
+    public void restoreToPlayer(Player player, boolean restoreFlight, boolean restoreGameMode, boolean restoreInventory,
+                                boolean restoreExperience, boolean restoreHealthAndFood, boolean restorePotionEffects, boolean notifyConsole)
     {
-        player.setFlying(isFlying());
-        player.setAllowFlight(isAllowFlight());
-        player.setGameMode(getGameMode());
-        player.getInventory().setArmorContents(getArmorContents());
-        player.getInventory().setContents(getInventoryContents());
-        player.setLevel(getLevel());
-        player.setExp(getExperience());
-        player.setHealth(getHealth());
-        player.setFoodLevel(getHunger());
-        for (PotionEffect potionEffect : getPotionEffects())
+        if (restoreFlight)
         {
-            player.addPotionEffect(potionEffect);
+            player.setFlying(isFlying());
+            player.setAllowFlight(isAllowFlight());
+        }
+
+        if (restoreGameMode)
+        {
+            player.setGameMode(getGameMode());
+        }
+
+        if (restoreInventory)
+        {
+            player.getInventory().setArmorContents(getArmorContents());
+            player.getInventory().setContents(getInventoryContents());
+        }
+
+        if (restoreExperience)
+        {
+            player.setLevel(getLevel());
+            player.setExp(getExperience());
+
+        }
+
+        if (restoreHealthAndFood)
+        {
+            player.setHealth(getHealth());
+            player.setFoodLevel(getHunger());
+        }
+
+        if (restorePotionEffects)
+        {
+            for (PotionEffect potionEffect : getPotionEffects())
+            {
+                player.addPotionEffect(potionEffect);
+            }
         }
 
         if (notifyConsole)
