@@ -142,6 +142,12 @@ public class CustomItem
         return getItemStack().getItemMeta();
     }
 
+    public CustomItem setItemMeta(ItemMeta meta)
+    {
+        getItemStack().setItemMeta(meta);
+        return this;
+    }
+
     public ItemMeta.Spigot spigot()
     {
         return getItemStack().getItemMeta().spigot();

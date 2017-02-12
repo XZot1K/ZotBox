@@ -3,10 +3,14 @@ package XZot1K.plugins.zl.libraries.inventorylib;
 import XZot1K.plugins.zl.Manager;
 import XZot1K.plugins.zl.ZotLib;
 import org.bukkit.Material;
+import org.bukkit.SkullType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.SkullMeta;
+
+import java.util.List;
 
 public class InventoryLibrary
 {
@@ -180,6 +184,26 @@ public class InventoryLibrary
             }
         }
         return false;
+    }
+
+    /**
+     * Allows you to get a player's head!
+     *
+     * @param playerName  The player's name that you want a head of.
+     * @param displayName The display name of the player head.
+     * @param lore        The lore of the player head.
+     * @param amount      The amount of the player's head you want.
+     * @return The new sexy player head you created in one line of code!
+     */
+    public ItemStack getPlayerHead(String playerName, String displayName, List<String> lore, int amount)
+    {
+        CustomItem customItem = new CustomItem(Material.SKULL_ITEM, amount, (short) SkullType.PLAYER.ordinal());
+        SkullMeta meta = (SkullMeta) customItem.getItemMeta();
+        meta.setOwner(playerName);
+        meta.setDisplayName(plugin.getGeneralLibrary().color(displayName));
+        meta.setLore(plugin.getGeneralLibrary().colorLines(lore));
+        customItem.setItemMeta(meta);
+        return customItem.getItemStack();
     }
 
 }

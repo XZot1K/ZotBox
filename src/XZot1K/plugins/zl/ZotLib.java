@@ -15,12 +15,16 @@ public class ZotLib extends JavaPlugin
 {
 
     private String serverVersion = getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
+
+    // ZotLib Libraries.
     private InventoryLibrary inventoryLibrary;
     private GeneralLibrary generalLibrary;
     private PacketLibrary packetLibrary;
     private CalculationLibrary calculationLibrary;
     private LocationLibrary locationLibrary;
     private DatabaseLibrary databaseLibrary;
+
+    // ZotLib Managers.
 
     @Override
     public void onEnable()
@@ -63,7 +67,7 @@ public class ZotLib extends JavaPlugin
         try
         {
             long startTime = System.currentTimeMillis();
-            new MCUpdate(this, true);
+            new MCUpdate(this);
             long endTime = System.currentTimeMillis();
             getGeneralLibrary().sendConsoleMessage("&aMCUpdate has been successfully connected. (Took &e" + (endTime - startTime) + "ms&a)");
         } catch (Exception e)
