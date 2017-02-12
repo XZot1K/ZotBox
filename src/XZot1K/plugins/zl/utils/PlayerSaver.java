@@ -21,7 +21,6 @@ public class PlayerSaver
     private GameMode gameMode;
     private int level, experience, hunger;
     private double health;
-
     public PlayerSaver(Player player)
     {
         setLocation(player.getLocation());
