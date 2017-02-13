@@ -10,11 +10,67 @@ public class JSONExtra
     private JSONObject extraObject;
 
     @SuppressWarnings("unchecked")
+    public JSONExtra(String text)
+    {
+        extraObject = new JSONObject();
+
+        if (text != null)
+        {
+            getExtraObject().put("text", text);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public JSONExtra(String text, ChatColor color)
+    {
+        extraObject = new JSONObject();
+
+        if (text != null)
+        {
+            getExtraObject().put("text", text);
+        }
+
+        if (color != null)
+        {
+            getExtraObject().put("color", color.name().toLowerCase());
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public JSONExtra(String text, ChatColor color, JSONFormat format)
+    {
+        extraObject = new JSONObject();
+
+        if (text != null)
+        {
+            getExtraObject().put("text", text);
+        }
+
+        if (color != null)
+        {
+            getExtraObject().put("color", color.name().toLowerCase());
+        }
+
+        if (format != null)
+        {
+            getExtraObject().put(format.name().toLowerCase(), true);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
     public JSONExtra(String text, ChatColor color, List<JSONFormat> formats)
     {
         extraObject = new JSONObject();
-        getExtraObject().put("text", text);
-        getExtraObject().put("color", color.name().toLowerCase());
+
+        if (text != null)
+        {
+            getExtraObject().put("text", text);
+        }
+
+        if (color != null)
+        {
+            getExtraObject().put("color", color.name().toLowerCase());
+        }
 
         if (formats != null && !formats.isEmpty())
         {
