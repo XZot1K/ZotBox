@@ -108,7 +108,7 @@ public class JSONMessage
     {
         plugin.getPacketLibrary().getJSONMessageSender().sendJSONMessage(player, getChatObject().toJSONString());
     }
-
+    
     @SuppressWarnings("unchecked")
     public void setClickEvent(JSONClickAction action, String value)
     {
