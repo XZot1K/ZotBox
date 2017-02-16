@@ -9,6 +9,7 @@ import XZot1K.plugins.zl.libraries.inventorylib.InventoryLibrary;
 import XZot1K.plugins.zl.libraries.locationlib.LocationLibrary;
 import XZot1K.plugins.zl.statistichosts.MCUpdate;
 import XZot1K.plugins.zl.statistichosts.Metrics;
+import XZot1K.plugins.zl.utils.cooldowns.CoolDownManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class ZotLib extends JavaPlugin
@@ -25,19 +26,33 @@ public class ZotLib extends JavaPlugin
     private DatabaseLibrary databaseLibrary;
 
     // ZotLib Managers.
+    private CoolDownManager coolDownManager;
 
     @Override
     public void onEnable()
     {
         long startTime = System.currentTimeMillis();
+
+
         saveDefaultConfig();
         new Manager(this);
         setupLibraries();
+        setupManagers();
         connectToStatisticHosts();
         getPacketLibrary().setupPackets();
+
+        // Register Commands.
         getCommand("zotlib").setExecutor(new ZotLibCommand());
+
+
         long endTime = System.currentTimeMillis();
         getGeneralLibrary().sendConsoleMessage("&aSuccessfully loaded and enabled &eZotLib&a! (Took &e" + (endTime - startTime) + "ms&a)");
+    }
+
+    @Override
+    public void onDisable()
+    {
+
     }
 
     private void setupLibraries()
@@ -48,6 +63,11 @@ public class ZotLib extends JavaPlugin
         calculationLibrary = new CalculationLibrary();
         locationLibrary = new LocationLibrary();
         databaseLibrary = new DatabaseLibrary();
+    }
+
+    private void setupManagers()
+    {
+        coolDownManager = new CoolDownManager();
     }
 
     private void connectToStatisticHosts()
@@ -114,6 +134,11 @@ public class ZotLib extends JavaPlugin
     public DatabaseLibrary getDatabaseLibrary()
     {
         return databaseLibrary;
+    }
+
+    public CoolDownManager getCoolDownManager()
+    {
+        return coolDownManager;
     }
 
 }

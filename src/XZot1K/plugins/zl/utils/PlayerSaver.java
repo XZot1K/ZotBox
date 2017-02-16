@@ -41,8 +41,8 @@ public class PlayerSaver
     {
         if (restoreFlight)
         {
-            player.setFlying(isFlying());
             player.setAllowFlight(isAllowFlight());
+            player.setFlying(isFlying());
         }
 
         if (restoreGameMode)

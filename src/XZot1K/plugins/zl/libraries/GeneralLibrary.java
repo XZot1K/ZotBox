@@ -2,7 +2,9 @@ package XZot1K.plugins.zl.libraries;
 
 import XZot1K.plugins.zl.Manager;
 import XZot1K.plugins.zl.ZotLib;
+import XZot1K.plugins.zl.packets.ping.PingEffectivity;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
@@ -122,6 +124,42 @@ public class GeneralLibrary
     public void sendConsoleMessage(Plugin plugin, String message)
     {
         plugin.getServer().getConsoleSender().sendMessage(color(message));
+    }
+
+    /**
+     * Allows you to get a players ping/latency.
+     *
+     * @param player The player you want to get the ping from.
+     * @return The player's ping/latency.
+     */
+    public int getPing(Player player)
+    {
+        return plugin.getPacketLibrary().getPingGetter().getPing(player);
+    }
+
+    /**
+     * Allows you to get how strong the player's ping/latency is at ease.
+     *
+     * @param ping The player's ping/latency (Recommend feeding this method the getPing() method).
+     * @return Whether the ping is very strong, strong, average, weak, or very weak.
+     */
+    public PingEffectivity getPingEffectivity(int ping)
+    {
+        if (ping <= 30)
+        {
+            return PingEffectivity.VERY_STRONG;
+        } else if (ping > 30 && ping <= 130)
+        {
+            return PingEffectivity.STRONG;
+        } else if (ping > 130 && ping <= 230)
+        {
+            return PingEffectivity.AVERAGE;
+        } else if (ping > 230 && ping <= 330)
+        {
+            return PingEffectivity.WEAK;
+        }
+
+        return PingEffectivity.VERY_WEAK;
     }
 
 }

@@ -20,7 +20,7 @@ public class CalculationLibrary
      The "getRandomDouble" method will generate a random decimal value between the minimum and maximum number you feed it,
      Much like the "getRandomMethod" method.
       */
-    public static double getRandomDouble(double min, double max)
+    public double getRandomDouble(double min, double max)
     {
         return (Math.random() * (max - min)) + min;
     }
@@ -158,8 +158,9 @@ public class CalculationLibrary
 
     /**
      * Chance system
-     *  @param percentageOfHappening Chance if this happening.
-     * @param maximumPercentage Maximum percentage. (Recommend 100)
+     *
+     * @param percentageOfHappening Chance if this happening.
+     * @param maximumPercentage     Maximum percentage. (Recommend 100)
      * @return If the chance value was less than or equal to the "percentageOfHappening".
      */
     public boolean isChance(int percentageOfHappening, int maximumPercentage)
@@ -178,6 +179,24 @@ public class CalculationLibrary
     public int getChance(int percentageOfHappening, int maximumPercentage)
     {
         return (int) (Math.random() * maximumPercentage);
+    }
+
+    /**
+     * Tries to round the given value based on the given places.
+     *
+     * @param value  The value you wish to round.
+     * @param places How many places to the right should it round to.
+     * @return The rounded value (If it could be rounded).
+     */
+    public double roundValue(double value, int places)
+    {
+        if (!(places < 0))
+        {
+            long factor = (long) Math.pow(10, places);
+            return (double) Math.round(value * factor) / factor;
+        }
+
+        return value;
     }
 
 }

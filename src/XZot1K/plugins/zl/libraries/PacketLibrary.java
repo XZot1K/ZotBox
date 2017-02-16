@@ -5,6 +5,7 @@ import XZot1K.plugins.zl.ZotLib;
 import XZot1K.plugins.zl.packets.actionbars.*;
 import XZot1K.plugins.zl.packets.jsonmsgs.*;
 import XZot1K.plugins.zl.packets.particles.*;
+import XZot1K.plugins.zl.packets.ping.*;
 import XZot1K.plugins.zl.packets.titles.*;
 
 public class PacketLibrary
@@ -14,6 +15,7 @@ public class PacketLibrary
     private ActionBars actionBarManager;
     private Particles particleManager;
     private JSONMessages JSONMessageSender;
+    private Ping pingGetter;
 
     /**
      * Not something you should mess with unless you need to reload ZotLib's packets.
@@ -35,6 +37,7 @@ public class PacketLibrary
                 this.actionBarManager = new ActionBars1_11R1();
                 this.particleManager = new Particle1_11R1();
                 this.JSONMessageSender = new JSONMessages1_11R1();
+                this.pingGetter = new Ping1_11R1();
                 plugin.getGeneralLibrary().sendConsoleMessage("&e" + plugin.getServerVersion()
                         + " &adetected successfully set up packets. (Took &e" + (System.currentTimeMillis() - startTime) + "ms&a)");
                 break;
@@ -43,6 +46,7 @@ public class PacketLibrary
                 this.actionBarManager = new ActionBars1_10R1();
                 this.particleManager = new Particle1_10R1();
                 this.JSONMessageSender = new JSONMessages1_10R1();
+                this.pingGetter = new Ping1_10R1();
                 plugin.getGeneralLibrary().sendConsoleMessage("&e" + plugin.getServerVersion()
                         + " &adetected successfully set up packets. (Took &e" + (System.currentTimeMillis() - startTime) + "ms&a)");
                 break;
@@ -51,6 +55,7 @@ public class PacketLibrary
                 this.actionBarManager = new ActionBars1_9R2();
                 this.particleManager = new Particle1_9R2();
                 this.JSONMessageSender = new JSONMessages1_9R2();
+                this.pingGetter = new Ping1_9R2();
                 plugin.getGeneralLibrary().sendConsoleMessage("&e" + plugin.getServerVersion()
                         + " &adetected successfully set up packets. (Took &e" + (System.currentTimeMillis() - startTime) + "ms&a)");
                 break;
@@ -59,6 +64,7 @@ public class PacketLibrary
                 this.actionBarManager = new ActionBars1_9R1();
                 this.particleManager = new Particle1_9R1();
                 this.JSONMessageSender = new JSONMessages1_9R1();
+                this.pingGetter = new Ping1_9R1();
                 plugin.getGeneralLibrary().sendConsoleMessage("&e" + plugin.getServerVersion()
                         + " &adetected successfully set up packets. (Took &e" + (System.currentTimeMillis() - startTime) + "ms&a)");
                 break;
@@ -67,6 +73,7 @@ public class PacketLibrary
                 this.actionBarManager = new ActionBars1_8R3();
                 this.particleManager = new Particle1_8R3();
                 this.JSONMessageSender = new JSONMessages1_8R3();
+                this.pingGetter = new Ping1_8R3();
                 plugin.getGeneralLibrary().sendConsoleMessage("&e" + plugin.getServerVersion()
                         + " &adetected successfully set up packets. (Took &e" + (System.currentTimeMillis() - startTime) + "ms&a)");
                 break;
@@ -75,6 +82,7 @@ public class PacketLibrary
                 this.actionBarManager = new ActionBars1_8R2();
                 this.particleManager = new Particle1_8R2();
                 this.JSONMessageSender = new JSONMessages1_8R2();
+                this.pingGetter = new Ping1_8R2();
                 plugin.getGeneralLibrary().sendConsoleMessage("&e" + plugin.getServerVersion()
                         + " &adetected successfully set up packets. (Took &e" + (System.currentTimeMillis() - startTime) + "ms&a)");
                 break;
@@ -83,13 +91,15 @@ public class PacketLibrary
                 this.actionBarManager = new ActionBars1_8R1();
                 this.particleManager = new Particle1_8R1();
                 this.JSONMessageSender = new JSONMessages1_8R1();
+                this.pingGetter = new Ping1_8R1();
                 plugin.getGeneralLibrary().sendConsoleMessage("&e" + plugin.getServerVersion()
                         + " &adetected successfully set up packets. (Took &e" + (System.currentTimeMillis() - startTime) + "ms&a)");
                 break;
             case "v1_7_R4":
                 this.JSONMessageSender = new JSONMessages1_7R4();
-                plugin.getGeneralLibrary().sendConsoleMessage("&cThe &eJSON Message Sender &cwas able to be setup, but all other " +
-                        "packets are not yet supported for lower versions than 1.8 in &bZotLib &cyet.");
+                this.pingGetter = new Ping1_7R4();
+                plugin.getGeneralLibrary().sendConsoleMessage("&cSome of the packets in ZotLib have been loaded due to &e1.7_R4 &csupport, " +
+                        "but most packets will not load for this version.");
                 break;
             default:
                 plugin.getGeneralLibrary().sendConsoleMessage("&cThere was a issue trying to setup packets for &d" +
@@ -138,4 +148,8 @@ public class PacketLibrary
         return JSONMessageSender;
     }
 
+    public Ping getPingGetter()
+    {
+        return pingGetter;
+    }
 }

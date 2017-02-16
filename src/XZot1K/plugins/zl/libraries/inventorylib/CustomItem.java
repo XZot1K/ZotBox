@@ -77,6 +77,18 @@ public class CustomItem
 
     public CustomItem addEnchantment(Enchantment enchantment, int level, boolean ignoreLevelRestriction)
     {
+        if (ignoreLevelRestriction)
+        {
+            getItemStack().addUnsafeEnchantment(enchantment, level);
+        } else
+        {
+            getItemStack().addEnchantment(enchantment, level);
+        }
+        return this;
+    }
+
+    public CustomItem addMetaEnchantment(Enchantment enchantment, int level, boolean ignoreLevelRestriction)
+    {
         ItemMeta meta = getItemStack().getItemMeta();
         meta.addEnchant(enchantment, level, ignoreLevelRestriction);
         getItemStack().setItemMeta(meta);
@@ -84,6 +96,12 @@ public class CustomItem
     }
 
     public CustomItem removeEnchantment(Enchantment enchantment)
+    {
+        getItemStack().removeEnchantment(enchantment);
+        return this;
+    }
+
+    public CustomItem removeMetaEnchantment(Enchantment enchantment)
     {
         ItemMeta meta = getItemStack().getItemMeta();
         meta.removeEnchant(enchantment);
