@@ -1,4 +1,4 @@
-package XZot1K.plugins.zl.packets.jsonmsgs;
+package XZot1K.plugins.zl.packets.jsonstuff.jsonmsgs;
 
 import net.minecraft.server.v1_9_R2.IChatBaseComponent;
 import net.minecraft.server.v1_9_R2.PacketPlayOutChat;

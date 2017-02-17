@@ -1,11 +1,11 @@
-package XZot1K.plugins.zl.packets.jsonmsgs;
+package XZot1K.plugins.zl.packets.jsonstuff.jsonmsgs;
 
-import net.minecraft.server.v1_9_R1.IChatBaseComponent;
-import net.minecraft.server.v1_9_R1.PacketPlayOutChat;
-import org.bukkit.craftbukkit.v1_9_R1.entity.CraftPlayer;
+import net.minecraft.server.v1_11_R1.IChatBaseComponent;
+import net.minecraft.server.v1_11_R1.PacketPlayOutChat;
+import org.bukkit.craftbukkit.v1_11_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
-public class JSONMessages1_9R1 implements JSONMessages
+public class JSONMessages1_11R1 implements JSONMessages
 {
 
     public void sendJSONMessage(Player player, String JSONString)

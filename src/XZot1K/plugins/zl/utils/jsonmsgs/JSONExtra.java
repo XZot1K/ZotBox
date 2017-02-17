@@ -1,12 +1,13 @@
 package XZot1K.plugins.zl.utils.jsonmsgs;
 
-import org.bukkit.ChatColor;
+import XZot1K.plugins.zl.Manager;
+import XZot1K.plugins.zl.ZotLib;
+import org.bukkit.inventory.ItemStack;
 import org.json.simple.JSONObject;
-
-import java.util.List;
 
 public class JSONExtra
 {
+    private ZotLib plugin = Manager.getPlugin();
     private JSONObject extraObject;
 
     @SuppressWarnings("unchecked")
@@ -16,68 +17,7 @@ public class JSONExtra
 
         if (text != null)
         {
-            getExtraObject().put("text", text);
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    public JSONExtra(String text, ChatColor color)
-    {
-        extraObject = new JSONObject();
-
-        if (text != null)
-        {
-            getExtraObject().put("text", text);
-        }
-
-        if (color != null)
-        {
-            getExtraObject().put("color", color.name().toLowerCase());
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    public JSONExtra(String text, ChatColor color, JSONFormat format)
-    {
-        extraObject = new JSONObject();
-
-        if (text != null)
-        {
-            getExtraObject().put("text", text);
-        }
-
-        if (color != null)
-        {
-            getExtraObject().put("color", color.name().toLowerCase());
-        }
-
-        if (format != null)
-        {
-            getExtraObject().put(format.name().toLowerCase(), true);
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    public JSONExtra(String text, ChatColor color, List<JSONFormat> formats)
-    {
-        extraObject = new JSONObject();
-
-        if (text != null)
-        {
-            getExtraObject().put("text", text);
-        }
-
-        if (color != null)
-        {
-            getExtraObject().put("color", color.name().toLowerCase());
-        }
-
-        if (formats != null && !formats.isEmpty())
-        {
-            for (JSONFormat format : formats)
-            {
-                getExtraObject().put(format.name().toLowerCase(), true);
-            }
+            getExtraObject().put("text", plugin.getGeneralLibrary().color(text));
         }
     }
 
@@ -91,7 +31,7 @@ public class JSONExtra
     {
         JSONObject clickEvent = new JSONObject();
         clickEvent.put("action", action.name().toLowerCase());
-        clickEvent.put("value", value);
+        clickEvent.put("value", plugin.getGeneralLibrary().color(value));
         getExtraObject().put("clickEvent", clickEvent);
     }
 
@@ -100,8 +40,13 @@ public class JSONExtra
     {
         JSONObject hoverEvent = new JSONObject();
         hoverEvent.put("action", action.name().toLowerCase());
-        hoverEvent.put("value", value);
+        hoverEvent.put("value", plugin.getGeneralLibrary().color(value));
         getExtraObject().put("hoverEvent", hoverEvent);
+    }
+
+    public String itemToJSON(ItemStack itemStack)
+    {
+        return plugin.getPacketLibrary().getJSONItemGetter().getJSONItem(itemStack);
     }
 
 }

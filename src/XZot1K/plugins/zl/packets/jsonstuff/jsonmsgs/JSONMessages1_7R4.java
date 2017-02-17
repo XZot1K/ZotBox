@@ -1,4 +1,4 @@
-package XZot1K.plugins.zl.packets.jsonmsgs;
+package XZot1K.plugins.zl.packets.jsonstuff.jsonmsgs;
 
 import net.minecraft.server.v1_7_R4.ChatSerializer;
 import net.minecraft.server.v1_7_R4.IChatBaseComponent;

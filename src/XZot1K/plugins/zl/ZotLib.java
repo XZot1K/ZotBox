@@ -49,12 +49,6 @@ public class ZotLib extends JavaPlugin
         getGeneralLibrary().sendConsoleMessage("&aSuccessfully loaded and enabled &eZotLib&a! (Took &e" + (endTime - startTime) + "ms&a)");
     }
 
-    @Override
-    public void onDisable()
-    {
-
-    }
-
     private void setupLibraries()
     {
         inventoryLibrary = new InventoryLibrary();
