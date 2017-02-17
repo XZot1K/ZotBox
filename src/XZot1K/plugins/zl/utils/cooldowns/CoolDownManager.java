@@ -32,7 +32,8 @@ public class CoolDownManager
             getCoolDowns().add(coolDown);
             if (notify)
             {
-                plugin.getGeneralLibrary().sendConsoleMessage("&aThe cool-down with the id &e" + coolDown.getId() + " &ahas been successfully registered.");
+                plugin.getGeneralLibrary().sendConsoleMessage("&aThe cool-down with the id &e" + coolDown.getId() +
+                        " &ahas been successfully registered.");
             }
 
             return true;
@@ -40,7 +41,8 @@ public class CoolDownManager
 
         if (notify)
         {
-            plugin.getGeneralLibrary().sendConsoleMessage("&cTried to register the cool-down with the id &e" + coolDown.getId() + " &c, but it is already registered.");
+            plugin.getGeneralLibrary().sendConsoleMessage("&cTried to register the cool-down with the id &e" + coolDown.getId()
+                    + " &c, but it is already registered.");
         }
 
         return false;
@@ -53,7 +55,8 @@ public class CoolDownManager
             getCoolDowns().remove(coolDown);
             if (notify)
             {
-                plugin.getGeneralLibrary().sendConsoleMessage("&aThe cool-down with the id &e" + coolDown.getId() + " &ahas been successfully un-registered.");
+                plugin.getGeneralLibrary().sendConsoleMessage("&aThe cool-down with the id &e" + coolDown.getId() +
+                        " &ahas been successfully un-registered.");
             }
 
             return true;
@@ -61,7 +64,8 @@ public class CoolDownManager
 
         if (notify)
         {
-            plugin.getGeneralLibrary().sendConsoleMessage("&cTried to un-register the cool-down with the id &e" + coolDown.getId() + " &c, but it is not registered.");
+            plugin.getGeneralLibrary().sendConsoleMessage("&cTried to un-register the cool-down with the id &e" + coolDown.getId() +
+                    " &c, but it is not registered.");
         }
 
         return false;
