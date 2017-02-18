@@ -53,6 +53,26 @@ public class InventoryLibrary
     }
 
     /**
+     * Gets how many of a specific item a player has in their inventory.
+     *
+     * @param inventory The inventory you want to count items from.
+     * @param itemStack The item stack you want to count.
+     */
+    public int getItemAmount(Inventory inventory, ItemStack itemStack)
+    {
+        int amount = 0;
+        for (int i = 0; i < inventory.getSize(); i++)
+        {
+            ItemStack is = inventory.getItem(i);
+            if (is != null && doItemsMatch(is, itemStack))
+            {
+                amount += is.getAmount();
+            }
+        }
+        return amount;
+    }
+
+    /**
      * Creates an new CustomItem, which is used to create new ItemStacks /w meta at ease.
      *
      * @param materialName The material name you want the item to be.
