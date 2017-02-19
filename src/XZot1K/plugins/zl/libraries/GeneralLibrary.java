@@ -7,7 +7,9 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class GeneralLibrary
@@ -160,6 +162,16 @@ public class GeneralLibrary
         }
 
         return PingEffectivity.VERY_WEAK;
+    }
+
+    /**
+     * Allows you to get the exact time and date in string format.
+     *
+     * @return An exact time and date in string format.
+     */
+    public String getTimeStamp()
+    {
+        return new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
     }
 
 }

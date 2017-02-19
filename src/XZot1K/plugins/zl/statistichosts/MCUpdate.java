@@ -4,7 +4,6 @@ package XZot1K.plugins.zl.statistichosts;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Server;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -12,7 +11,10 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitTask;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLConnection;
@@ -39,26 +41,17 @@ public class MCUpdate implements Listener
      * The scheduled task
      */
     private volatile BukkitTask task = null;
-    private boolean areMetricsEnabled = true;
     private boolean isUpdaterEnabled = false;
-    private Configuration cfg;
 
     public MCUpdate(Plugin plugin) throws IOException
     {
         if (plugin != null)
         {
             this.pl = plugin;
-            this.cfg = new Configuration(pl, "config.yml");
-
             Bukkit.getPluginManager().registerEvents(this, plugin);
-            setPingInterval(cfg.getInt("interval", 900));
-            setUpdaterEnabled(cfg.getBoolean("updater", true));
-            setMetricsEnabled(cfg.getBoolean("enabled", true));
-
-            if (areMetricsEnabled())
-            {
-                start();
-            }
+            setPingInterval(plugin.getConfig().getInt("update-notify-delay"));
+            setUpdaterEnabled(plugin.getConfig().getBoolean("update-notifications"));
+            start();
         }
     }
 
@@ -72,7 +65,7 @@ public class MCUpdate implements Listener
         return ChatColor.translateAlternateColorCodes('&', format);
     }
 
-    public boolean start()
+    private boolean start()
     {
         // Is MCUpdate already running?
         if (task == null)
@@ -104,7 +97,7 @@ public class MCUpdate implements Listener
             {
                 return ((Player[]) onlinePlayerMethod.invoke(Bukkit.getServer())).length;
             }
-        } catch (Exception ex)
+        } catch (Exception ignored)
         {
         }
         return 0;
@@ -214,14 +207,9 @@ public class MCUpdate implements Listener
         return null;
     }
 
-    public void setPingInterval(int interval)
+    private void setPingInterval(int interval)
     {
         this.PING_INTERVAL = interval;
-    }
-
-    public void setMetricsEnabled(boolean enabled)
-    {
-        this.areMetricsEnabled = enabled;
     }
 
     private boolean isUpdaterEnabled()
@@ -229,83 +217,9 @@ public class MCUpdate implements Listener
         return this.isUpdaterEnabled;
     }
 
-    public void setUpdaterEnabled(boolean enabled)
+    private void setUpdaterEnabled(boolean enabled)
     {
         this.isUpdaterEnabled = enabled;
     }
 
-    private boolean areMetricsEnabled()
-    {
-        return this.areMetricsEnabled;
-    }
-
-    /**
-     * Returns the Configuration Object that stores various Config nodes.
-     *
-     * @return Configuration
-     */
-    public Configuration getConfig()
-    {
-        return this.cfg;
-    }
-
-    public class Configuration extends YamlConfiguration
-    {
-        private Plugin pl;
-        private String fn;
-        private File cfg;
-
-        public Configuration(Plugin plugin, String filename)
-        {
-            this.pl = plugin;
-            this.fn = filename;
-
-            // Check Config Directory Exists
-            if (!getConfigDirectory().exists())
-            {
-                // Create Directory
-                getConfigDirectory().mkdirs();
-            }
-
-            // Define Config File
-            cfg = new File(getConfigDirectory(), fn);
-
-            // Check Config File Exists
-            if (!cfg.exists())
-            {
-                try
-                {
-                    // Define Defaults
-                    this.set("enabled", true);
-                    this.set("updater", true);
-                    this.set("interval", 900);
-
-                    // Save the Config
-                    this.save(cfg);
-                } catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
-            }
-
-            // Load Config
-            try
-            {
-                this.load(cfg);
-            } catch (Exception e)
-            {
-                e.printStackTrace();
-            }
-        }
-
-        private File getPluginDirectory()
-        {
-            return pl.getDataFolder().getParentFile();
-        }
-
-        private File getConfigDirectory()
-        {
-            return new File(getPluginDirectory(), NAME);
-        }
-    }
 }

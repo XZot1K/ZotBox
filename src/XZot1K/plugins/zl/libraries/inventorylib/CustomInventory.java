@@ -22,14 +22,16 @@ public class CustomInventory
         return inventory;
     }
 
-    public void setInventory(Inventory inventory)
+    public CustomInventory setInventory(Inventory inventory)
     {
         this.inventory = inventory;
+        return this;
     }
 
-    public void setSlot(int slot, ItemStack itemStack)
+    public CustomInventory setSlot(int slot, ItemStack itemStack)
     {
         getInventory().setItem(slot, itemStack);
+        return this;
     }
 
     public ItemStack getSlot(int slot)
@@ -37,12 +39,13 @@ public class CustomInventory
         return getInventory().getItem(slot);
     }
 
-    public void removeItem(ItemStack itemStack)
+    public CustomInventory removeItem(ItemStack itemStack)
     {
         getInventory().removeItem(itemStack);
+        return this;
     }
 
-    public void fillEmptySlots(ItemStack itemStack)
+    public CustomInventory fillEmptySlots(ItemStack itemStack)
     {
         for (int i = 0; i < getInventory().getSize(); i++)
         {
@@ -52,6 +55,8 @@ public class CustomInventory
                 setSlot(i, itemStack);
             }
         }
+
+        return this;
     }
 
     public boolean isFull()

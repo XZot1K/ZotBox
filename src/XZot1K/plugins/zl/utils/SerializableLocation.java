@@ -9,6 +9,7 @@ import java.io.Serializable;
 
 public class SerializableLocation implements Serializable
 {
+
     private static final long serialVersionUID = 1L;
     private ZotLib plugin = Manager.getPlugin();
     private double x, y, z;
@@ -17,29 +18,18 @@ public class SerializableLocation implements Serializable
 
     public SerializableLocation(Location location)
     {
-        if (location == null)
-        {
-            return;
-        }
         setX(location.getX());
         setY(location.getY());
         setZ(location.getZ());
         setYaw(location.getYaw());
         setPitch(location.getPitch());
         setWorldName(location.getWorld().getName());
-        getWorldName().equals(location.getWorld() == null ? "null" : location.getWorld().getName());
     }
 
     public Location asBukkitLocation()
     {
         World world = plugin.getServer().getWorld(getWorldName());
-        Location location = new Location(world, getX(), getY(), getZ(), getYaw(), getPitch());
-        if (location != null)
-        {
-            return location;
-        }
-
-        return null;
+        return new Location(world, getX(), getY(), getZ(), getYaw(), getPitch());
     }
 
     public String getWorldName()
