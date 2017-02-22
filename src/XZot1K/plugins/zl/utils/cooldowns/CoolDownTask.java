@@ -1,6 +1,5 @@
 package XZot1K.plugins.zl.utils.cooldowns;
 
-import XZot1K.plugins.zl.Manager;
 import XZot1K.plugins.zl.ZotLib;
 import XZot1K.plugins.zl.utils.cooldowns.events.CooldownDurationChangeEvent;
 import XZot1K.plugins.zl.utils.cooldowns.events.CooldownFinishEvent;
@@ -9,7 +8,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class CoolDownTask extends BukkitRunnable
 {
 
-    private ZotLib plugin = Manager.getPlugin();
+    private ZotLib plugin = ZotLib.getInstance();
     private CoolDown coolDown;
 
     public CoolDownTask(CoolDown coolDown)

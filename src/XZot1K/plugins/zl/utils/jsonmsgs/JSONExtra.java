@@ -1,13 +1,12 @@
 package XZot1K.plugins.zl.utils.jsonmsgs;
 
-import XZot1K.plugins.zl.Manager;
 import XZot1K.plugins.zl.ZotLib;
 import org.bukkit.inventory.ItemStack;
 import org.json.simple.JSONObject;
 
 public class JSONExtra
 {
-    private ZotLib plugin = Manager.getPlugin();
+    private ZotLib plugin = ZotLib.getInstance();
     private JSONObject extraObject;
 
     @SuppressWarnings("unchecked")

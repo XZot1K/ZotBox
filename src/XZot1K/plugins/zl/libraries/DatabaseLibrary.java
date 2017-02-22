@@ -1,6 +1,5 @@
 package XZot1K.plugins.zl.libraries;
 
-import XZot1K.plugins.zl.Manager;
 import XZot1K.plugins.zl.ZotLib;
 
 import java.sql.*;
@@ -8,7 +7,7 @@ import java.sql.*;
 public class DatabaseLibrary
 {
 
-    private ZotLib plugin = Manager.getPlugin();
+    private ZotLib plugin = ZotLib.getInstance();
 
     /**
      * Establishes a new MySQL connection without a database. (Only use this for creating a database then use the other method)

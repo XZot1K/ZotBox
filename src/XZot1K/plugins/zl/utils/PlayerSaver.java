@@ -1,6 +1,5 @@
 package XZot1K.plugins.zl.utils;
 
-import XZot1K.plugins.zl.Manager;
 import XZot1K.plugins.zl.ZotLib;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -13,7 +12,7 @@ import java.util.Collection;
 public class PlayerSaver
 {
 
-    private ZotLib plugin = Manager.getPlugin();
+    private ZotLib plugin = ZotLib.getInstance();
     private SerializableLocation location;
     private ItemStack[] inventoryContents, armorContents;
     private Collection<PotionEffect> potionEffects;

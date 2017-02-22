@@ -1,6 +1,5 @@
 package XZot1K.plugins.zl.libraries.inventorylib;
 
-import XZot1K.plugins.zl.Manager;
 import XZot1K.plugins.zl.ZotLib;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -15,7 +14,7 @@ import java.util.Map;
 public class CustomItem
 {
 
-    private ZotLib plugin = Manager.getPlugin();
+    private ZotLib plugin = ZotLib.getInstance();
     private ItemStack itemStack;
 
     public CustomItem(Material material, int amount, short durability)

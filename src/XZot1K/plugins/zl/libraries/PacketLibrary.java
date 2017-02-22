@@ -1,17 +1,20 @@
 package XZot1K.plugins.zl.libraries;
 
-import XZot1K.plugins.zl.Manager;
 import XZot1K.plugins.zl.ZotLib;
 import XZot1K.plugins.zl.packets.actionbars.*;
+import XZot1K.plugins.zl.packets.holograms.*;
 import XZot1K.plugins.zl.packets.jsonstuff.jsonitems.*;
 import XZot1K.plugins.zl.packets.jsonstuff.jsonmsgs.*;
 import XZot1K.plugins.zl.packets.particles.*;
 import XZot1K.plugins.zl.packets.ping.*;
 import XZot1K.plugins.zl.packets.titles.*;
+import org.bukkit.Location;
+
+import java.util.List;
 
 public class PacketLibrary
 {
-    private ZotLib plugin = Manager.getPlugin();
+    private ZotLib plugin = ZotLib.getInstance();
     private Titles titleManager;
     private ActionBars actionBarManager;
     private Particles particleManager;
@@ -176,6 +179,29 @@ public class PacketLibrary
     public JSONItems getJSONItemGetter()
     {
         return JSONItemGetter;
+    }
+
+    public Hologram getNewHologram(List<String> lines, double lineSpread, Location location)
+    {
+        switch (plugin.getServerVersion())
+        {
+            case "v1_11_R1":
+                return new Hologram1_11R1(lines, lineSpread, location);
+            case "v1_10_R1":
+                return new Hologram1_10R1(lines, lineSpread, location);
+            case "v1_9_R2":
+                return new Hologram1_9R2(lines, lineSpread, location);
+            case "v1_9_R1":
+                return new Hologram1_9R1(lines, lineSpread, location);
+            case "v1_8_R3":
+                return new Hologram1_8R3(lines, lineSpread, location);
+            case "v1_8_R2":
+                return new Hologram1_8R2(lines, lineSpread, location);
+            case "v1_8_R1":
+                return new Hologram1_8R1(lines, lineSpread, location);
+            default:
+                return null;
+        }
     }
 
 }

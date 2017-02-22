@@ -1,6 +1,5 @@
 package XZot1K.plugins.zl.libraries.inventorylib;
 
-import XZot1K.plugins.zl.Manager;
 import XZot1K.plugins.zl.ZotLib;
 import org.bukkit.Material;
 import org.bukkit.SkullType;
@@ -15,7 +14,7 @@ import java.util.List;
 public class InventoryLibrary
 {
 
-    private ZotLib plugin = Manager.getPlugin();
+    private ZotLib plugin = ZotLib.getInstance();
 
     /**
      * Remove a specific item from a player's inventory.

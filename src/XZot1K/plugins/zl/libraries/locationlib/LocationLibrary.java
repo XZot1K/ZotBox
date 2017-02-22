@@ -1,6 +1,5 @@
 package XZot1K.plugins.zl.libraries.locationlib;
 
-import XZot1K.plugins.zl.Manager;
 import XZot1K.plugins.zl.ZotLib;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
@@ -14,7 +13,7 @@ import java.util.List;
 public class LocationLibrary
 {
 
-    private ZotLib plugin = Manager.getPlugin();
+    private ZotLib plugin = ZotLib.getInstance();
 
     public List<Block> getBlocksInRadius(Location centerPoint, int xRadius, int yRadius, int zRadius)
     {

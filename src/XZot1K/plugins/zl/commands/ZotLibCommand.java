@@ -1,6 +1,5 @@
 package XZot1K.plugins.zl.commands;
 
-import XZot1K.plugins.zl.Manager;
 import XZot1K.plugins.zl.ZotLib;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -8,7 +7,7 @@ import org.bukkit.command.CommandSender;
 
 public class ZotLibCommand implements CommandExecutor
 {
-    private ZotLib plugin = Manager.getPlugin();
+    private ZotLib plugin = ZotLib.getInstance();
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args)

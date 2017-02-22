@@ -1,6 +1,5 @@
 package XZot1K.plugins.zl.packets.titles;
 
-import XZot1K.plugins.zl.Manager;
 import XZot1K.plugins.zl.ZotLib;
 import net.minecraft.server.v1_11_R1.IChatBaseComponent;
 import net.minecraft.server.v1_11_R1.PacketPlayOutTitle;
@@ -10,7 +9,7 @@ import org.bukkit.entity.Player;
 public class Titles1_11R1 implements Titles
 {
 
-	private ZotLib plugin = Manager.getPlugin();
+    private ZotLib plugin = ZotLib.getInstance();
 
 	@Override
 	public void sendTitle(Player player, String text, int fadein, int displaytime, int fadeout)

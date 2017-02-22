@@ -1,13 +1,12 @@
 package XZot1K.plugins.zl.utils.cooldowns;
 
-import XZot1K.plugins.zl.Manager;
 import XZot1K.plugins.zl.ZotLib;
 
 import java.util.ArrayList;
 
 public class CoolDownManager
 {
-    private ZotLib plugin = Manager.getPlugin();
+    private ZotLib plugin = ZotLib.getInstance();
     private ArrayList<CoolDown> coolDowns;
 
     public CoolDownManager()

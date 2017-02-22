@@ -15,6 +15,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class ZotLib extends JavaPlugin
 {
 
+    private static ZotLib instance;
     private String serverVersion = getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
 
     // ZotLib Libraries.
@@ -28,14 +29,17 @@ public class ZotLib extends JavaPlugin
     // ZotLib Managers.
     private CoolDownManager coolDownManager;
 
+    public static ZotLib getInstance()
+    {
+        return instance;
+    }
+
     @Override
     public void onEnable()
     {
         long startTime = System.currentTimeMillis();
-
-
+        instance = this;
         saveDefaultConfig();
-        new Manager(this);
         setupLibraries();
         setupManagers();
         connectToStatisticHosts();

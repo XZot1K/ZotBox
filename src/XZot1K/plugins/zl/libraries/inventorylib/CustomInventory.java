@@ -1,6 +1,5 @@
 package XZot1K.plugins.zl.libraries.inventorylib;
 
-import XZot1K.plugins.zl.Manager;
 import XZot1K.plugins.zl.ZotLib;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
@@ -9,7 +8,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class CustomInventory
 {
-    private ZotLib plugin = Manager.getPlugin();
+    private ZotLib plugin = ZotLib.getInstance();
     private Inventory inventory;
 
     public CustomInventory(InventoryHolder inventoryHolder, String inventoryTitle, int inventorySize)

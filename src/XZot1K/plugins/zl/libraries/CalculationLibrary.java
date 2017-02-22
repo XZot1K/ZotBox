@@ -1,6 +1,5 @@
 package XZot1K.plugins.zl.libraries;
 
-import XZot1K.plugins.zl.Manager;
 import XZot1K.plugins.zl.ZotLib;
 
 import java.util.Random;
@@ -8,7 +7,7 @@ import java.util.Random;
 public class CalculationLibrary
 {
 
-    private ZotLib plugin = Manager.getPlugin();
+    private ZotLib plugin = ZotLib.getInstance();
     private Random random;
 
     public CalculationLibrary()

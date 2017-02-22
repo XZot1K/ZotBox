@@ -1,6 +1,5 @@
 package XZot1K.plugins.zl.libraries;
 
-import XZot1K.plugins.zl.Manager;
 import XZot1K.plugins.zl.ZotLib;
 import XZot1K.plugins.zl.packets.ping.PingEffectivity;
 import org.bukkit.ChatColor;
@@ -15,7 +14,7 @@ import java.util.List;
 public class GeneralLibrary
 {
 
-    private ZotLib plugin = Manager.getPlugin();
+    private ZotLib plugin = ZotLib.getInstance();
 
     /**
      * Color codes the given text.

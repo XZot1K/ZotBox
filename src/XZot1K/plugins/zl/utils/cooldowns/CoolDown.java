@@ -1,12 +1,11 @@
 package XZot1K.plugins.zl.utils.cooldowns;
 
-import XZot1K.plugins.zl.Manager;
 import XZot1K.plugins.zl.ZotLib;
 
 public class CoolDown
 {
 
-    private ZotLib plugin = Manager.getPlugin();
+    private ZotLib plugin = ZotLib.getInstance();
     private String id, extraInformation;
     private int duration;
     private boolean isFinished;

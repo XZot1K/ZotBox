@@ -1,6 +1,5 @@
 package XZot1K.plugins.zl.utils;
 
-import XZot1K.plugins.zl.Manager;
 import XZot1K.plugins.zl.ZotLib;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -11,7 +10,7 @@ import java.io.File;
 public class Region
 {
 
-    private ZotLib plugin = Manager.getPlugin();
+    private ZotLib plugin = ZotLib.getInstance();
     private SerializableLocation point1, point2;
     private String regionId;
 
