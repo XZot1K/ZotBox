@@ -18,9 +18,10 @@ public final class Main extends JavaPlugin
     @Override
     public void onEnable()
     {
-        if(!isZotLibInstalled())
+        if (!isZotLibInstalled())
         {
-            getLogger().log(Level.WARNING, "Disabling due to ZotLib not being installed...");
+            getServer().getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&e"
+                    + getName() + " &cwas unable to be enabled, due to &eZotLib &cnot being installed."));
             getServer().getPluginManager().disablePlugin(this);
         }
 
