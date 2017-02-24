@@ -1,10 +1,7 @@
 package XZot1K.plugins.zl;
 
 import XZot1K.plugins.zl.commands.ZotLibCommand;
-import XZot1K.plugins.zl.libraries.CalculationLibrary;
-import XZot1K.plugins.zl.libraries.DatabaseLibrary;
-import XZot1K.plugins.zl.libraries.GeneralLibrary;
-import XZot1K.plugins.zl.libraries.PacketLibrary;
+import XZot1K.plugins.zl.libraries.*;
 import XZot1K.plugins.zl.libraries.inventorylib.InventoryLibrary;
 import XZot1K.plugins.zl.libraries.locationlib.LocationLibrary;
 import XZot1K.plugins.zl.statistichosts.MCUpdate;
@@ -25,6 +22,7 @@ public class ZotLib extends JavaPlugin
     private CalculationLibrary calculationLibrary;
     private LocationLibrary locationLibrary;
     private DatabaseLibrary databaseLibrary;
+    private PluginManagementLibrary pluginManagementLibrary;
 
     // ZotLib Managers.
     private CoolDownManager coolDownManager;
@@ -48,7 +46,6 @@ public class ZotLib extends JavaPlugin
         // Register Commands.
         getCommand("zotlib").setExecutor(new ZotLibCommand());
 
-
         long endTime = System.currentTimeMillis();
         getGeneralLibrary().sendConsoleMessage("&aSuccessfully loaded and enabled &eZotLib&a! (Took &e" + (endTime - startTime) + "ms&a)");
     }
@@ -61,6 +58,7 @@ public class ZotLib extends JavaPlugin
         calculationLibrary = new CalculationLibrary();
         locationLibrary = new LocationLibrary();
         databaseLibrary = new DatabaseLibrary();
+        pluginManagementLibrary = new PluginManagementLibrary();
     }
 
     private void setupManagers()
@@ -137,6 +135,11 @@ public class ZotLib extends JavaPlugin
     public CoolDownManager getCoolDownManager()
     {
         return coolDownManager;
+    }
+
+    public PluginManagementLibrary getPluginManagementLibrary()
+    {
+        return pluginManagementLibrary;
     }
 
 }

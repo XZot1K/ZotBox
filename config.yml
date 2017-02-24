@@ -2,12 +2,21 @@
 update-notifications: true
 # How long should the delay be between update notifications in seconds?
 update-notify-delay: 900
-
-
 # Tells the library if it needs to setup packets for plugins that are using it on enable.
 setup-packets: true
+
+# These are the plugins that can't be touched by ZotLib's plugin management sytems.
+prevented-plugins: ["ZotLib"]
 
 # These are some messages you can customize. #
 no-permission-message: "&cYou don't have permission to use this."
 reload-message: "&aSuccessfully reloaded the library."
-usage-message: "&cUsage: /zotlib <reload>"
+plugins-folder-invalid-message: "&cIt seems your server's plugins folder is invalid or can't be found."
+plugin-loaded-message: "&e{plugin} &ahas been successfully loaded along with all of it's dependencies!"
+plugin-invalid-message: "&cUnable to load the &e{plugin} &cplugin."
+plugin-load-fail-message: "&e{plugin} &chas failed to load. Please make sure the entered plugin is a valid plugin
+and is &nNOT&r &cin the prevented plugins list."
+plugin-unloaded-message: "&e{plugin} &ahas been successfully un-loaded as well as all of the plugins that use it!"
+plugin-reloaded-message: "&e{plugin} &ahas been successfully re-loaded! (Took &e{time}ms&a)"
+plugin-reload-fail-message: "&e{plugin} &chas failed to reload. Please make sure the entered plugin is a valid plugin
+and is &nNOT&r &cin the prevented plugins list."
