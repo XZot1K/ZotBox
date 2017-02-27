@@ -11,6 +11,7 @@ import XZot1K.plugins.zl.packets.jsonstuff.jsonitems.*;
 import XZot1K.plugins.zl.packets.jsonstuff.jsonmsgs.*;
 import XZot1K.plugins.zl.packets.particles.*;
 import XZot1K.plugins.zl.packets.ping.*;
+import XZot1K.plugins.zl.packets.tablist.*;
 import XZot1K.plugins.zl.packets.titles.*;
 import org.bukkit.Location;
 import org.bukkit.boss.BarColor;
@@ -29,6 +30,7 @@ public class PacketLibrary
     private JSONMessages JSONMessageSender;
     private JSONItems JSONItemGetter;
     private Ping pingGetter;
+    private TabList tabListManager;
 
     /**
      * Not something you should mess with unless you need to reload ZotLib's packets.
@@ -52,6 +54,7 @@ public class PacketLibrary
                 this.JSONMessageSender = new JSONMessages1_11R1();
                 this.pingGetter = new Ping1_11R1();
                 this.JSONItemGetter = new JSONItems1_11R1();
+                this.tabListManager = new TabList1_11R1();
                 plugin.getGeneralLibrary().sendConsoleMessage("&e" + plugin.getServerVersion()
                         + " &adetected successfully set up packets. (Took &e" + (System.currentTimeMillis() - startTime) + "ms&a)");
                 break;
@@ -62,6 +65,7 @@ public class PacketLibrary
                 this.JSONMessageSender = new JSONMessages1_10R1();
                 this.pingGetter = new Ping1_10R1();
                 this.JSONItemGetter = new JSONItems1_10R1();
+                this.tabListManager = new TabList1_10R1();
                 plugin.getGeneralLibrary().sendConsoleMessage("&e" + plugin.getServerVersion()
                         + " &adetected successfully set up packets. (Took &e" + (System.currentTimeMillis() - startTime) + "ms&a)");
                 break;
@@ -72,6 +76,7 @@ public class PacketLibrary
                 this.JSONMessageSender = new JSONMessages1_9R2();
                 this.pingGetter = new Ping1_9R2();
                 this.JSONItemGetter = new JSONItems1_9R2();
+                this.tabListManager = new TabList1_9R2();
                 plugin.getGeneralLibrary().sendConsoleMessage("&e" + plugin.getServerVersion()
                         + " &adetected successfully set up packets. (Took &e" + (System.currentTimeMillis() - startTime) + "ms&a)");
                 break;
@@ -81,7 +86,8 @@ public class PacketLibrary
                 this.particleManager = new Particle1_9R1();
                 this.JSONMessageSender = new JSONMessages1_9R1();
                 this.pingGetter = new Ping1_9R1();
-                this.JSONItemGetter = new JSONItems1_9R2();
+                this.JSONItemGetter = new JSONItems1_9R1();
+                this.tabListManager = new TabList1_9R1();
                 plugin.getGeneralLibrary().sendConsoleMessage("&e" + plugin.getServerVersion()
                         + " &adetected successfully set up packets. (Took &e" + (System.currentTimeMillis() - startTime) + "ms&a)");
                 break;
@@ -92,6 +98,7 @@ public class PacketLibrary
                 this.JSONMessageSender = new JSONMessages1_8R3();
                 this.pingGetter = new Ping1_8R3();
                 this.JSONItemGetter = new JSONItems1_8R3();
+                this.tabListManager = new TabList1_8R3();
                 plugin.getGeneralLibrary().sendConsoleMessage("&e" + plugin.getServerVersion()
                         + " &adetected successfully set up packets. (Took &e" + (System.currentTimeMillis() - startTime) + "ms&a)");
                 break;
@@ -102,6 +109,7 @@ public class PacketLibrary
                 this.JSONMessageSender = new JSONMessages1_8R2();
                 this.pingGetter = new Ping1_8R2();
                 this.JSONItemGetter = new JSONItems1_8R2();
+                this.tabListManager = new TabList1_8R2();
                 plugin.getGeneralLibrary().sendConsoleMessage("&e" + plugin.getServerVersion()
                         + " &adetected successfully set up packets. (Took &e" + (System.currentTimeMillis() - startTime) + "ms&a)");
                 break;
@@ -112,6 +120,7 @@ public class PacketLibrary
                 this.JSONMessageSender = new JSONMessages1_8R1();
                 this.pingGetter = new Ping1_8R1();
                 this.JSONItemGetter = new JSONItems1_8R1();
+                this.tabListManager = new TabList1_8R1();
                 plugin.getGeneralLibrary().sendConsoleMessage("&e" + plugin.getServerVersion()
                         + " &adetected successfully set up packets. (Took &e" + (System.currentTimeMillis() - startTime) + "ms&a)");
                 break;
@@ -220,6 +229,13 @@ public class PacketLibrary
         }
     }
 
+    /**
+     * Sends an older boss bar for 1.7.10-1.8.9.
+     *
+     * @param player player to send to.
+     * @param text   the text that appears.
+     * @return the OlderBossBar object.
+     */
     public OlderBossBar getOlderBossBar(Player player, String text)
     {
         switch (plugin.getServerVersion())
@@ -237,9 +253,27 @@ public class PacketLibrary
         }
     }
 
+    /**
+     * Sends an newer boss bar for 1.9+.
+     * @param text the text that appears.
+     * @param barColor the color of the boss bar
+     * @param barStyle the boss bar style.
+     * @param barFlag the flags for the boss bar.
+     * @return the NewerBossBar object.
+     */
     public NewerBossBar getNewerBossBar(String text, BarColor barColor, BarStyle barStyle, BarFlag barFlag)
     {
         return new NewerBossBar(text, barColor, barStyle, barFlag);
+    }
+
+    /**
+     * Allows you to set the header and footers of the tab list for players.
+     *
+     * @return The tab list packet manager.
+     */
+    public TabList getTabListManager()
+    {
+        return tabListManager;
     }
 
 }

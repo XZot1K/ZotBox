@@ -11,15 +11,19 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.net.URLClassLoader;
-import java.util.Iterator;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
-import java.util.SortedSet;
 
 public class PluginManagementLibrary
 {
 
     private ZotLib plugin = ZotLib.getInstance();
+    private List<String> preventedPlugins;
+
+    public PluginManagementLibrary()
+    {
+        setPreventedPlugins(new ArrayList<>());
+    }
 
     public boolean isPluginLoaded(String pluginName)
     {
@@ -43,6 +47,13 @@ public class PluginManagementLibrary
             if (pl.getDescription().getName().equalsIgnoreCase(pluginName))
             {
 
+                if (getPreventedPlugins().contains(pl.getDescription().getName()))
+                {
+                    plugin.getGeneralLibrary().sendConsoleMessage("&e" + pl.getDescription().getName()
+                            + " &cwas in the integrated prevented plugins list. Skipping...");
+                    return false;
+                }
+
                 if (isPrevented(pl.getDescription().getName()))
                 {
                     plugin.getGeneralLibrary().sendConsoleMessage("&e" + pl.getDescription().getName()
@@ -58,6 +69,14 @@ public class PluginManagementLibrary
                         {
                             plugin.getGeneralLibrary().sendConsoleMessage("&aFound that &e" + otherPl.getDescription().getName()
                                     + " &adepends on &e" + pl.getDescription().getName() + "&a. " + "Trying to un-load this plugin as well.");
+
+                            if (getPreventedPlugins().contains(pl))
+                            {
+                                plugin.getGeneralLibrary().sendConsoleMessage("&e" + pl.getDescription().getName()
+                                        + " &cwas in the integrated prevented plugins list. Skipping...");
+                                return false;
+                            }
+
                             if (isPrevented(otherPl.getDescription().getName()))
                             {
                                 plugin.getGeneralLibrary().sendConsoleMessage("&e" + pl.getDescription().getName()
@@ -181,6 +200,13 @@ public class PluginManagementLibrary
                             if (desc.getName().equalsIgnoreCase(pluginName))
                             {
 
+                                if (getPreventedPlugins().contains(desc.getName()))
+                                {
+                                    plugin.getGeneralLibrary().sendConsoleMessage("&e" + desc.getName()
+                                            + " &cwas in the integrated prevented plugins list. Skipping...");
+                                    return false;
+                                }
+
                                 if (isPrevented(desc.getName()))
                                 {
                                     plugin.getGeneralLibrary().sendConsoleMessage("&e" + desc.getName()
@@ -263,6 +289,18 @@ public class PluginManagementLibrary
         }
 
         return false;
+    }
+
+
+    // Getters & Setters
+    public List<String> getPreventedPlugins()
+    {
+        return preventedPlugins;
+    }
+
+    private void setPreventedPlugins(List<String> preventedPlugins)
+    {
+        this.preventedPlugins = preventedPlugins;
     }
 
 }
