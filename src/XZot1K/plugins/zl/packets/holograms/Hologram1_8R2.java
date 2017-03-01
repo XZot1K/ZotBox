@@ -3,6 +3,7 @@ package XZot1K.plugins.zl.packets.holograms;
 import XZot1K.plugins.zl.ZotLib;
 import XZot1K.plugins.zl.utils.SerializableLocation;
 import net.minecraft.server.v1_8_R2.EntityArmorStand;
+import net.minecraft.server.v1_8_R2.NBTTagCompound;
 import net.minecraft.server.v1_8_R2.PacketPlayOutEntityDestroy;
 import net.minecraft.server.v1_8_R2.PacketPlayOutSpawnEntityLiving;
 import org.bukkit.Location;
@@ -21,9 +22,11 @@ public class Hologram1_8R2 implements Hologram
     private SerializableLocation location;
     private List<String> lines;
     private double lineSpread;
+    private String id;
 
-    public Hologram1_8R2(List<String> lines, double lineSpread, Location location)
+    public Hologram1_8R2(String id, List<String> lines, double lineSpread, Location location)
     {
+        setId(id);
         setLines(lines);
         setLocation(location);
         setEntityList(new ArrayList<>());
@@ -97,6 +100,7 @@ public class Hologram1_8R2 implements Hologram
 
     public Hologram create()
     {
+        getEntityList().clear();
         Location location = getLocation().subtract(0, getLineSpread(), 0).add(0, getLineSpread() * getLines().size(), 0);
         for (String line : getLines())
         {
@@ -106,6 +110,13 @@ public class Hologram1_8R2 implements Hologram
             entity.setCustomNameVisible(true);
             entity.setInvisible(true);
             entity.setGravity(false);
+            entity.setSmall(true);
+
+            NBTTagCompound compoundTag = new NBTTagCompound();
+            entity.c(compoundTag);
+            compoundTag.setBoolean("Marker", true);
+            entity.f(compoundTag);
+
             getEntityList().add(entity);
             location = location.subtract(0, getLineSpread(), 0);
         }
@@ -157,4 +168,13 @@ public class Hologram1_8R2 implements Hologram
         return lineSpread;
     }
 
+    public String getId()
+    {
+        return id;
+    }
+
+    public void setId(String id)
+    {
+        this.id = id;
+    }
 }

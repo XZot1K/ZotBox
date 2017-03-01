@@ -21,9 +21,11 @@ public class Hologram1_9R1 implements Hologram
     private SerializableLocation location;
     private List<String> lines;
     private double lineSpread;
+    private String id;
 
-    public Hologram1_9R1(List<String> lines, double lineSpread, Location location)
+    public Hologram1_9R1(String id, List<String> lines, double lineSpread, Location location)
     {
+        setId(id);
         setLines(lines);
         setLocation(location);
         setEntityList(new ArrayList<>());
@@ -97,6 +99,7 @@ public class Hologram1_9R1 implements Hologram
 
     public Hologram create()
     {
+        getEntityList().clear();
         Location location = getLocation().subtract(0, getLineSpread(), 0).add(0, getLineSpread() * getLines().size(), 0);
         for (String line : getLines())
         {
@@ -106,6 +109,8 @@ public class Hologram1_9R1 implements Hologram
             entity.setCustomNameVisible(true);
             entity.setInvisible(true);
             entity.setGravity(false);
+            entity.setSmall(true);
+            entity.setMarker(true);
             getEntityList().add(entity);
             location = location.subtract(0, getLineSpread(), 0);
         }
@@ -157,4 +162,13 @@ public class Hologram1_9R1 implements Hologram
         return lineSpread;
     }
 
+    public String getId()
+    {
+        return id;
+    }
+
+    public void setId(String id)
+    {
+        this.id = id;
+    }
 }

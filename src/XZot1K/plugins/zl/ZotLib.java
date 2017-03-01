@@ -4,9 +4,13 @@ import XZot1K.plugins.zl.commands.ZotLibCommand;
 import XZot1K.plugins.zl.libraries.*;
 import XZot1K.plugins.zl.libraries.inventorylib.InventoryLibrary;
 import XZot1K.plugins.zl.libraries.locationlib.LocationLibrary;
+import XZot1K.plugins.zl.listeners.HologramListeners;
+import XZot1K.plugins.zl.packets.holograms.Hologram;
 import XZot1K.plugins.zl.statistichosts.MCUpdate;
 import XZot1K.plugins.zl.statistichosts.Metrics;
 import XZot1K.plugins.zl.utils.cooldowns.CoolDownManager;
+import XZot1K.plugins.zl.utils.holograms.HologramManager;
+import XZot1K.plugins.zl.utils.holograms.HologramTask;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class ZotLib extends JavaPlugin
@@ -26,6 +30,10 @@ public class ZotLib extends JavaPlugin
 
     // ZotLib Managers.
     private CoolDownManager coolDownManager;
+    private HologramManager hologramManager;
+
+    // ZotLib Tasks
+    private HologramTask hologramTask;
 
     public static ZotLib getInstance()
     {
@@ -46,8 +54,38 @@ public class ZotLib extends JavaPlugin
         // Register Commands.
         getCommand("zotlib").setExecutor(new ZotLibCommand());
 
+        // Register Listeners.
+        getServer().getPluginManager().registerEvents(new HologramListeners(), this);
+
+        // Start tasks.
+        taskStuff();
+
         long endTime = System.currentTimeMillis();
         getGeneralLibrary().sendConsoleMessage("&aSuccessfully loaded and enabled &eZotLib&a! (Took &e" + (endTime - startTime) + "ms&a)");
+    }
+
+    @Override
+    public void onDisable()
+    {
+        for (Hologram hologram : getHologramManager().getHolograms())
+        {
+            hologram.hideAll();
+            getHologramManager().saveHologram(hologram);
+        }
+    }
+
+    private void taskStuff()
+    {
+        long startTime = System.currentTimeMillis();
+        if (getConfig().getBoolean("use-hologram-task"))
+        {
+            int delay = 20 * getConfig().getInt("hologram-task-delay");
+            hologramTask = new HologramTask();
+            hologramTask.runTaskTimerAsynchronously(this, 0, delay);
+        }
+
+        long endTime = System.currentTimeMillis();
+        getGeneralLibrary().sendConsoleMessage("&aSuccessfully setup and started all task related things! (Took &e" + (endTime - startTime) + "ms&a)");
     }
 
     private void setupLibraries()
@@ -64,6 +102,7 @@ public class ZotLib extends JavaPlugin
     private void setupManagers()
     {
         coolDownManager = new CoolDownManager();
+        hologramManager = new HologramManager();
     }
 
     private void connectToStatisticHosts()
@@ -140,6 +179,16 @@ public class ZotLib extends JavaPlugin
     public PluginManagementLibrary getPluginManagementLibrary()
     {
         return pluginManagementLibrary;
+    }
+
+    public HologramManager getHologramManager()
+    {
+        return hologramManager;
+    }
+
+    public HologramTask getHologramTask()
+    {
+        return hologramTask;
     }
 
 }

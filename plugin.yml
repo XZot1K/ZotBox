@@ -1,7 +1,8 @@
 name: ZotLib
-version: 1.2.7
+version: 1.2.8
 main: XZot1K.plugins.zl.ZotLib
 description: An amazing bukkit/spigot library used by the legendary XZot1K!
 commands:
   zotlib:
     default: op
+    aliases: [zotman, zl, zm]

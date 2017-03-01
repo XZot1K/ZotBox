@@ -206,24 +206,24 @@ public class PacketLibrary
      * @param location   The location where it should be displayed.
      * @return The pre-built hologram object. Use the .create() method to create the packet before showing players.
      */
-    public Hologram getNewHologram(List<String> lines, double lineSpread, Location location)
+    public Hologram createNewHologram(String id, List<String> lines, double lineSpread, Location location)
     {
         switch (plugin.getServerVersion())
         {
             case "v1_11_R1":
-                return new Hologram1_11R1(lines, lineSpread, location);
+                return new Hologram1_11R1(id, lines, lineSpread, location);
             case "v1_10_R1":
-                return new Hologram1_10R1(lines, lineSpread, location);
+                return new Hologram1_10R1(id, lines, lineSpread, location);
             case "v1_9_R2":
-                return new Hologram1_9R2(lines, lineSpread, location);
+                return new Hologram1_9R2(id, lines, lineSpread, location);
             case "v1_9_R1":
-                return new Hologram1_9R1(lines, lineSpread, location);
+                return new Hologram1_9R1(id, lines, lineSpread, location);
             case "v1_8_R3":
-                return new Hologram1_8R3(lines, lineSpread, location);
+                return new Hologram1_8R3(id, lines, lineSpread, location);
             case "v1_8_R2":
-                return new Hologram1_8R2(lines, lineSpread, location);
+                return new Hologram1_8R2(id, lines, lineSpread, location);
             case "v1_8_R1":
-                return new Hologram1_8R1(lines, lineSpread, location);
+                return new Hologram1_8R1(id, lines, lineSpread, location);
             default:
                 return null;
         }

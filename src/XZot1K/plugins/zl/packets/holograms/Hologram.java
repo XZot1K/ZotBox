@@ -34,4 +34,8 @@ public interface Hologram
 
     Hologram setLineSpread(double lineSpread);
 
+    String getId();
+
+    void setId(String id);
+
 }

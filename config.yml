@@ -1,3 +1,7 @@
+# --------------------------------------------------------------------------
+# ]-----------[ Here is where you can customize general things ]-----------[
+# --------------------------------------------------------------------------
+
 # Should ZotLib notify you when a update is available?
 update-notifications: true
 # How long should the delay be between update notifications in seconds?
@@ -5,12 +9,49 @@ update-notify-delay: 900
 # Tells the library if it needs to setup packets for plugins that are using it on enable.
 setup-packets: true
 
+
+
+# --------------------------------------------------------------------------
+# ]-----------[ Here is where you can customize hologram stuff ]-----------[
+# --------------------------------------------------------------------------
+
+# Would you like holograms to auto-load, auto-save, and refresh asynchronously?
+use-hologram-task: true
+# How often should holograms be loaded, saved, and refreshed?
+# Note: only holograms that are not loaded will be loaded.
+hologram-task-delay: 15
+# This is where you can tell ZotLib if you want the hologram task to auto save and load.
+auto-load-holograms: true
+auto-save-holograms: true
+
 # These are the plugins that can't be touched by ZotLib's plugin management sytems.
 prevented-plugins: ["ZotLib"]
 
-# These are some messages you can customize. #
+
+
+# --------------------------------------------------------------------
+# ]-----------[ Here is where you can customize messages ]-----------[
+# --------------------------------------------------------------------
+
+# General messages
 no-permission-message: "&cYou don't have permission to use this."
 reload-message: "&aSuccessfully reloaded the library."
+must-be-player-message: "&cUnfortunately you must be a player to use this."
+
+# Hologram related messages.
+hologram-exists-message: "&cA hologram with the id &e{id} &calready exists."
+hologram-created-message: "&aYou have successfully created a new hologram with the id &e{id}&a!"
+hologram-deleted-message: "&aYou have successfully deleted the hologram with the id &e{id}&a!"
+hologram-invalid-message: "&cThere are no holograms that exist with the id &e{id}&c."
+hologram-line-modified-message: "&aYou have successfully changed line &e{index} &ato &e{text}&r &ain the &e{id} &ahologram!"
+hologram-line-added-message: "&aYou have successfully added a new line to the &e{id} &ahologram that displays &e{text}&a!"
+hologram-line-removed-message: "&aYou have successfully removed line at index &e{index} &afrom the &e{id} &ahologram&a!"
+hologram-line-spread-applied-message: "&aYou have successfully set line the line spread to &e{spread} &afor the &e{id} &ahologram!"
+hologram-relocated-message: "&aYou have successfully re-located the &e{id} &ahologram."
+hologram-index-invalid-message: "&cThe index you entered was invalid. (Note: It is possible the hologram may just have no lines)"
+hologram-spread-invalid-message: "&cThe spread value you entered was invalid. Please make sure it is a decimal value."
+
+# ZotMan related messages.
 plugins-folder-invalid-message: "&cIt seems your server's plugins folder is invalid or can't be found."
 plugin-loaded-message: "&e{plugin} &ahas been successfully loaded along with all of it's dependencies!"
 plugin-invalid-message: "&cUnable to load the &e{plugin} &cplugin."

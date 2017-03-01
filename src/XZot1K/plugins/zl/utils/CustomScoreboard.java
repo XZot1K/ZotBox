@@ -51,6 +51,45 @@ public class CustomScoreboard
         return this;
     }
 
+    public CustomScoreboard registerTeam(String teamName, String prefix, String suffix, boolean allowFriendlyFire,
+                                         boolean canSeeFriendlyInvisibles, NameTagVisibility nameTagVisibility)
+    {
+        Team team = getScoreboard().getTeam(teamName);
+        if (team == null)
+        {
+            team = getScoreboard().registerNewTeam(teamName);
+        }
+
+        team.setPrefix(plugin.getGeneralLibrary().color(prefix));
+        team.setSuffix(plugin.getGeneralLibrary().color(suffix));
+        team.setAllowFriendlyFire(allowFriendlyFire);
+        team.setCanSeeFriendlyInvisibles(canSeeFriendlyInvisibles);
+        team.setNameTagVisibility(nameTagVisibility);
+        return this;
+    }
+
+    public CustomScoreboard addPlayerToTeam(String teamName, Player player)
+    {
+        Team team = getScoreboard().getTeam(teamName);
+        if (team != null && !team.getPlayers().contains(player))
+        {
+            team.addPlayer(player);
+        }
+
+        return this;
+    }
+
+    public CustomScoreboard removePlayerToTeam(String teamName, Player player)
+    {
+        Team team = getScoreboard().getTeam(teamName);
+        if (team != null && team.getPlayers().contains(player))
+        {
+            team.removePlayer(player);
+        }
+
+        return this;
+    }
+
     public CustomScoreboard showAllPlayers()
     {
         for (Player player : plugin.getServer().getOnlinePlayers())
