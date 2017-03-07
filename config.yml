@@ -2,7 +2,7 @@
 # ]-----------[ Here is where you can customize general things ]-----------[
 # --------------------------------------------------------------------------
 
-# Should ZotLib notify you when a update is available?
+# Should ZotBox notify you when a update is available?
 update-notifications: true
 # How long should the delay be between update notifications in seconds?
 update-notify-delay: 900
@@ -17,15 +17,12 @@ setup-packets: true
 
 # Would you like holograms to auto-load, auto-save, and refresh asynchronously?
 use-hologram-task: true
-# How often should holograms be loaded, saved, and refreshed?
-# Note: only holograms that are not loaded will be loaded.
-hologram-task-delay: 15
-# This is where you can tell ZotLib if you want the hologram task to auto save and load.
+# This is where you can tell ZotBox if you want the hologram task to auto save and load.
 auto-load-holograms: true
 auto-save-holograms: true
 
-# These are the plugins that can't be touched by ZotLib's plugin management sytems.
-prevented-plugins: ["ZotLib"]
+# These are the plugins that can't be touched by ZotBox's plugin management systems.
+prevented-plugins: ["ZotBox"]
 
 
 
@@ -35,8 +32,10 @@ prevented-plugins: ["ZotLib"]
 
 # General messages
 no-permission-message: "&cYou don't have permission to use this."
-reload-message: "&aSuccessfully reloaded the library."
+reload-message: "&aSuccessfully reloaded the &bZot&7Box&a!"
 must-be-player-message: "&cUnfortunately you must be a player to use this."
+invalid-player-message: "&cThe player you enter is either invalid or offline."
+message-sent-message: "&aYou have successfully sent &e{player} &athe message {message}&r&a!"
 
 # Hologram related messages.
 hologram-exists-message: "&cA hologram with the id &e{id} &calready exists."
@@ -51,7 +50,7 @@ hologram-relocated-message: "&aYou have successfully re-located the &e{id} &ahol
 hologram-index-invalid-message: "&cThe index you entered was invalid. (Note: It is possible the hologram may just have no lines)"
 hologram-spread-invalid-message: "&cThe spread value you entered was invalid. Please make sure it is a decimal value."
 
-# ZotMan related messages.
+# plugin management related messages.
 plugins-folder-invalid-message: "&cIt seems your server's plugins folder is invalid or can't be found."
 plugin-loaded-message: "&e{plugin} &ahas been successfully loaded along with all of it's dependencies!"
 plugin-invalid-message: "&cUnable to load the &e{plugin} &cplugin."
