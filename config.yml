@@ -36,6 +36,7 @@ reload-message: "&aSuccessfully reloaded the &bZot&7Box&a!"
 must-be-player-message: "&cUnfortunately you must be a player to use this."
 invalid-player-message: "&cThe player you enter is either invalid or offline."
 message-sent-message: "&aYou have successfully sent &e{player} &athe message {message}&r&a!"
+help-page-invalid-message: "&cThe help page you entered was invalid."
 
 # Hologram related messages.
 hologram-exists-message: "&cA hologram with the id &e{id} &calready exists."

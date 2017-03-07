@@ -2,17 +2,73 @@ package XZot1K.plugins.zb.commands;
 
 import XZot1K.plugins.zb.ZotBox;
 import XZot1K.plugins.zb.packets.holograms.Hologram;
+import XZot1K.plugins.zb.utils.jsonmsgs.JSONClickAction;
+import XZot1K.plugins.zb.utils.jsonmsgs.JSONExtra;
+import XZot1K.plugins.zb.utils.jsonmsgs.JSONHoverAction;
+import XZot1K.plugins.zb.utils.jsonmsgs.JSONMessage;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class BaseCommand implements CommandExecutor
 {
     private ZotBox plugin = ZotBox.getInstance();
+    private HashMap<Integer, ArrayList<String>> helpPages;
+
+    public BaseCommand()
+    {
+        HashMap<Integer, ArrayList<String>> pages = new HashMap<>();
+
+        ArrayList<String> page1 = new ArrayList<>();
+        page1.add("");
+        page1.add("&8<&m------------&r&8( &e★ &bZot&7Box &bCommands &8[&7Page &e1&8] &e★ &8)&m-----------&r&8>");
+        page1.add("");
+        page1.add("&8★ &e/zotbox help <page> &8- &aOpens a help page or the main page if the page is not defined.");
+        page1.add("&8★ &e/zotbox reload &8- &aRe-Loads all packets and configurations.");
+        page1.add("&8★ &e/zotbox info &8- &aDisplays information about the plugin.");
+        page1.add("&8★ &e/zotbox <sendmessage/sm> <player> <message> &8- &aSends the player a custom message.");
+        page1.add("");
+        pages.put(1, page1);
+
+        ArrayList<String> page2 = new ArrayList<>();
+        page2.add("");
+        page2.add("&8<&m------------&r&8( &e★ &bZot&7Box &bCommands &8[&7Page &e2&8] &e★ &8)&m-----------&r&8>");
+        page2.add("");
+        page2.add("&8★ &e/zotbox <loadplugin/lp> <plugin> &8- &aLoads an un-loaded plugin.");
+        page2.add("&8★ &e/zotbox <unloadplugin/up> <plugin> &8- &aUn-Loads a loaded plugin.");
+        page2.add("&8★ &e/zotbox <reloadplugin/rp> <plugin> &8- &aRe-Loads a loaded plugin.");
+        page2.add("&8★ &e/zotbox <createhologram/ch> <id> &8- &aCreates a new hologram.");
+        page2.add("");
+        pages.put(2, page2);
+
+        ArrayList<String> page3 = new ArrayList<>();
+        page3.add("");
+        page3.add("&8<&m------------&r&8( &e★ &bZot&7Box &bCommands &8[&7Page &e3&8] &e★ &8)&m------------&r&8>");
+        page3.add("");
+        page3.add("&8★ &e/zotbox <deletehologram/dh> <id> &8- &aDeletes a the defined hologram.");
+        page3.add("&8★ &e/zotbox <addhologramline/ahl> <id> <index> <text> &8- &aAdds a new line to the hologram.");
+        page3.add("&8★ &e/zotbox <removehologramline/rhl> <id> <index> <text> &8- &aRemoves a line from the hologram.");
+        page3.add("&8★ &e/zotbox <relocatehologram/rh> <id> &8- &aRe-locates the hologram.");
+        page3.add("");
+        pages.put(3, page3);
+
+        ArrayList<String> page4 = new ArrayList<>();
+        page4.add("");
+        page4.add("&8<&m------------&r&8( &e★ &bZot&7Box &bCommands &8[&7Page &e4&8] &e★ &8)&m------------&r&8>");
+        page4.add("");
+        page4.add("&8★ &e/zotbox <sethologramlinespread/shls> <id> <value> &8- &aSets the spread amount for the hologram's lines.");
+        page4.add("&8★ &e/zotbox <modifyhologramline/mhl> <id> <index> <text> &8- &aModifies the line in the hologram.");
+        page4.add("");
+        pages.put(4, page4);
+
+        this.helpPages = pages;
+    }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
@@ -31,10 +87,28 @@ public class BaseCommand implements CommandExecutor
                     {
                         infoCommand(sender);
                         return true;
+                    } else if (args[0].equalsIgnoreCase("help"))
+                    {
+                        helpCommand(sender, 1);
+                        return true;
                     }
                 } else if (args.length == 2)
                 {
-                    if (args[0].equalsIgnoreCase("loadplugin") || args[0].equalsIgnoreCase("lp"))
+                    if (args[0].equalsIgnoreCase("help"))
+                    {
+                        int page;
+                        try
+                        {
+                            page = Integer.parseInt(args[1]);
+                        } catch (Exception e)
+                        {
+                            sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString("help-page-invalid-message")));
+                            return true;
+                        }
+
+                        helpCommand(sender, page);
+                        return true;
+                    } else if (args[0].equalsIgnoreCase("loadplugin") || args[0].equalsIgnoreCase("lp"))
                     {
                         loadPluginCommand(sender, args[1].replace("_", " "));
                         return true;
@@ -87,25 +161,7 @@ public class BaseCommand implements CommandExecutor
                     }
                 }
 
-                sender.sendMessage(plugin.getGeneralLibrary().color(" \n&8<&m--------------&r&8( &e★ &bZot&7Box &bCommands &e★ &8)&m-------------&r&8>"));
-                sender.sendMessage(plugin.getGeneralLibrary().color(""));
-                sender.sendMessage(plugin.getGeneralLibrary().color("&8★ &e/zotbox reload &8- &aRe-Loads all packets and configurations."));
-                sender.sendMessage(plugin.getGeneralLibrary().color("&8★ &e/zotbox info &8- &aDisplays information about the plugin."));
-                sender.sendMessage(plugin.getGeneralLibrary().color("&8★ &e/zotbox <sendmessage/sm> <player> <message> &8- &aSends the player a custom message."));
-                sender.sendMessage(plugin.getGeneralLibrary().color(""));
-                sender.sendMessage(plugin.getGeneralLibrary().color("&8★ &e/zotbox <loadplugin/lp> <plugin> &8- &aLoads an un-loaded plugin."));
-                sender.sendMessage(plugin.getGeneralLibrary().color("&8★ &e/zotbox <unloadplugin/up> <plugin> &8- &aUn-Loads a loaded plugin."));
-                sender.sendMessage(plugin.getGeneralLibrary().color("&8★ &e/zotbox <reloadplugin/rp> <plugin> &8- &aRe-Loads a loaded plugin."));
-                sender.sendMessage(plugin.getGeneralLibrary().color(""));
-                sender.sendMessage(plugin.getGeneralLibrary().color("&8★ &e/zotbox <createhologram/ch> <id> &8- &aCreates a new hologram."));
-                sender.sendMessage(plugin.getGeneralLibrary().color("&8★ &e/zotbox <deletehologram/dh> <id> &8- &aDeletes a the defined hologram."));
-                sender.sendMessage(plugin.getGeneralLibrary().color("&8★ &e/zotbox <modifyhologramline/mhl> <id> <index> <text> &8- &aModifies the line in the hologram."));
-                sender.sendMessage(plugin.getGeneralLibrary().color("&8★ &e/zotbox <addhologramline/ahl> <id> <index> <text> &8- &aAdds a new line to the hologram."));
-                sender.sendMessage(plugin.getGeneralLibrary().color("&8★ &e/zotbox <removehologramline/rhl> <id> <index> <text> &8- &aRemoves a line from the hologram."));
-                sender.sendMessage(plugin.getGeneralLibrary().color("&8★ &e/zotbox <relocatehologram/rh> <id> &8- &aRe-locates the hologram."));
-                sender.sendMessage(plugin.getGeneralLibrary().color("&8★ &e/zotbox <sethologramlinespread/shls> <id> <value> &8- &aSets the spread amount for the hologram's lines."));
-                sender.sendMessage(plugin.getGeneralLibrary().color(""));
-                sender.sendMessage(plugin.getGeneralLibrary().color("&8<&m---------------------------------------------&r&8>\n "));
+                helpCommand(sender, 1);
                 return true;
             } else
             {
@@ -114,6 +170,68 @@ public class BaseCommand implements CommandExecutor
             return true;
         }
         return false;
+    }
+
+    private void helpCommand(CommandSender sender, int page)
+    {
+        if (sender instanceof Player)
+        {
+            Player player = (Player) sender;
+            try
+            {
+                if (getHelpPages().containsKey(page))
+                {
+                    for (String line : getHelpPages().get(page))
+                    {
+                        sender.sendMessage(plugin.getGeneralLibrary().color(line));
+                    }
+
+                    if (getHelpPages().containsKey(page + 1) && getHelpPages().containsKey(page - 1))
+                    {
+                        JSONMessage jsonMessage = new JSONMessage("&8<&m------------&r&8(");
+                        JSONExtra jsonExtra1 = new JSONExtra(" &e[Previous Page] ");
+                        jsonExtra1.setClickEvent(JSONClickAction.RUN_COMMAND, "/zotbox help " + (page - 1));
+                        jsonExtra1.setHoverEvent(JSONHoverAction.SHOW_TEXT, "&bOpens the previous page...");
+                        jsonMessage.addExtra(jsonExtra1);
+                        JSONExtra jsonExtra2 = new JSONExtra(" &e[Next Page] ");
+                        jsonExtra2.setClickEvent(JSONClickAction.RUN_COMMAND, "/zotbox help " + (page + 1));
+                        jsonExtra2.setHoverEvent(JSONHoverAction.SHOW_TEXT, "&bOpens the next page...");
+                        jsonMessage.addExtra(jsonExtra2);
+                        JSONExtra jsonExtra3 = new JSONExtra("&8)&m------------&r&8>");
+                        jsonMessage.addExtra(jsonExtra3);
+                        jsonMessage.sendJSONToPlayer(player);
+                    } else if (getHelpPages().containsKey(page + 1))
+                    {
+                        JSONMessage jsonMessage = new JSONMessage("&8<&m-------------------&r&8(");
+                        JSONExtra jsonExtra1 = new JSONExtra(" &e[Next Page] ");
+                        jsonExtra1.setClickEvent(JSONClickAction.RUN_COMMAND, "/zotbox help " + (page + 1));
+                        jsonExtra1.setHoverEvent(JSONHoverAction.SHOW_TEXT, "&bOpens the next page...");
+                        jsonMessage.addExtra(jsonExtra1);
+                        JSONExtra jsonExtra2 = new JSONExtra("&8)&m-------------------&r&8>");
+                        jsonMessage.addExtra(jsonExtra2);
+                        jsonMessage.sendJSONToPlayer(player);
+                    } else if (getHelpPages().containsKey(page - 1))
+                    {
+                        JSONMessage jsonMessage = new JSONMessage("&8<&m-----------------&r&8(");
+                        JSONExtra jsonExtra1 = new JSONExtra(" &e[Previous Page] ");
+                        jsonExtra1.setClickEvent(JSONClickAction.RUN_COMMAND, "/zotbox help " + (page - 1));
+                        jsonExtra1.setHoverEvent(JSONHoverAction.SHOW_TEXT, "&bOpens the previous page...");
+                        jsonMessage.addExtra(jsonExtra1);
+                        JSONExtra jsonExtra2 = new JSONExtra("&8)&m-----------------&r&8>");
+                        jsonMessage.addExtra(jsonExtra2);
+                        jsonMessage.sendJSONToPlayer(player);
+                    }
+                } else
+                {
+                    sender.sendMessage(plugin.getGeneralLibrary().color("&8<&m---------------------&r&8>"));
+                }
+                return;
+            } catch (Exception ignored)
+            {
+            }
+        }
+
+        sender.sendMessage(plugin.getGeneralLibrary().color("&8<&m---------------------------&r&8>"));
     }
 
     // Hologram command methods.
@@ -128,18 +246,18 @@ public class BaseCommand implements CommandExecutor
                 {
                     List<String> lines = Arrays.asList(
                             "&8&m----------------------------",
-                            "&aNew Hologram created by &bZotBox&a!",
+                            "&aNew Hologram created by &bZot&7Box&a!",
                             "&8&m----------------------------");
                     Hologram hologram = plugin.getPacketLibrary().createNewHologram(hologramId, lines, 0.25, player.getLocation()).create();
                     hologram.showAll();
                     plugin.getHologramManager().registerHologram(hologram);
                     plugin.getPacketLibrary().getParticleManager().broadcastParticle(hologram.getLocation().add(0, 3, 0),
                             1, 1, 1, 0, "FIREWORKS_SPARK", 25);
-                    sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getConfig().getString("hologram-created-message")
+                    sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString("hologram-created-message")
                             .replace("{id}", hologramId)));
                 } else
                 {
-                    sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getConfig().getString("hologram-exists-message")
+                    sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString("hologram-exists-message")
                             .replace("{id}", hologramId)));
                 }
             } else
@@ -148,7 +266,7 @@ public class BaseCommand implements CommandExecutor
             }
         } else
         {
-            sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getConfig().getString("must-be-player-message")));
+            sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString("must-be-player-message")));
         }
     }
 
@@ -162,11 +280,11 @@ public class BaseCommand implements CommandExecutor
                 plugin.getHologramManager().deleteHologram(hologram);
                 plugin.getPacketLibrary().getParticleManager().broadcastParticle(hologram.getLocation().add(0, 3, 0),
                         1, 1, 1, 0, "FIREWORKS_SPARK", 25);
-                sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getConfig().getString("hologram-deleted-message")
+                sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString("hologram-deleted-message")
                         .replace("{id}", hologramId)));
             } else
             {
-                sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getConfig().getString("hologram-invalid-message")
+                sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString("hologram-invalid-message")
                         .replace("{id}", hologramId)));
             }
         } else
@@ -188,11 +306,11 @@ public class BaseCommand implements CommandExecutor
                     hologram.setLocation(player.getLocation()).hideAll().create().showAll();
                     plugin.getPacketLibrary().getParticleManager().broadcastParticle(hologram.getLocation().add(0, 3, 0),
                             1, 1, 1, 0, "FIREWORKS_SPARK", 25);
-                    sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getConfig().getString("hologram-relocated-message")
+                    sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString("hologram-relocated-message")
                             .replace("{id}", hologramId)));
                 } else
                 {
-                    sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getConfig().getString("hologram-invalid-message")
+                    sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString("hologram-invalid-message")
                             .replace("{id}", hologramId)));
                 }
             } else
@@ -201,7 +319,7 @@ public class BaseCommand implements CommandExecutor
             }
         } else
         {
-            sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getConfig().getString("must-be-player-message")));
+            sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString("must-be-player-message")));
         }
     }
 
@@ -216,11 +334,11 @@ public class BaseCommand implements CommandExecutor
                 hologram.hideAll().create().showAll();
                 plugin.getPacketLibrary().getParticleManager().broadcastParticle(hologram.getLocation().add(0, 3, 0),
                         1, 1, 1, 0, "FIREWORKS_SPARK", 25);
-                sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getConfig().getString("hologram-line-added-message")
+                sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString("hologram-line-added-message")
                         .replace("{id}", hologramId).replace("{text}", text.replace("_", " "))));
             } else
             {
-                sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getConfig().getString("hologram-invalid-message")
+                sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString("hologram-invalid-message")
                         .replace("{id}", hologramId)));
             }
         } else
@@ -239,7 +357,7 @@ public class BaseCommand implements CommandExecutor
                 spreadValue = Double.valueOf(spread);
             } catch (Exception e)
             {
-                sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getConfig().getString("hologram-spread-invalid-message")));
+                sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString("hologram-spread-invalid-message")));
                 return;
             }
 
@@ -249,11 +367,11 @@ public class BaseCommand implements CommandExecutor
                 hologram.setLineSpread(spreadValue).hideAll().create().showAll();
                 plugin.getPacketLibrary().getParticleManager().broadcastParticle(hologram.getLocation().add(0, 3, 0),
                         1, 1, 1, 0, "FIREWORKS_SPARK", 25);
-                sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getConfig().getString("hologram-line-spread-applied-message")
+                sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString("hologram-line-spread-applied-message")
                         .replace("{id}", hologramId).replace("{spread}", String.valueOf(spreadValue))));
             } else
             {
-                sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getConfig().getString("hologram-invalid-message")
+                sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString("hologram-invalid-message")
                         .replace("{id}", hologramId)));
             }
         } else
@@ -272,7 +390,7 @@ public class BaseCommand implements CommandExecutor
                 index = Integer.parseInt(enteredIndex);
             } catch (Exception e)
             {
-                sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getConfig().getString("hologram-index-invalid-message")));
+                sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString("hologram-index-invalid-message")));
                 return;
             }
 
@@ -285,15 +403,15 @@ public class BaseCommand implements CommandExecutor
                     hologram.hideAll().create().showAll();
                     plugin.getPacketLibrary().getParticleManager().broadcastParticle(hologram.getLocation().add(0, 3, 0),
                             1, 1, 1, 0, "FIREWORKS_SPARK", 25);
-                    sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getConfig().getString("hologram-line-removed-message")
+                    sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString("hologram-line-removed-message")
                             .replace("{id}", hologramId).replace("{index}", String.valueOf(index))));
                 } else
                 {
-                    sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getConfig().getString("hologram-index-invalid-message")));
+                    sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString("hologram-index-invalid-message")));
                 }
             } else
             {
-                sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getConfig().getString("hologram-invalid-message")
+                sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString("hologram-invalid-message")
                         .replace("{id}", hologramId)));
             }
         } else
@@ -312,7 +430,7 @@ public class BaseCommand implements CommandExecutor
                 index = Integer.parseInt(enteredIndex);
             } catch (Exception e)
             {
-                sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getConfig().getString("hologram-index-invalid-message")));
+                sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString("hologram-index-invalid-message")));
                 return;
             }
 
@@ -325,20 +443,20 @@ public class BaseCommand implements CommandExecutor
                     hologram.hideAll().create().showAll();
                     plugin.getPacketLibrary().getParticleManager().broadcastParticle(hologram.getLocation().add(0, 3, 0),
                             1, 1, 1, 0, "FIREWORKS_SPARK", 25);
-                    sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getConfig().getString("hologram-line-modified-message")
+                    sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString("hologram-line-modified-message")
                             .replace("{index}", String.valueOf(index)).replace("{id}", hologramId).replace("{text}", text.replace("_", " "))));
                 } else
                 {
-                    sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getConfig().getString("hologram-index-invalid-message")));
+                    sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString("hologram-index-invalid-message")));
                 }
             } else
             {
-                sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getConfig().getString("hologram-invalid-message")
+                sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString("hologram-invalid-message")
                         .replace("{id}", hologramId)));
             }
         } else
         {
-            sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString("no-permission-message")));
+            sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getPrefix() + plugin.getConfig().getString("no-permission-message")));
         }
     }
 
@@ -403,7 +521,6 @@ public class BaseCommand implements CommandExecutor
         }
     }
 
-
     // General command methods.
     private void infoCommand(CommandSender sender)
     {
@@ -454,6 +571,12 @@ public class BaseCommand implements CommandExecutor
         {
             sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString("no-permission-message")));
         }
+    }
+
+    // Getters & Setters
+    public HashMap<Integer, ArrayList<String>> getHelpPages()
+    {
+        return helpPages;
     }
 
 }
