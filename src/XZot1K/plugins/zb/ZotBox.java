@@ -8,7 +8,6 @@ import XZot1K.plugins.zb.listeners.HologramListeners;
 import XZot1K.plugins.zb.packets.holograms.Hologram;
 import XZot1K.plugins.zb.statistichosts.MCUpdate;
 import XZot1K.plugins.zb.statistichosts.Metrics;
-import XZot1K.plugins.zb.utils.cooldowns.CoolDownManager;
 import XZot1K.plugins.zb.utils.holograms.HologramManager;
 import XZot1K.plugins.zb.utils.holograms.HologramTask;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -28,8 +27,7 @@ public class ZotBox extends JavaPlugin
     private DatabaseLibrary databaseLibrary;
     private PluginManagementLibrary pluginManagementLibrary;
 
-    // ZotBox Managers.
-    private CoolDownManager coolDownManager;
+    // ZotBox Managers
     private HologramManager hologramManager;
 
     // ZotBox Tasks
@@ -100,7 +98,6 @@ public class ZotBox extends JavaPlugin
 
     private void setupManagers()
     {
-        coolDownManager = new CoolDownManager();
         hologramManager = new HologramManager();
     }
 
@@ -168,11 +165,6 @@ public class ZotBox extends JavaPlugin
     public DatabaseLibrary getDatabaseLibrary()
     {
         return databaseLibrary;
-    }
-
-    public CoolDownManager getCoolDownManager()
-    {
-        return coolDownManager;
     }
 
     public PluginManagementLibrary getPluginManagementLibrary()
