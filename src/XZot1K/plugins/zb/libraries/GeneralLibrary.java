@@ -2,10 +2,14 @@ package XZot1K.plugins.zb.libraries;
 
 import XZot1K.plugins.zb.ZotBox;
 import XZot1K.plugins.zb.packets.ping.PingEffectivity;
+import org.apache.commons.lang.WordUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -176,6 +180,31 @@ public class GeneralLibrary
         }
 
         return new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime());
+    }
+
+    /**
+     * This allows you to make a player connect to another server with in the BungeeCord Proxy. (Only works with BungeeCord Servers)
+     *
+     * @param player     The player you want to send to the server.
+     * @param serverName The name of the server in the BungeeCord.
+     */
+    public void switchServer(Player player, String serverName)
+    {
+        try
+        {
+            Bukkit.getMessenger().registerOutgoingPluginChannel(plugin, "BungeeCord");
+            ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
+            DataOutputStream out = new DataOutputStream(byteArray);
+            out.writeUTF("Connect");
+            out.writeUTF(serverName);
+            player.sendPluginMessage(plugin, "BungeeCord", byteArray.toByteArray());
+            sendConsoleMessage("&e" + player.getName() + " &awas successfully sent to the &e" + WordUtils.capitalize(serverName
+                    .toLowerCase().replace("_", " ")) + " &cServer!");
+        } catch (Exception ex)
+        {
+            sendConsoleMessage("&e" + player.getName() + " was unable to be sent to the &e" + WordUtils.capitalize(serverName
+                    .toLowerCase().replace("_", " ")) + " &cServer. Please make sure the server you entered is valid amd online.");
+        }
     }
 
 }
