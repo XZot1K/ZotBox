@@ -23,6 +23,7 @@ public final class Main extends JavaPlugin
             getServer().getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&e"
                     + getName() + " &cwas unable to enable, due to &eZot&7Box &cnot being installed."));
             getServer().getPluginManager().disablePlugin(this);
+            return;
         }
 
         getZotBox().getGeneralLibrary().sendConsoleMessage(this, "&aZotBox was found and has been successfully hooked into!");
