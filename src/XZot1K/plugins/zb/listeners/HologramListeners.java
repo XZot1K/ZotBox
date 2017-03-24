@@ -1,7 +1,6 @@
 package XZot1K.plugins.zb.listeners;
 
 import XZot1K.plugins.zb.ZotBox;
-import XZot1K.plugins.zb.packets.holograms.Hologram;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -14,9 +13,9 @@ public class HologramListeners implements Listener
     @EventHandler
     public void onJoin(PlayerJoinEvent e)
     {
-        for (Hologram hologram : plugin.getHologramManager().getHolograms())
+        for (int i = -1; ++i < plugin.getHologramManager().getHolograms().size(); )
         {
-            hologram.showPlayer(e.getPlayer());
+            plugin.getHologramManager().getHolograms().get(i).showPlayer(e.getPlayer());
         }
     }
 

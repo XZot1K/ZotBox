@@ -23,9 +23,9 @@ public class HologramManager
 
     public boolean doesHologramExist(String id)
     {
-        for (Hologram hologram : getHolograms())
+        for (int i = -1; ++i < getHolograms().size(); )
         {
-            if (hologram.getId().equalsIgnoreCase(id))
+            if (getHolograms().get(i).getId().equalsIgnoreCase(id))
             {
                 return true;
             }
@@ -36,8 +36,9 @@ public class HologramManager
 
     public Hologram getHologram(String id)
     {
-        for (Hologram hologram : getHolograms())
+        for (int i = -1; ++i < getHolograms().size(); )
         {
+            Hologram hologram = getHolograms().get(i);
             if (hologram.getId().equalsIgnoreCase(id))
             {
                 return hologram;
@@ -47,29 +48,25 @@ public class HologramManager
         return null;
     }
 
-    public boolean registerHologram(Hologram hologram)
+    public void registerHologram(Hologram hologram)
     {
         if (!getHolograms().contains(hologram))
         {
             getHolograms().add(hologram);
-            return true;
         }
 
-        return false;
     }
 
-    public boolean unRegisterHologram(Hologram hologram)
+    public void unRegisterHologram(Hologram hologram)
     {
         if (getHolograms().contains(hologram))
         {
             getHolograms().remove(hologram);
-            return true;
         }
 
-        return false;
     }
 
-    public boolean saveHologram(Hologram hologram)
+    public void saveHologram(Hologram hologram)
     {
         try
         {
@@ -86,17 +83,15 @@ public class HologramManager
 
             yaml.set("lines", hologram.getLines());
             yaml.save(file);
-            return true;
         } catch (Exception e)
         {
             e.printStackTrace();
 
         }
 
-        return false;
     }
 
-    public boolean deleteHologram(Hologram hologram)
+    public void deleteHologram(Hologram hologram)
     {
         try
         {
@@ -104,13 +99,11 @@ public class HologramManager
             file.delete();
             unRegisterHologram(hologram);
             hologram.hideAll();
-            return true;
         } catch (Exception e)
         {
             e.printStackTrace();
         }
 
-        return false;
     }
 
     public Hologram loadHologram(File file)

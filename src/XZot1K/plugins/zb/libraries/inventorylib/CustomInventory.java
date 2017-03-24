@@ -46,7 +46,7 @@ public class CustomInventory
 
     public CustomInventory fillEmptySlots(ItemStack itemStack)
     {
-        for (int i = 0; i < getInventory().getSize(); i++)
+        for (int i = -1; ++i < getInventory().getSize(); )
         {
             ItemStack item = getInventory().getItem(i);
             if (item == null || item.getType() == Material.AIR)
@@ -65,7 +65,7 @@ public class CustomInventory
 
     public boolean isEmpty()
     {
-        for (int i = 0; i < getInventory().getSize(); i++)
+        for (int i = -1; ++i < getInventory().getSize(); )
         {
             ItemStack slot = getSlot(i);
             if (slot != null || slot.getType() != Material.AIR)

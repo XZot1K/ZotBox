@@ -26,7 +26,7 @@ public class InventoryLibrary
     {
         int left = amount;
 
-        for (int i = 0; i < inventory.getSize(); i++)
+        for (int i = -1; ++i < inventory.getSize(); )
         {
             ItemStack is = inventory.getItem(i);
 
@@ -60,7 +60,7 @@ public class InventoryLibrary
     public int getItemAmount(Inventory inventory, ItemStack itemStack)
     {
         int amount = 0;
-        for (int i = 0; i < inventory.getSize(); i++)
+        for (int i = -1; ++i < inventory.getSize(); )
         {
             ItemStack is = inventory.getItem(i);
             if (is != null && doItemsMatch(is, itemStack))
@@ -142,7 +142,7 @@ public class InventoryLibrary
      */
     public boolean isEmpty(Inventory inventory)
     {
-        for (int i = 0; i < inventory.getSize(); i++)
+        for (int i = -1; ++i < inventory.getSize(); )
         {
             ItemStack slot = inventory.getItem(i);
             if (slot != null || slot.getType() != Material.AIR)

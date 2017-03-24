@@ -65,9 +65,9 @@ public class CustomItem
     {
         ItemMeta meta = getItemStack().getItemMeta();
         ArrayList<String> newLore = new ArrayList<>();
-        for (String line : lore)
+        for (int i = -1; ++i < lore.size(); )
         {
-            newLore.add(plugin.getGeneralLibrary().color(line));
+            newLore.add(plugin.getGeneralLibrary().color(lore.get(i)));
         }
         meta.setLore(newLore);
         getItemStack().setItemMeta(meta);
@@ -180,9 +180,9 @@ public class CustomItem
         if (getItemMeta().hasLore())
         {
             List<String> lore = getItemMeta().getLore();
-            for (String line : lore)
+            for (int i = -1; ++i < lore.size(); )
             {
-                line.replace(placeholder, value);
+                lore.get(i).replace(placeholder, value);
             }
             setLore(lore);
         }

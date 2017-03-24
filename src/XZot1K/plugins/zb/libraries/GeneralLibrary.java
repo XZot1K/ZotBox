@@ -36,9 +36,9 @@ public class GeneralLibrary
     public List<String> colorLines(List<String> stringList)
     {
         List<String> newList = new ArrayList<>();
-        for (String line : stringList)
+        for (int i = -1; ++i < stringList.size(); )
         {
-            newList.add(color(line));
+            newList.add(color(stringList.get(i)));
         }
         return newList;
     }
@@ -52,9 +52,9 @@ public class GeneralLibrary
     public ArrayList<String> colorLines(ArrayList<String> stringList)
     {
         ArrayList<String> newList = new ArrayList<>();
-        for (String line : stringList)
+        for (int i = -1; ++i < stringList.size(); )
         {
-            newList.add(color(line));
+            newList.add(color(stringList.get(i)));
         }
         return newList;
     }
@@ -83,9 +83,9 @@ public class GeneralLibrary
     public List<String> replacePlaceHolder(List<String> stringList, String placeHolder, String value)
     {
         List<String> newList = new ArrayList<>();
-        for (String line : stringList)
+        for (int i = -1; ++i < stringList.size(); )
         {
-            newList.add(line.replace(placeHolder, value));
+            newList.add(color(stringList.get(i)));
         }
         return newList;
     }
@@ -101,9 +101,9 @@ public class GeneralLibrary
     public ArrayList<String> replacePlaceHolder(ArrayList<String> stringList, String placeHolder, String value)
     {
         ArrayList<String> newList = new ArrayList<>();
-        for (String line : stringList)
+        for (int i = -1; ++i < stringList.size(); )
         {
-            newList.add(line.replace(placeHolder, value));
+            newList.add(color(stringList.get(i)));
         }
         return newList;
     }

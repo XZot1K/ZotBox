@@ -65,8 +65,9 @@ public class ZotBox extends JavaPlugin
     @Override
     public void onDisable()
     {
-        for (Hologram hologram : getHologramManager().getHolograms())
+        for (int i = -1; ++i < getHologramManager().getHolograms().size(); )
         {
+            Hologram hologram = getHologramManager().getHolograms().get(i);
             hologram.hideAll();
             getHologramManager().saveHologram(hologram);
         }

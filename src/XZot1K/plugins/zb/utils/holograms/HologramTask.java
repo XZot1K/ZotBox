@@ -31,8 +31,9 @@ public class HologramTask extends BukkitRunnable
             File dir = new File(plugin.getDataFolder(), "/holograms");
             if (dir.exists() && dir.isDirectory())
             {
-                for (File file : dir.listFiles())
+                for (int i = -1; ++i < dir.listFiles().length; )
                 {
+                    File file = dir.listFiles()[i];
                     if (file.getName().toLowerCase().endsWith(".yml"))
                     {
                         Hologram hologram = plugin.getHologramManager().loadHologram(file);
@@ -47,8 +48,9 @@ public class HologramTask extends BukkitRunnable
 
         if (saveHolograms)
         {
-            for (Hologram hologram : plugin.getHologramManager().getHolograms())
+            for (int i = -1; ++i < plugin.getHologramManager().getHolograms().size(); )
             {
+                Hologram hologram = plugin.getHologramManager().getHolograms().get(i);
                 if (!getRecentLoadedIds().contains(hologram.getId()))
                 {
                     hologram.hideAll();

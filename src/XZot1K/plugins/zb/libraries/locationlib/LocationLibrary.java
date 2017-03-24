@@ -10,6 +10,11 @@ import org.bukkit.entity.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
+enum Direction
+{
+    NORTH, SOUTH, EAST, WEST
+}
+
 public class LocationLibrary
 {
 
@@ -34,8 +39,9 @@ public class LocationLibrary
 
     public void replaceBlocks(List<Block> blocksList, Material fromMaterial, Material toMaterial, byte fromData, byte toData)
     {
-        for (Block block : blocksList)
+        for (int i = -1; ++i < blocksList.size(); )
         {
+            Block block = blocksList.get(i);
             if (block.getType() == fromMaterial && block.getData() == fromData)
             {
                 block.setType(toMaterial);
@@ -73,8 +79,9 @@ public class LocationLibrary
     public List<Entity> getEntitiesInRadius(Location centerLocation, double distance)
     {
         List<Entity> entities = new ArrayList<>();
-        for (Entity entity : centerLocation.getWorld().getEntities())
+        for (int i = -1; ++i < centerLocation.getWorld().getEntities().size(); )
         {
+            Entity entity = centerLocation.getWorld().getEntities().get(i);
             if (entity.getLocation().distance(centerLocation) <= distance)
             {
                 entities.add(entity);
