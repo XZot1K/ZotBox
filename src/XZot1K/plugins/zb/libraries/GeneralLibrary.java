@@ -89,7 +89,7 @@ public class GeneralLibrary
         List<String> newList = new ArrayList<>();
         for (int i = -1; ++i < stringList.size(); )
         {
-            newList.add(color(stringList.get(i)));
+            newList.add(color(stringList.get(i).replace(placeHolder, value)));
         }
         return newList;
     }
@@ -107,7 +107,7 @@ public class GeneralLibrary
         ArrayList<String> newList = new ArrayList<>();
         for (int i = -1; ++i < stringList.size(); )
         {
-            newList.add(color(stringList.get(i)));
+            newList.add(color(stringList.get(i).replace(placeHolder, value)));
         }
         return newList;
     }

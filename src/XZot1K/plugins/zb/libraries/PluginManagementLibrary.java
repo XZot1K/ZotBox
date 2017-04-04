@@ -27,8 +27,10 @@ public class PluginManagementLibrary
 
     public boolean isPluginLoaded(String pluginName)
     {
-        for (Plugin pl : plugin.getServer().getPluginManager().getPlugins())
+        Plugin[] pluginsList = plugin.getServer().getPluginManager().getPlugins();
+        for (int i = -1; ++i < pluginsList.length; )
         {
+            Plugin pl = pluginsList[i];
             if (pl.getDescription().getName().equalsIgnoreCase(pluginName))
             {
                 return true;
@@ -42,8 +44,10 @@ public class PluginManagementLibrary
     public boolean unLoadPlugin(String pluginName, boolean useDependDetector)
     {
         long startTime = System.currentTimeMillis();
-        for (Plugin pl : plugin.getServer().getPluginManager().getPlugins())
+        Plugin[] pluginsList = plugin.getServer().getPluginManager().getPlugins();
+        for (int i = -1; ++i < pluginsList.length; )
         {
+            Plugin pl = pluginsList[i];
             if (pl.getDescription().getName().equalsIgnoreCase(pluginName))
             {
 
@@ -63,14 +67,16 @@ public class PluginManagementLibrary
 
                 if (useDependDetector)
                 {
-                    for (Plugin otherPl : plugin.getServer().getPluginManager().getPlugins())
+                    Plugin[] otherPlugins = plugin.getServer().getPluginManager().getPlugins();
+                    for (int j = -1; ++j < otherPlugins.length; )
                     {
+                        Plugin otherPl = otherPlugins[j];
                         if (otherPl.getDescription().getDepend().contains(pl.getDescription().getName()))
                         {
                             plugin.getGeneralLibrary().sendConsoleMessage("&aFound that &e" + otherPl.getDescription().getName()
                                     + " &adepends on &e" + pl.getDescription().getName() + "&a. " + "Trying to un-load this plugin as well.");
 
-                            if (getPreventedPlugins().contains(pl))
+                            if (getPreventedPlugins().contains(pl.getDescription().getName()))
                             {
                                 plugin.getGeneralLibrary().sendConsoleMessage("&e" + pl.getDescription().getName()
                                         + " &cwas in the integrated prevented plugins list. Skipping...");
@@ -131,9 +137,15 @@ public class PluginManagementLibrary
 
                 plugin.getServer().getPluginManager().disablePlugin(pl);
                 if (plugins != null && plugins.contains(pl))
+                {
                     plugins.remove(pl);
+                }
+
                 if (names != null && names.containsKey(name))
+                {
                     names.remove(name);
+                }
+
                 if (listeners != null && reloadListeners)
                 {
                     for (SortedSet<RegisteredListener> set : listeners.values())
@@ -190,8 +202,10 @@ public class PluginManagementLibrary
             File pluginsFolder = new File("plugins");
             if (pluginsFolder.exists() && pluginsFolder.isDirectory())
             {
-                for (File file : pluginsFolder.listFiles())
+                File[] files = pluginsFolder.listFiles();
+                for (int i = -1; ++i < files.length; )
                 {
+                    File file = files[i];
                     if (file.getName().toLowerCase().endsWith(".jar"))
                     {
                         try
@@ -216,8 +230,10 @@ public class PluginManagementLibrary
 
                                 if (useDependDetector)
                                 {
-                                    for (String dependent : desc.getDepend())
+                                    List<String> depends = desc.getDepend();
+                                    for (int j = -1; ++j < depends.size(); )
                                     {
+                                        String dependent = depends.get(j);
                                         if (!isPluginLoaded(dependent))
                                         {
                                             plugin.getGeneralLibrary().sendConsoleMessage("&aFound that &e" + desc.getName() + " &adepends on &e" + dependent + "&a, but it is not installed. " +
@@ -267,8 +283,10 @@ public class PluginManagementLibrary
 
     public String getProperPluginName(String pluginName)
     {
-        for (Plugin pl : plugin.getServer().getPluginManager().getPlugins())
+        Plugin[] pluginsList = plugin.getServer().getPluginManager().getPlugins();
+        for (int i = -1; ++i < pluginsList.length; )
         {
+            Plugin pl = pluginsList[i];
             if (pl.getDescription().getName().equalsIgnoreCase(pluginName))
             {
                 return pl.getDescription().getName();
@@ -280,9 +298,10 @@ public class PluginManagementLibrary
 
     public boolean isPrevented(String pluginName)
     {
-        for (String pl : plugin.getConfig().getStringList("prevented-plugins"))
+        List<String> prevented = plugin.getConfig().getStringList("prevented-plugins");
+        for (int i = -1; ++i < prevented.size(); )
         {
-            if (pluginName.equalsIgnoreCase(pl))
+            if (pluginName.equalsIgnoreCase(prevented.get(i)))
             {
                 return true;
             }

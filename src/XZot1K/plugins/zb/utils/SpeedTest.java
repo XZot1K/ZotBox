@@ -19,7 +19,6 @@ public class SpeedTest
     public void start()
     {
         setStartTimeStamp(System.currentTimeMillis());
-        plugin.getGeneralLibrary().sendConsoleMessage("&aA new &eSpeed Test &ahas been started!");
     }
 
     /**
@@ -28,7 +27,6 @@ public class SpeedTest
     public void stop()
     {
         setStopTimeStamp(System.currentTimeMillis());
-        plugin.getGeneralLibrary().sendConsoleMessage("&aA new &eSpeed Test &ahas been started!");
     }
 
     /**
