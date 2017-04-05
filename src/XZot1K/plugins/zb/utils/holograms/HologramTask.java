@@ -46,18 +46,20 @@ public class HologramTask extends BukkitRunnable
             }
         }
 
-        if (saveHolograms)
+        for (int i = -1; ++i < plugin.getHologramManager().getHolograms().size(); )
         {
-            for (int i = -1; ++i < plugin.getHologramManager().getHolograms().size(); )
+            Hologram hologram = plugin.getHologramManager().getHolograms().get(i);
+            if (getRecentLoadedIds().contains(hologram.getId()))
             {
-                Hologram hologram = plugin.getHologramManager().getHolograms().get(i);
-                if (!getRecentLoadedIds().contains(hologram.getId()))
-                {
-                    hologram.hideAll();
-                    hologram.showAll();
-                    plugin.getHologramManager().saveHologram(hologram);
-                }
+                continue;
             }
+
+            if (saveHolograms)
+            {
+                plugin.getHologramManager().saveHologram(hologram);
+            }
+
+            hologram.hideAll().create().showAll();
         }
 
         getRecentLoadedIds().clear();

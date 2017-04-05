@@ -183,4 +183,9 @@ public class ZotBox extends JavaPlugin
         return hologramTask;
     }
 
+    public void setHologramTask(HologramTask hologramTask)
+    {
+        this.hologramTask = hologramTask;
+    }
+
 }

@@ -9,7 +9,8 @@ update-notify-delay: 900
 # Tells the library if it needs to setup packets for plugins that are using it on enable.
 setup-packets: true
 
-
+# These are the plugins that can't be touched by ZotBox's plugin management systems.
+prevented-plugins: ["ZotBox"]
 
 # --------------------------------------------------------------------------
 # ]-----------[ Here is where you can customize hologram stuff ]-----------[
@@ -21,10 +22,6 @@ use-hologram-task: true
 auto-load-holograms: true
 auto-save-holograms: true
 
-# These are the plugins that can't be touched by ZotBox's plugin management systems.
-prevented-plugins: ["ZotBox"]
-
-
 
 # --------------------------------------------------------------------
 # ]-----------[ Here is where you can customize messages ]-----------[
@@ -32,7 +29,7 @@ prevented-plugins: ["ZotBox"]
 
 # General messages
 no-permission-message: "&cYou don't have permission to use this."
-reload-message: "&aSuccessfully reloaded the &bZot&7Box&a!"
+reload-message: "&aSuccessfully reloaded &bZot&7Box&a! (Took &e{duration}ms&a)"
 must-be-player-message: "&cUnfortunately you must be a player to use this."
 invalid-player-message: "&cThe player you enter is either invalid or offline."
 message-sent-message: "&aYou have successfully sent &e{player} &athe message {message}&r&a!"

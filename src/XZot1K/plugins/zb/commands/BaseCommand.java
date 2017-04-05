@@ -2,6 +2,7 @@ package XZot1K.plugins.zb.commands;
 
 import XZot1K.plugins.zb.ZotBox;
 import XZot1K.plugins.zb.packets.holograms.Hologram;
+import XZot1K.plugins.zb.utils.holograms.HologramTask;
 import XZot1K.plugins.zb.utils.jsonmsgs.JSONClickAction;
 import XZot1K.plugins.zb.utils.jsonmsgs.JSONExtra;
 import XZot1K.plugins.zb.utils.jsonmsgs.JSONHoverAction;
@@ -543,9 +544,20 @@ public class BaseCommand implements CommandExecutor
     {
         if (sender.hasPermission("zotbox.reload"))
         {
+            long start = System.currentTimeMillis();
             plugin.reloadConfig();
             plugin.getPacketLibrary().setupPackets();
-            sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString("reload-message")));
+
+            if (plugin.getHologramTask() != null)
+            {
+                plugin.getHologramTask().cancel();
+                plugin.setHologramTask(new HologramTask());
+                plugin.getHologramTask().runTaskTimerAsynchronously(plugin, 0, 20 * 15);
+            }
+
+            long stop = System.currentTimeMillis();
+            sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString("reload-message")
+                    .replace("{duration}", String.valueOf(stop - start))));
         } else
         {
             sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString("no-permission-message")));
