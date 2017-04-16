@@ -21,7 +21,7 @@ public final class Main extends JavaPlugin
         if (!isZotBoxInstalled())
         {
             getServer().getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&e"
-                    + getName() + " &cwas unable to enable, due to &eZot&7Box &cnot being installed."));
+                    + getName() + " &cwas unable to enable, due to &bZot&7Box &cnot being installed."));
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
