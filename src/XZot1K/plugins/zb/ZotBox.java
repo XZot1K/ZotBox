@@ -10,6 +10,8 @@ import XZot1K.plugins.zb.statistichosts.MCUpdate;
 import XZot1K.plugins.zb.statistichosts.Metrics;
 import XZot1K.plugins.zb.utils.holograms.HologramManager;
 import XZot1K.plugins.zb.utils.holograms.HologramTask;
+import libraries.subcommands.tests.TestCommand;
+
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class ZotBox extends JavaPlugin
@@ -50,7 +52,7 @@ public class ZotBox extends JavaPlugin
         getPacketLibrary().setupPackets();
 
         // Register Commands.
-        getCommand("zotbox").setExecutor(new BaseCommand());
+        getCommand("zotbox").setExecutor(new TestCommand());
 
         // Register Listeners.
         getServer().getPluginManager().registerEvents(new HologramListeners(), this);

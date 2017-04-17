@@ -1,0 +1,15 @@
+name: ZotBoxTests
+main: libraries.TestPlugin
+version: 1.0
+description: Test plugin to test all features of ZotBox
+commands:
+   zottest:
+      description: Subcommand tests
+      usage: /<command> (function)
+      permission: zotbox.test
+      permission-message: Thee shall not test at will!
+      aliases: [ztest]
+permissions:     
+   zotbox.testperm:
+      description: All i know is that it isn't a ticket to free cake
+   
