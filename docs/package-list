@@ -17,3 +17,4 @@ XZot1K.plugins.zb.statistichosts
 XZot1K.plugins.zb.utils
 XZot1K.plugins.zb.utils.holograms
 XZot1K.plugins.zb.utils.jsonmsgs
+XZot1K.plugins.zb.utils.subcommands
