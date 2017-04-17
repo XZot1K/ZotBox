@@ -52,7 +52,7 @@ public class ZotBox extends JavaPlugin
         getPacketLibrary().setupPackets();
 
         // Register Commands.
-        getCommand("zotbox").setExecutor(new TestCommand());
+        getCommand("zotbox").setExecutor(new BaseCommand());
 
         // Register Listeners.
         getServer().getPluginManager().registerEvents(new HologramListeners(), this);
