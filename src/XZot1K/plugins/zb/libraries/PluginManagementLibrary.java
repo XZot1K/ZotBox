@@ -213,7 +213,6 @@ public class PluginManagementLibrary
                             PluginDescriptionFile desc = plugin.getPluginLoader().getPluginDescription(file);
                             if (desc.getName().equalsIgnoreCase(pluginName))
                             {
-
                                 if (getPreventedPlugins().contains(desc.getName()))
                                 {
                                     plugin.getGeneralLibrary().sendConsoleMessage("&e" + desc.getName()
@@ -267,6 +266,8 @@ public class PluginManagementLibrary
                         } catch (InvalidPluginException | InvalidDescriptionException e)
                         {
                             e.printStackTrace();
+                            plugin.getGeneralLibrary().sendConsoleMessage("&cIt seems the &e" + file.getName() + " &cfile might have a invalid " +
+                                    "plugin.yml or at least couldn't be found. (You may want to restart the server to attempt to resolve this issue)");
                         }
                     }
                 }

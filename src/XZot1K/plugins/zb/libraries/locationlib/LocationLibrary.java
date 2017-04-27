@@ -29,6 +29,7 @@ public class LocationLibrary
      * @param xRadius     The X radius.
      * @param yRadius     The Y Radius.
      * @param zRadius     The Z Radius.
+     *
      * @return A list of all the blocks found.
      */
     public List<Block> getBlocksInRadius(Location centerPoint, int xRadius, int yRadius, int zRadius)
@@ -50,13 +51,15 @@ public class LocationLibrary
 
     /**
      * Replaces all blocks in the fed list with the specified material and data to the new material and data.
-     * @param blocksList The list of blocks to replace.
+     *
+     * @param blocksList   The list of blocks to replace.
      * @param fromMaterial The material that a block has in the block list.
-     * @param toMaterial The material that you want the blocks to change to.
-     * @param fromData The data that a block has in the block list.
-     * @param toData The data that you want the blocks to change to.
+     * @param toMaterial   The material that you want the blocks to change to.
+     * @param fromData     The data that a block has in the block list.
+     * @param toData       The data that you want the blocks to change to.
      */
-    public void replaceBlocks(List<Block> blocksList, Material fromMaterial, Material toMaterial, byte fromData, byte toData)
+    public void replaceBlocks(List<Block> blocksList, Material fromMaterial, Material toMaterial, byte fromData,
+                              byte toData)
     {
         for (int i = -1; ++i < blocksList.size(); )
         {
@@ -71,9 +74,11 @@ public class LocationLibrary
 
     /**
      * Gets if the defined location is between the 2 specified points. It's just like the well-known plugin WorldEdit.
+     *
      * @param location The location you want to check is between the two locations.
-     * @param point1 The 1st location.
-     * @param point2 The 2nd location.
+     * @param point1   The 1st location.
+     * @param point2   The 2nd location.
+     *
      * @return Whether the location is in fact between the two locations or not.
      */
     public boolean isLocationBetweenTwoLocations(Location location, Location point1, Location point2)
@@ -84,7 +89,9 @@ public class LocationLibrary
 
     /**
      * Gets all the blocks in the specified chunk.
+     *
      * @param chunk The chunk you want to get all blocks from.
+     *
      * @return A list of all the found blocks.
      */
     public List<Block> getBlocksInChunk(Chunk chunk)
@@ -109,8 +116,10 @@ public class LocationLibrary
 
     /**
      * Gets all entities in a radius around the location within the defined distance.
+     *
      * @param centerLocation The center location to find entities around.
-     * @param distance The distance from the specified center location.
+     * @param distance       The distance from the specified center location.
+     *
      * @return A list off all the found entities.
      */
     public List<Entity> getEntitiesInRadius(Location centerLocation, double distance)
@@ -131,6 +140,7 @@ public class LocationLibrary
      * Gets a direction based on the fed yaw value.
      *
      * @param yaw The yaw from a location (player or entity to be specific).
+     *
      * @return The direction that was found/calculated.
      */
     public Direction getDirection(float yaw)
@@ -162,6 +172,7 @@ public class LocationLibrary
 
     /**
      * Swaps the two entities locations.
+     *
      * @param entity1 The 1st entity you want to switch with the 2nd.
      * @param entity2 The 2nd entity you want to switch with the 1st.
      */
@@ -202,21 +213,22 @@ public class LocationLibrary
      * Gets a yaw value based on the block face fed to it.
      *
      * @param blockFace The blockface you want to calculate the yaw from.
+     *
      * @return The yaw that was calculated from the blockface.
      */
     public double getYaw(BlockFace blockFace)
     {
         switch (blockFace)
         {
-            case EAST:
-                return (float) 90;
-            case SOUTH:
-                return (float) 180;
-            case WEST:
-                return (float) 270;
-            default:
-                return (float) 0;
-        }
-    }
+			case EAST:
+				return (float) 90;
+			case SOUTH:
+				return (float) 180;
+			case WEST:
+				return (float) 270;
+			default:
+				return (float) 0;
+		}
+	}
 
 }

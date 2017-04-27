@@ -59,7 +59,8 @@ public class ZotBox extends JavaPlugin
         taskStuff();
 
         long endTime = System.currentTimeMillis();
-        getGeneralLibrary().sendConsoleMessage("&aSuccessfully loaded and enabled &bZot&7Box&a! (Took &e" + (endTime - startTime) + "ms&a)");
+        getGeneralLibrary().sendConsoleMessage(
+                "&aSuccessfully loaded and enabled &bZot&7Box&a! (Took &e" + (endTime - startTime) + "ms&a)");
     }
 
     @Override
@@ -83,7 +84,9 @@ public class ZotBox extends JavaPlugin
         }
 
         long endTime = System.currentTimeMillis();
-        getGeneralLibrary().sendConsoleMessage("&aSuccessfully setup and started all task related things! (Took &e" + (endTime - startTime) + "ms&a)");
+        getGeneralLibrary().sendConsoleMessage(
+                "&aSuccessfully setup and started all task related things! (Took &e" + (endTime - startTime) +
+                        "ms&a)");
     }
 
     private void setupLibraries()
@@ -110,7 +113,8 @@ public class ZotBox extends JavaPlugin
             Metrics metrics = new Metrics(this);
             metrics.start();
             long endTime = System.currentTimeMillis();
-            getGeneralLibrary().sendConsoleMessage("&aMetrics has been successfully connected. (Took &e" + (endTime - startTime) + "ms&a)");
+            getGeneralLibrary().sendConsoleMessage(
+                    "&aMetrics has been successfully connected. (Took &e" + (endTime - startTime) + "ms&a)");
         } catch (Exception e)
         {
             getGeneralLibrary().sendConsoleMessage("&cMetrics failed to start. Please check your connection.");
@@ -121,7 +125,8 @@ public class ZotBox extends JavaPlugin
             long startTime = System.currentTimeMillis();
             new MCUpdate(this);
             long endTime = System.currentTimeMillis();
-            getGeneralLibrary().sendConsoleMessage("&aMCUpdate has been successfully connected. (Took &e" + (endTime - startTime) + "ms&a)");
+            getGeneralLibrary().sendConsoleMessage(
+                    "&aMCUpdate has been successfully connected. (Took &e" + (endTime - startTime) + "ms&a)");
         } catch (Exception e)
         {
             getGeneralLibrary().sendConsoleMessage("&cMCUpdate failed to start. Please check your connection.");

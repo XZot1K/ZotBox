@@ -10,29 +10,36 @@ public class DatabaseLibrary
     private ZotBox plugin = ZotBox.getInstance();
 
     /**
-     * Establishes a new MySQL connection without a database. (Only use this for creating a database then use the other method)
+     * Establishes a new MySQL connection without a database. (Only use this for creating a database then use the
+     * other method)
      *
      * @param databaseHost     The database IP address.
      * @param databasePort     The database IP address port.
      * @param databaseUsername The database username.
      * @param databasePassword The database password.
+     *
      * @return A brand new MySQL connection.
      */
-    public Connection createMySQLConnection(String databaseHost, String databasePort, String databaseUsername, String databasePassword)
+    public Connection createMySQLConnection(String databaseHost, String databasePort, String databaseUsername,
+                                            String databasePassword)
     {
         Connection connection = null;
         try
         {
             Class.forName("com.mysql.jdbc.Driver");
-            String cd = "jdbc:mysql://" + databaseHost + ":" + databasePort + "/?user=" + databaseUsername + "&password=" + databasePassword;
+            String cd =
+                    "jdbc:mysql://" + databaseHost + ":" + databasePort + "/?user=" + databaseUsername + "&password=" +
+                            databasePassword;
             connection = DriverManager.getConnection(cd);
-            plugin.getGeneralLibrary().sendConsoleMessage("&aSuccessfully established a new connection with the following information: "
-                    + " &eHost: &6" + databaseHost + " &ePort: &6" + databasePort);
+            plugin.getGeneralLibrary()
+                    .sendConsoleMessage("&aSuccessfully established a new connection with the following information: "
+                            + " &eHost: &6" + databaseHost + " &ePort: &6" + databasePort);
         } catch (Exception e)
         {
             e.printStackTrace();
-            plugin.getGeneralLibrary().sendConsoleMessage("&cCouldn't establish a new connection with the following information: "
-                    + " &eHost: &6" + databaseHost + " &ePort: &6" + databasePort);
+            plugin.getGeneralLibrary()
+                    .sendConsoleMessage("&cCouldn't establish a new connection with the following information: "
+                            + " &eHost: &6" + databaseHost + " &ePort: &6" + databasePort);
         }
         return connection;
     }
@@ -45,23 +52,30 @@ public class DatabaseLibrary
      * @param databaseUsername The database username.
      * @param databasePassword The database password.
      * @param databaseName     The database name.
+     *
      * @return A brand new MySQL connection.
      */
-    public Connection createMySQLConnection(String databaseHost, String databasePort, String databaseUsername, String databasePassword, String databaseName)
+    public Connection createMySQLConnection(String databaseHost, String databasePort, String databaseUsername,
+                                            String databasePassword, String databaseName)
     {
         Connection connection = null;
         try
         {
             Class.forName("com.mysql.jdbc.Driver");
-            String url = "jdbc:mysql://" + databaseHost + ":" + databasePort + "/" + databaseName + "?autoReconnect=true";
+            String url =
+                    "jdbc:mysql://" + databaseHost + ":" + databasePort + "/" + databaseName + "?autoReconnect=true";
             connection = DriverManager.getConnection(url, databaseUsername, databasePassword);
-            plugin.getGeneralLibrary().sendConsoleMessage("&aSuccessfully established a new connection with the following information: "
-                    + " &eHost: &6" + databaseHost + " &ePort: &6" + databasePort + " &eDatabase: &6" + databaseName);
+            plugin.getGeneralLibrary()
+                    .sendConsoleMessage("&aSuccessfully established a new connection with the following information: "
+                            + " &eHost: &6" + databaseHost + " &ePort: &6" + databasePort +
+                            " &eDatabase: &6" + databaseName);
         } catch (Exception e)
         {
             e.printStackTrace();
-            plugin.getGeneralLibrary().sendConsoleMessage("&cCouldn't establish a new connection with the following information: "
-                    + " &eHost: &6" + databaseHost + " &ePort: &6" + databasePort + " &eDatabase: &6" + databaseName);
+            plugin.getGeneralLibrary()
+                    .sendConsoleMessage("&cCouldn't establish a new connection with the following information: "
+                            + " &eHost: &6" + databaseHost + " &ePort: &6" + databasePort +
+                            " &eDatabase: &6" + databaseName);
         }
         return connection;
     }
@@ -80,11 +94,14 @@ public class DatabaseLibrary
             Statement s = connection.createStatement();
             s.executeUpdate("CREATE DATABASE IF NOT EXISTS " + databaseName + ";");
             s.close();
-            plugin.getGeneralLibrary().sendConsoleMessage("&aSuccessful created a new database with the name &e" + databaseName + "&a.");
+            plugin.getGeneralLibrary()
+                    .sendConsoleMessage("&aSuccessful created a new database with the name &e" + databaseName + "&a. " +
+                            "(If it was already created this is skipped no worries)");
         } catch (SQLException e)
         {
             e.printStackTrace();
-            plugin.getGeneralLibrary().sendConsoleMessage("&cCouldn't create a new database with the name &e" + databaseName + "&c.");
+            plugin.getGeneralLibrary()
+                    .sendConsoleMessage("&cCouldn't create a new database with the name &e" + databaseName + "&c.");
         }
     }
 
@@ -102,11 +119,14 @@ public class DatabaseLibrary
             Statement s = connection.createStatement();
             s.executeUpdate("CREATE TABLE IF NOT EXISTS " + tableName + " (" + columns + ")");
             s.close();
-            plugin.getGeneralLibrary().sendConsoleMessage("&aSuccessful created a new table with the name &e" + tableName + "&a.");
+            plugin.getGeneralLibrary()
+                    .sendConsoleMessage("&aSuccessful created a new table with the name &e" + tableName + "&a. " +
+                            "(If it was already created this is skipped no worries)");
         } catch (SQLException e)
         {
             e.printStackTrace();
-            plugin.getGeneralLibrary().sendConsoleMessage("&cCouldn't create a new table with the name &e" + tableName + "&c.");
+            plugin.getGeneralLibrary()
+                    .sendConsoleMessage("&cCouldn't create a new table with the name &e" + tableName + "&c.");
         }
     }
 
@@ -115,6 +135,7 @@ public class DatabaseLibrary
      *
      * @param connection The MySQL connection.
      * @param syntax     The MySQL statement syntax.
+     *
      * @return The result set.
      */
     public ResultSet createMySQLResultSet(Connection connection, String syntax)
@@ -131,8 +152,10 @@ public class DatabaseLibrary
 
     /**
      * Creates a new MySQL prepared statement with the specified MySQL connection.
+     *
      * @param connection The MySQL connection.
-     * @param syntax The MySQL statement syntax.
+     * @param syntax     The MySQL statement syntax.
+     *
      * @return The prepared statement.
      */
     public PreparedStatement createMySQLPreparedStatement(Connection connection, String syntax)
@@ -151,6 +174,7 @@ public class DatabaseLibrary
      * Creates a new MySQL statement with the specified MySQL connection.
      *
      * @param connection The MySQL connection.
+     *
      * @return The statement.
      */
     public Statement createMySQLStatement(Connection connection)

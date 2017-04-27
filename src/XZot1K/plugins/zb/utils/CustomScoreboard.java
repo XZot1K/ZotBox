@@ -4,6 +4,9 @@ import XZot1K.plugins.zb.ZotBox;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CustomScoreboard
 {
 
@@ -92,9 +95,10 @@ public class CustomScoreboard
 
     public CustomScoreboard showAllPlayers()
     {
-        for (Player player : plugin.getServer().getOnlinePlayers())
+        List<Player> players = new ArrayList<>(plugin.getServer().getOnlinePlayers());
+        for (int i = -1; ++i < players.size(); )
         {
-            showPlayer(player);
+            showPlayer(players.get(i));
         }
 
         return this;
@@ -102,9 +106,10 @@ public class CustomScoreboard
 
     public CustomScoreboard hideAllPlayers()
     {
-        for (Player player : plugin.getServer().getOnlinePlayers())
+        List<Player> players = new ArrayList<>(plugin.getServer().getOnlinePlayers());
+        for (int i = -1; ++i < players.size(); )
         {
-            hidePlayer(player);
+            hidePlayer(players.get(i));
         }
 
         return this;
@@ -121,6 +126,17 @@ public class CustomScoreboard
         player.setScoreboard(getScoreboardManager().getNewScoreboard());
         return this;
     }
+
+    public Team getTeam(String teamName)
+    {
+        return getScoreboard().getTeam(teamName);
+    }
+
+    public boolean doesTeamExist(String teamName) { return getTeam(teamName) != null; }
+
+    public Objective getObjective(String objectiveName) { return getScoreboard().getObjective(objectiveName); }
+
+    public boolean doesObjectiveExist(String objectiveName) { return getObjective(objectiveName) != null; }
 
     // Getters & Setters
     public ScoreboardManager getScoreboardManager()
