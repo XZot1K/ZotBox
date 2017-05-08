@@ -6,6 +6,7 @@ import XZot1K.plugins.zb.packets.bossbar.BossBar1_7R4;
 import XZot1K.plugins.zb.packets.bossbar.BossBar1_8R3;
 import XZot1K.plugins.zb.packets.bossbar.NewerBossBar;
 import XZot1K.plugins.zb.packets.bossbar.OlderBossBar;
+import XZot1K.plugins.zb.packets.ewalker.*;
 import XZot1K.plugins.zb.packets.holograms.*;
 import XZot1K.plugins.zb.packets.jsonstuff.jsonitems.*;
 import XZot1K.plugins.zb.packets.jsonstuff.jsonmsgs.*;
@@ -31,6 +32,7 @@ public class PacketLibrary
     private JSONItems JSONItemGetter;
     private Ping pingGetter;
     private TabList tabListManager;
+    private EWalker eWalker;
 
     /**
      * Not something you should mess with unless you need to reload ZotBox's packets.
@@ -55,6 +57,7 @@ public class PacketLibrary
                 this.pingGetter = new Ping1_11R1();
                 this.JSONItemGetter = new JSONItems1_11R1();
                 this.tabListManager = new TabList1_11R1();
+                this.eWalker = new EWalker1_11R1();
                 plugin.getGeneralLibrary().sendConsoleMessage("&e" + plugin.getServerVersion()
                         + " &adetected successfully set up packets. (Took &e" + (System.currentTimeMillis() - startTime) + "ms&a)");
                 break;
@@ -66,6 +69,7 @@ public class PacketLibrary
                 this.pingGetter = new Ping1_10R1();
                 this.JSONItemGetter = new JSONItems1_10R1();
                 this.tabListManager = new TabList1_10R1();
+                this.eWalker = new EWalker1_10R1();
                 plugin.getGeneralLibrary().sendConsoleMessage("&e" + plugin.getServerVersion()
                         + " &adetected successfully set up packets. (Took &e" + (System.currentTimeMillis() - startTime) + "ms&a)");
                 break;
@@ -77,6 +81,7 @@ public class PacketLibrary
                 this.pingGetter = new Ping1_9R2();
                 this.JSONItemGetter = new JSONItems1_9R2();
                 this.tabListManager = new TabList1_9R2();
+                this.eWalker = new EWalker1_9R2();
                 plugin.getGeneralLibrary().sendConsoleMessage("&e" + plugin.getServerVersion()
                         + " &adetected successfully set up packets. (Took &e" + (System.currentTimeMillis() - startTime) + "ms&a)");
                 break;
@@ -88,6 +93,7 @@ public class PacketLibrary
                 this.pingGetter = new Ping1_9R1();
                 this.JSONItemGetter = new JSONItems1_9R1();
                 this.tabListManager = new TabList1_9R1();
+                this.eWalker = new EWalker1_9R1();
                 plugin.getGeneralLibrary().sendConsoleMessage("&e" + plugin.getServerVersion()
                         + " &adetected successfully set up packets. (Took &e" + (System.currentTimeMillis() - startTime) + "ms&a)");
                 break;
@@ -99,6 +105,7 @@ public class PacketLibrary
                 this.pingGetter = new Ping1_8R3();
                 this.JSONItemGetter = new JSONItems1_8R3();
                 this.tabListManager = new TabList1_8R3();
+                this.eWalker = new EWalker1_8R3();
                 plugin.getGeneralLibrary().sendConsoleMessage("&e" + plugin.getServerVersion()
                         + " &adetected successfully set up packets. (Took &e" + (System.currentTimeMillis() - startTime) + "ms&a)");
                 break;
@@ -110,6 +117,7 @@ public class PacketLibrary
                 this.pingGetter = new Ping1_8R2();
                 this.JSONItemGetter = new JSONItems1_8R2();
                 this.tabListManager = new TabList1_8R2();
+                this.eWalker = new EWalker1_8R2();
                 plugin.getGeneralLibrary().sendConsoleMessage("&e" + plugin.getServerVersion()
                         + " &adetected successfully set up packets. (Took &e" + (System.currentTimeMillis() - startTime) + "ms&a)");
                 break;
@@ -121,6 +129,7 @@ public class PacketLibrary
                 this.pingGetter = new Ping1_8R1();
                 this.JSONItemGetter = new JSONItems1_8R1();
                 this.tabListManager = new TabList1_8R1();
+                this.eWalker = new EWalker1_8R1();
                 plugin.getGeneralLibrary().sendConsoleMessage("&e" + plugin.getServerVersion()
                         + " &adetected successfully set up packets. (Took &e" + (System.currentTimeMillis() - startTime) + "ms&a)");
                 break;
@@ -128,6 +137,7 @@ public class PacketLibrary
                 this.JSONMessageSender = new JSONMessages1_7R4();
                 this.pingGetter = new Ping1_7R4();
                 this.JSONItemGetter = new JSONItems1_7R4();
+                this.eWalker = new EWalker1_7R4();
                 plugin.getGeneralLibrary().sendConsoleMessage("&cSome of the packets in ZotBox have been loaded due to &e1.7_R4 &csupport, " +
                         "but most packets will not load for this version.");
                 break;
@@ -204,6 +214,7 @@ public class PacketLibrary
      * @param lines      A list of the lines for the hologram to display (include color codes).
      * @param lineSpread How far apart should each line be from each other?
      * @param location   The location where it should be displayed.
+     *
      * @return The pre-built hologram object. Use the .create() method to create the packet before showing players.
      */
     public Hologram createNewHologram(String id, List<String> lines, double lineSpread, Location location)
@@ -234,6 +245,7 @@ public class PacketLibrary
      *
      * @param player player to send to.
      * @param text   the text that appears.
+     *
      * @return the OlderBossBar object.
      */
     public OlderBossBar getOlderBossBar(Player player, String text)
@@ -255,10 +267,12 @@ public class PacketLibrary
 
     /**
      * Sends an newer boss bar for 1.9+.
-     * @param text the text that appears.
+     *
+     * @param text     the text that appears.
      * @param barColor the color of the boss bar
      * @param barStyle the boss bar style.
-     * @param barFlag the flags for the boss bar.
+     * @param barFlag  the flags for the boss bar.
+     *
      * @return the NewerBossBar object.
      */
     public NewerBossBar getNewerBossBar(String text, BarColor barColor, BarStyle barStyle, BarFlag barFlag)
@@ -276,4 +290,10 @@ public class PacketLibrary
         return tabListManager;
     }
 
+    /**
+     * EWalker is a tool/util packet that allows you to make a living entity walk to a given location.
+     *
+     * @return The EWalker packet tool/util.
+     */
+    public EWalker getEWalker() { return eWalker; }
 }
