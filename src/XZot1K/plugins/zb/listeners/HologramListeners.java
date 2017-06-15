@@ -5,7 +5,6 @@ import XZot1K.plugins.zb.packets.holograms.Hologram;
 import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.event.world.ChunkUnloadEvent;
 
@@ -13,16 +12,6 @@ public class HologramListeners implements Listener
 {
 
     private ZotBox plugin = ZotBox.getInstance();
-
-    @EventHandler(ignoreCancelled = true)
-    public void onJoin(PlayerJoinEvent e)
-    {
-        plugin.getPacketLibrary().getTabListManager().sendCustomTabListToAll("&atest", "&ctest");
-        for (int i = -1; ++i < plugin.getHologramManager().getHolograms().size(); )
-        {
-            plugin.getHologramManager().getHolograms().get(i).showPlayer(e.getPlayer());
-        }
-    }
 
     @EventHandler(ignoreCancelled = true)
     public void onChunkLoad(ChunkLoadEvent e)
