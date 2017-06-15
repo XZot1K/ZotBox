@@ -6,6 +6,7 @@ XZot1K.plugins.zb.libraries.locationlib
 XZot1K.plugins.zb.listeners
 XZot1K.plugins.zb.packets.actionbars
 XZot1K.plugins.zb.packets.bossbar
+XZot1K.plugins.zb.packets.ewalker
 XZot1K.plugins.zb.packets.holograms
 XZot1K.plugins.zb.packets.jsonstuff.jsonitems
 XZot1K.plugins.zb.packets.jsonstuff.jsonmsgs

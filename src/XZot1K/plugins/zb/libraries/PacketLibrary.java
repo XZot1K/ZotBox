@@ -49,6 +49,19 @@ public class PacketLibrary
 
         switch (plugin.getServerVersion())
         {
+            case "v1_12_R1":
+                this.titleManager = new Titles1_12R1();
+                this.actionBarManager = new ActionBars1_12R1();
+                this.particleManager = new Particle1_12R1();
+                this.JSONMessageSender = new JSONMessages1_12R1();
+                this.pingGetter = new Ping1_12R1();
+                this.JSONItemGetter = new JSONItems1_12R1();
+                this.tabListManager = new TabList1_12R1();
+                this.eWalker = new EWalker1_12R1();
+                plugin.getGeneralLibrary().sendConsoleMessage("&e" + plugin.getServerVersion()
+                        + " &adetected successfully set up packets. (Took &e" + (System.currentTimeMillis() -
+                        startTime) + "ms&a)");
+                break;
             case "v1_11_R1":
                 this.titleManager = new Titles1_11R1();
                 this.actionBarManager = new ActionBars1_11R1();

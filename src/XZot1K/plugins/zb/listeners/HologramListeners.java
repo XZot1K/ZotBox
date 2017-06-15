@@ -17,6 +17,7 @@ public class HologramListeners implements Listener
     @EventHandler(ignoreCancelled = true)
     public void onJoin(PlayerJoinEvent e)
     {
+        plugin.getPacketLibrary().getTabListManager().sendCustomTabListToAll("&atest", "&ctest");
         for (int i = -1; ++i < plugin.getHologramManager().getHolograms().size(); )
         {
             plugin.getHologramManager().getHolograms().get(i).showPlayer(e.getPlayer());
