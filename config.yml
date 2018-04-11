@@ -4,8 +4,6 @@
 
 # Should ZotBox notify you when a update is available?
 update-notifications: true
-# How long should the delay be between update notifications in seconds?
-update-notify-delay: 900
 # Tells the library if it needs to setup packets for plugins that are using it on enable.
 setup-packets: true
 

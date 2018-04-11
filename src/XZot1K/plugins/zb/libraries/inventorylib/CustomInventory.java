@@ -63,7 +63,8 @@ public class CustomInventory
         return getInventory().firstEmpty() == -1;
     }
 
-    public boolean isEmpty()
+    @SuppressWarnings("null")
+	public boolean isEmpty()
     {
         for (int i = -1; ++i < getInventory().getSize(); )
         {

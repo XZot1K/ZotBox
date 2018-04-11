@@ -1,16 +1,12 @@
 package XZot1K.plugins.zb.libraries.locationlib;
 
-import XZot1K.plugins.zb.ZotBox;
-import org.bukkit.Chunk;
-import org.bukkit.Effect;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Entity;
-
-import java.util.ArrayList;
-import java.util.List;
 
 enum Direction
 {
@@ -19,8 +15,6 @@ enum Direction
 
 public class LocationLibrary
 {
-
-    private ZotBox plugin = ZotBox.getInstance();
 
     /**
      * Gets all blocks in a radius around the fed center location.
@@ -58,7 +52,8 @@ public class LocationLibrary
      * @param fromData     The data that a block has in the block list.
      * @param toData       The data that you want the blocks to change to.
      */
-    public void replaceBlocks(List<Block> blocksList, Material fromMaterial, Material toMaterial, byte fromData,
+    @SuppressWarnings("deprecation")
+	public void replaceBlocks(List<Block> blocksList, Material fromMaterial, Material toMaterial, byte fromData,
                               byte toData)
     {
         for (int i = -1; ++i < blocksList.size(); )
@@ -190,7 +185,8 @@ public class LocationLibrary
      * @param block1 The 1st block you want to swap with the 2nd.
      * @param block2 The 2nd block you want to swap with the 1st.
      */
-    public void swapBlocks(Block block1, Block block2, boolean useEffects)
+    @SuppressWarnings("deprecation")
+	public void swapBlocks(Block block1, Block block2, boolean useEffects)
     {
         Material block1Material = block1.getType();
         byte block1Data = block1.getData();

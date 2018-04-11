@@ -22,7 +22,8 @@ public class CustomItem
         setItemStack(new ItemStack(material, amount, durability));
     }
 
-    public CustomItem(int materialId, int amount, short durability)
+    @SuppressWarnings("deprecation")
+	public CustomItem(int materialId, int amount, short durability)
     {
         setItemStack(new ItemStack(Material.getMaterial(materialId), amount, durability));
     }

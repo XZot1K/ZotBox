@@ -1,11 +1,12 @@
 package XZot1K.plugins.zb.utils;
 
-import XZot1K.plugins.zb.ZotBox;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import XZot1K.plugins.zb.ZotBox;
 
 public class CustomScoreboard
 {
@@ -54,7 +55,8 @@ public class CustomScoreboard
         return this;
     }
 
-    public CustomScoreboard registerTeam(String teamName, String prefix, String suffix, boolean allowFriendlyFire,
+    @SuppressWarnings("deprecation")
+	public CustomScoreboard registerTeam(String teamName, String prefix, String suffix, boolean allowFriendlyFire,
                                          boolean canSeeFriendlyInvisibles, NameTagVisibility nameTagVisibility)
     {
         Team team = getScoreboard().getTeam(teamName);
@@ -71,7 +73,8 @@ public class CustomScoreboard
         return this;
     }
 
-    public CustomScoreboard addPlayerToTeam(String teamName, Player player)
+    @SuppressWarnings("deprecation")
+	public CustomScoreboard addPlayerToTeam(String teamName, Player player)
     {
         Team team = getScoreboard().getTeam(teamName);
         if (team != null && !team.getPlayers().contains(player))
@@ -82,7 +85,8 @@ public class CustomScoreboard
         return this;
     }
 
-    public CustomScoreboard removePlayerToTeam(String teamName, Player player)
+    @SuppressWarnings("deprecation")
+	public CustomScoreboard removePlayerToTeam(String teamName, Player player)
     {
         Team team = getScoreboard().getTeam(teamName);
         if (team != null && team.getPlayers().contains(player))

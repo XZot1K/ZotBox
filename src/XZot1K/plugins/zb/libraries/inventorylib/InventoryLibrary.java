@@ -140,7 +140,8 @@ public class InventoryLibrary
      * @param inventory Inventory you want to check.
      * @return If the inventory is empty.
      */
-    public boolean isEmpty(Inventory inventory)
+	@SuppressWarnings("null")
+	public boolean isEmpty(Inventory inventory)
     {
         for (int i = -1; ++i < inventory.getSize(); )
         {
@@ -211,7 +212,8 @@ public class InventoryLibrary
      * @param amount      The amount of the player's head you want.
      * @return The new sexy player head you created in one line of code!
      */
-    public ItemStack getPlayerHead(String playerName, String displayName, List<String> lore, int amount)
+    @SuppressWarnings("deprecation")
+	public ItemStack getPlayerHead(String playerName, String displayName, List<String> lore, int amount)
     {
         CustomItem customItem = new CustomItem(Material.SKULL_ITEM, amount, (short) SkullType.PLAYER.ordinal());
         SkullMeta meta = (SkullMeta) customItem.getItemMeta();

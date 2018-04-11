@@ -1,14 +1,12 @@
 package XZot1K.plugins.zb.utils;
 
-import XZot1K.plugins.zb.ZotBox;
-import org.bukkit.entity.Player;
-
 import java.util.HashMap;
 import java.util.UUID;
 
+import org.bukkit.entity.Player;
+
 public class CooldownSet
 {
-    private ZotBox plugin = ZotBox.getInstance();
     private HashMap<UUID, Long> coolDowns;
     private int duration;
 

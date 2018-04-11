@@ -1,13 +1,10 @@
 package XZot1K.plugins.zb.libraries;
 
-import XZot1K.plugins.zb.ZotBox;
-
 import java.util.Random;
 
 public class CalculationLibrary
 {
 
-    private ZotBox plugin = ZotBox.getInstance();
     private Random random;
 
     public CalculationLibrary()

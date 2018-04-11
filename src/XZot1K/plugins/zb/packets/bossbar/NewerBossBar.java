@@ -42,7 +42,8 @@ public class NewerBossBar
         return this;
     }
 
-    public NewerBossBar show()
+    @SuppressWarnings("deprecation")
+	public NewerBossBar show()
     {
         switch (plugin.getServerVersion())
         {
@@ -60,7 +61,8 @@ public class NewerBossBar
         return this;
     }
 
-    public NewerBossBar hide()
+    @SuppressWarnings("deprecation")
+	public NewerBossBar hide()
     {
         switch (plugin.getServerVersion())
         {

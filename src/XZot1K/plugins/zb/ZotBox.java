@@ -1,5 +1,12 @@
 package XZot1K.plugins.zb;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import org.bukkit.plugin.java.JavaPlugin;
+
 import XZot1K.plugins.zb.commands.BaseCommand;
 import XZot1K.plugins.zb.libraries.*;
 import XZot1K.plugins.zb.libraries.inventorylib.InventoryLibrary;
@@ -10,7 +17,6 @@ import XZot1K.plugins.zb.statistichosts.MCUpdate;
 import XZot1K.plugins.zb.statistichosts.Metrics;
 import XZot1K.plugins.zb.utils.holograms.HologramManager;
 import XZot1K.plugins.zb.utils.holograms.HologramTask;
-import org.bukkit.plugin.java.JavaPlugin;
 
 public class ZotBox extends JavaPlugin
 {
@@ -133,6 +139,46 @@ public class ZotBox extends JavaPlugin
         }
     }
 
+    public boolean isOutdated()
+    {
+        try
+        {
+            final HttpURLConnection c = (HttpURLConnection) new URL("http://www.spigotmc.org/api/general.php")
+                    .openConnection();
+            c.setDoOutput(true);
+            c.setRequestMethod("POST");
+            c.getOutputStream().write(("key=98BE0FE67F88AB82B4C197FAF1DC3B69206EFDCC4D3B80FC83A00037510B99B4&resource"
+                    + "=35913").getBytes("UTF-8"));
+            final String oldversion = getDescription().getVersion();
+            final String newversion = new BufferedReader(new InputStreamReader(c.getInputStream())).readLine();
+            if (!newversion.equalsIgnoreCase(oldversion))
+            {
+                return true;
+            }
+        } catch (Exception ignored)
+        {
+        }
+        return false;
+    }
+
+    public String getLatestVersion()
+    {
+        try
+        {
+            final HttpURLConnection c = (HttpURLConnection) new URL("http://www.spigotmc.org/api/general.php")
+                    .openConnection();
+            c.setDoOutput(true);
+            c.setRequestMethod("POST");
+            c.getOutputStream().write(("key=98BE0FE67F88AB82B4C197FAF1DC3B69206EFDCC4D3B80FC83A00037510B99B4&resource"
+                    + "=17184").getBytes("UTF-8"));
+            return new BufferedReader(new InputStreamReader(c.getInputStream())).readLine();
+        } catch (Exception ex)
+        {
+            return getDescription().getVersion();
+        }
+    }
+    
+    // getters & setters
     public InventoryLibrary getInventoryLibrary()
     {
         return inventoryLibrary;

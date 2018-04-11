@@ -1,10 +1,7 @@
 package XZot1K.plugins.zb.utils;
 
-import XZot1K.plugins.zb.ZotBox;
-
 public class SpeedTest
 {
-    private ZotBox plugin = ZotBox.getInstance();
     private long startTimeStamp, stopTimeStamp;
 
     public SpeedTest()
