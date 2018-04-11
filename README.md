@@ -2,8 +2,8 @@
 
 In order to properly use ZotBox you will need to be able to retrieve the Lib's instance. You can do this by following these instructions:
 
-1. You need to download the ZotBox dependency and add it to your plugin's dependencies.  
-2. You need to make sure you are able to grab the ZotBox instance from your Main class file. Example:  
+1. Download the ZotBox dependency and add it to your plugin's dependencies.  
+2. Make sure it is possible to grab the ZotBox instance from your Main class file. Example:  
 
 ```
 import XZot1K.plugins.zl.ZotBox;
@@ -53,5 +53,5 @@ public final class Main extends JavaPlugin
 }
 ```
 
-3. Once 1 and 2 are completed you will need to modify your "depends: []", or "softdepends: []", within your plugin.yml (This step is optional, but never hurts to make sure ZotBox is installed).  
-4. You are good to go now you can call the getZotBox() method from your Main class and begin your adventure within ZotBox!
+3. Once 1 and 2 are completed, modify your "depends: []", or "softdepends: []", within your plugin.yml (This step is optional, but never hurts to make sure ZotBox is installed).  
+4. Everything should be all set. As a test, call the getZotBox() method from your Main class and begin your adventure within ZotBox!
