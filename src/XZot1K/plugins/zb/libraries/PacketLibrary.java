@@ -227,13 +227,14 @@ public class PacketLibrary
      * @param lines      A list of the lines for the hologram to display (include color codes).
      * @param lineSpread How far apart should each line be from each other?
      * @param location   The location where it should be displayed.
-     *
      * @return The pre-built hologram object. Use the .create() method to create the packet before showing players.
      */
     public Hologram createNewHologram(String id, List<String> lines, double lineSpread, Location location)
     {
         switch (plugin.getServerVersion())
         {
+            case "v1_12_R1":
+                return new Hologram1_12R1(id, lines, lineSpread, location);
             case "v1_11_R1":
                 return new Hologram1_11R1(id, lines, lineSpread, location);
             case "v1_10_R1":
@@ -258,7 +259,6 @@ public class PacketLibrary
      *
      * @param player player to send to.
      * @param text   the text that appears.
-     *
      * @return the OlderBossBar object.
      */
     public OlderBossBar getOlderBossBar(Player player, String text)
@@ -285,7 +285,6 @@ public class PacketLibrary
      * @param barColor the color of the boss bar
      * @param barStyle the boss bar style.
      * @param barFlag  the flags for the boss bar.
-     *
      * @return the NewerBossBar object.
      */
     public NewerBossBar getNewerBossBar(String text, BarColor barColor, BarStyle barStyle, BarFlag barFlag)

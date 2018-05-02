@@ -136,12 +136,12 @@ public class PluginManagementLibrary
                 }
 
                 plugin.getServer().getPluginManager().disablePlugin(pl);
-                if (plugins != null && plugins.contains(pl))
+                if (plugins != null)
                 {
                     plugins.remove(pl);
                 }
 
-                if (names != null && names.containsKey(name))
+                if (names != null)
                 {
                     names.remove(name);
                 }

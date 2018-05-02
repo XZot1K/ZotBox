@@ -1,9 +1,9 @@
 package XZot1K.plugins.zb.utils;
 
+import org.bukkit.entity.Player;
+
 import java.util.HashMap;
 import java.util.UUID;
-
-import org.bukkit.entity.Player;
 
 public class CooldownSet
 {

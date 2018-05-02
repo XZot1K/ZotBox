@@ -1,12 +1,5 @@
 package XZot1K.plugins.zb;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
-import org.bukkit.plugin.java.JavaPlugin;
-
 import XZot1K.plugins.zb.commands.BaseCommand;
 import XZot1K.plugins.zb.libraries.*;
 import XZot1K.plugins.zb.libraries.inventorylib.InventoryLibrary;
@@ -15,6 +8,12 @@ import XZot1K.plugins.zb.listeners.HologramListeners;
 import XZot1K.plugins.zb.packets.holograms.Hologram;
 import XZot1K.plugins.zb.utils.holograms.HologramManager;
 import XZot1K.plugins.zb.utils.holograms.HologramTask;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class ZotBox extends JavaPlugin
 {

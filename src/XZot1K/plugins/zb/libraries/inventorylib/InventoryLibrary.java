@@ -173,27 +173,15 @@ public class InventoryLibrary
                     {
                         if (item1.getItemMeta().hasLore() && item2.getItemMeta().hasLore())
                         {
-                            if (item1.getItemMeta().getLore().equals(item2.getItemMeta().getLore()))
-                            {
-                                return true;
-                            }
-                        } else if (!item1.getItemMeta().hasLore() && !item2.getItemMeta().hasLore())
-                        {
-                            return true;
-                        }
+                            return item1.getItemMeta().getLore().equals(item2.getItemMeta().getLore());
+                        } else return !item1.getItemMeta().hasLore() && !item2.getItemMeta().hasLore();
                     }
                 } else if (!item1.getItemMeta().hasDisplayName() && !item2.getItemMeta().hasDisplayName())
                 {
                     if (item1.getItemMeta().hasLore() && item2.getItemMeta().hasLore())
                     {
-                        if (item1.getItemMeta().getLore().equals(item2.getItemMeta().getLore()))
-                        {
-                            return true;
-                        }
-                    } else if (!item1.getItemMeta().hasLore() && !item2.getItemMeta().hasLore())
-                    {
-                        return true;
-                    }
+                        return item1.getItemMeta().getLore().equals(item2.getItemMeta().getLore());
+                    } else return !item1.getItemMeta().hasLore() && !item2.getItemMeta().hasLore();
                 }
             } else
             {

@@ -1,12 +1,17 @@
 package XZot1K.plugins.zb.utils.subcommands;
 
-import java.util.*;
-
-import org.bukkit.command.*;
+import XZot1K.plugins.zb.ZotBox;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
 
-import XZot1K.plugins.zb.ZotBox;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * A command that can contain subcommands which are accessed by /(command)

@@ -1,12 +1,11 @@
 package XZot1K.plugins.zb.utils;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import XZot1K.plugins.zb.ZotBox;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.*;
 
-import XZot1K.plugins.zb.ZotBox;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CustomScoreboard
 {

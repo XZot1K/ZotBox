@@ -59,10 +59,7 @@ public class HologramManager
 
     public void unRegisterHologram(Hologram hologram)
     {
-        if (getHolograms().contains(hologram))
-        {
-            getHolograms().remove(hologram);
-        }
+        getHolograms().remove(hologram);
 
     }
 
