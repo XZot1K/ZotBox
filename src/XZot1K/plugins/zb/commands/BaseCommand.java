@@ -28,47 +28,47 @@ public class BaseCommand implements CommandExecutor
 
         ArrayList<String> page1 = new ArrayList<>();
         page1.add("");
-        page1.add("&8<&m------------&r&8( &e★ &bZot&7Box &bCommands &8[&7Page &e1&8] &e★ &8)&m-----------&r&8>");
+        page1.add("&8<&m------------&r&8( &e&l*&r &bZot&7Box &bCommands &8[&7Page &e1&8] &e&l*&r &8)&m-----------&r&8>");
         page1.add("");
-        page1.add("&8★ &e/zotbox help <page> &8- &aOpens a help page or the main page if the page is not defined.");
-        page1.add("&8★ &e/zotbox reload &8- &aRe-Loads all packets and configurations.");
-        page1.add("&8★ &e/zotbox info &8- &aDisplays information about the plugin.");
-        page1.add("&8★ &e/zotbox <sendmessage/sm> <player> <message> &8- &aSends the player a custom message.");
+        page1.add("&8&l*&r &e/zotbox help <page> &8- &aOpens a help page or the main page if the page is not defined.");
+        page1.add("&8&l*&r &e/zotbox reload &8- &aRe-Loads all packets and configurations.");
+        page1.add("&8&l*&r &e/zotbox info &8- &aDisplays information about the plugin.");
+        page1.add("&8&l*&r &e/zotbox <sendmessage/sm> <player> <message> &8- &aSends the player a custom message.");
         page1.add("");
         pages.put(1, page1);
 
         ArrayList<String> page2 = new ArrayList<>();
         page2.add("");
-        page2.add("&8<&m------------&r&8( &e★ &bZot&7Box &bCommands &8[&7Page &e2&8] &e★ &8)&m-----------&r&8>");
+        page2.add("&8<&m------------&r&8( &e&l*&r &bZot&7Box &bCommands &8[&7Page &e2&8] &e&l*&r &8)&m-----------&r&8>");
         page2.add("");
-        page2.add("&8★ &e/zotbox <loadplugin/lp> <plugin> &8- &aLoads an un-loaded plugin.");
-        page2.add("&8★ &e/zotbox <unloadplugin/up> <plugin> &8- &aUn-Loads a loaded plugin.");
-        page2.add("&8★ &e/zotbox <reloadplugin/rp> <plugin> &8- &aRe-Loads a loaded plugin.");
-        page2.add("&8★ &e/zotbox <createhologram/ch> <id> &8- &aCreates a new hologram.");
+        page2.add("&8&l*&r &e/zotbox <loadplugin/lp> <plugin> &8- &aLoads an un-loaded plugin.");
+        page2.add("&8&l*&r &e/zotbox <unloadplugin/up> <plugin> &8- &aUn-Loads a loaded plugin.");
+        page2.add("&8&l*&r &e/zotbox <reloadplugin/rp> <plugin> &8- &aRe-Loads a loaded plugin.");
+        page2.add("&8&l*&r &e/zotbox <createhologram/ch> <id> &8- &aCreates a new hologram.");
         page2.add("");
         pages.put(2, page2);
 
         ArrayList<String> page3 = new ArrayList<>();
         page3.add("");
-        page3.add("&8<&m------------&r&8( &e★ &bZot&7Box &bCommands &8[&7Page &e3&8] &e★ &8)&m------------&r&8>");
+        page3.add("&8<&m------------&r&8( &e&l*&r &bZot&7Box &bCommands &8[&7Page &e3&8] &e&l*&r &8)&m------------&r&8>");
         page3.add("");
-        page3.add("&8★ &e/zotbox <deletehologram/dh> <id> &8- &aDeletes a the defined hologram.");
-        page3.add("&8★ &e/zotbox <addhologramline/ahl> <id> <index> <text> &8- &aAdds a new line to the hologram.");
-        page3.add("&8★ &e/zotbox <removehologramline/rhl> <id> <index> <text> &8- &aRemoves a line from the hologram" +
+        page3.add("&8&l*&r &e/zotbox <deletehologram/dh> <id> &8- &aDeletes a the defined hologram.");
+        page3.add("&8&l*&r &e/zotbox <addhologramline/ahl> <id> <index> <text> &8- &aAdds a new line to the hologram.");
+        page3.add("&8&l*&r &e/zotbox <removehologramline/rhl> <id> <index> <text> &8- &aRemoves a line from the hologram" +
                 ".");
-        page3.add("&8★ &e/zotbox <relocatehologram/rh> <id> &8- &aRe-locates the hologram.");
+        page3.add("&8&l*&r &e/zotbox <relocatehologram/rh> <id> &8- &aRe-locates the hologram.");
         page3.add("");
         pages.put(3, page3);
 
         ArrayList<String> page4 = new ArrayList<>();
         page4.add("");
-        page4.add("&8<&m------------&r&8( &e★ &bZot&7Box &bCommands &8[&7Page &e4&8] &e★ &8)&m------------&r&8>");
+        page4.add("&8<&m------------&r&8( &e&l*&r &bZot&7Box &bCommands &8[&7Page &e4&8] &e&l*&r &8)&m------------&r&8>");
         page4.add("");
         page4.add(
-                "&8★ &e/zotbox <sethologramlinespread/shls> <id> <value> &8- &aSets the spread amount for the " +
+                "&8&l*&r &e/zotbox <sethologramlinespread/shls> <id> <value> &8- &aSets the spread amount for the " +
                         "hologram's lines.");
         page4.add(
-                "&8★ &e/zotbox <modifyhologramline/mhl> <id> <index> <text> &8- &aModifies the line in the hologram.");
+                "&8&l*&r &e/zotbox <modifyhologramline/mhl> <id> <index> <text> &8- &aModifies the line in the hologram.");
         page4.add("");
         pages.put(4, page4);
 
@@ -189,10 +189,9 @@ public class BaseCommand implements CommandExecutor
             {
                 if (getHelpPages().containsKey(page))
                 {
-                    for (String line : getHelpPages().get(page))
-                    {
-                        sender.sendMessage(plugin.getGeneralLibrary().color(line));
-                    }
+                    List<String> lines = getHelpPages().get(page);
+                    for (int i = -1; ++i < lines.size(); )
+                        sender.sendMessage(plugin.getGeneralLibrary().color(lines.get(i)));
 
                     if (getHelpPages().containsKey(page + 1) && getHelpPages().containsKey(page - 1))
                     {
@@ -230,16 +229,21 @@ public class BaseCommand implements CommandExecutor
                         jsonMessage.sendJSONToPlayer(player);
                     }
                 } else
-                {
-                    sender.sendMessage(plugin.getGeneralLibrary().color("&8<&m---------------------&r&8>"));
-                }
+                    sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString("help-page-invalid-message")));
                 return;
             } catch (Exception ignored)
             {
             }
         }
 
-        sender.sendMessage(plugin.getGeneralLibrary().color("&8<&m---------------------------&r&8>"));
+        if (getHelpPages().containsKey(page))
+        {
+            List<String> lines = getHelpPages().get(page);
+            for (int i = -1; ++i < lines.size(); )
+                sender.sendMessage(plugin.getGeneralLibrary().color(lines.get(i)));
+            sender.sendMessage(plugin.getGeneralLibrary().color("&8<&m-------------------------------------------------------&r&8>"));
+        } else
+            sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString("help-page-invalid-message")));
     }
 
     // Hologram command methods.
@@ -658,12 +662,12 @@ public class BaseCommand implements CommandExecutor
         if (sender.hasPermission("zotbox.info"))
         {
             sender.sendMessage(plugin.getGeneralLibrary()
-                    .color(" \n&8<&m--------------&r&8( &e★ &bZot&7Box &e★ &8)&m-------------&r&8>"));
+                    .color(" \n&8<&m--------------&r&8( &e&l*&r &bZot&7Box &e&l*&r &8)&m-------------&r&8>"));
             sender.sendMessage(plugin.getGeneralLibrary().color(""));
             sender.sendMessage(
-                    plugin.getGeneralLibrary().color("&e★ &8Version: &b" + plugin.getDescription().getVersion()));
+                    plugin.getGeneralLibrary().color("&e&l*&r &8Version: &b" + plugin.getDescription().getVersion()));
             sender.sendMessage(plugin.getGeneralLibrary().color(""));
-            sender.sendMessage(plugin.getGeneralLibrary().color("&e★ &8Author(s): &bXZot1K"));
+            sender.sendMessage(plugin.getGeneralLibrary().color("&e&l*&r &8Author(s): &bXZot1K"));
             sender.sendMessage(plugin.getGeneralLibrary().color(""));
             sender.sendMessage(plugin.getGeneralLibrary().color("&8<&m-------------------------------------&r&8>\n "));
         } else
