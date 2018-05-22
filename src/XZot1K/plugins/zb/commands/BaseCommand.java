@@ -629,31 +629,14 @@ public class BaseCommand implements CommandExecutor
     {
         if (sender.hasPermission("zotbox.loadplugin"))
         {
-            if (plugin.getPluginManagementLibrary().loadPlugin(pluginName, true))
-            {
-                sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString(
-                        "plugin-loaded-message")
-                        .replace("{plugin}",
-                                plugin
-                                        .getPluginManagementLibrary()
-                                        .getProperPluginName(
-                                                pluginName))));
-            } else
-            {
-                sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString(
-                        "plugin-load-fail-message")
-                        .replace("{plugin}",
-                                plugin
-                                        .getPluginManagementLibrary()
-                                        .getProperPluginName(
-                                                pluginName))));
-            }
+            if (plugin.getPluginManagementLibrary().loadPlugin(pluginName.replace(" ", "_"), true))
+                sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString("plugin-loaded-message")
+                        .replace("{plugin}", plugin.getPluginManagementLibrary().getProperPluginName(pluginName))));
+            else
+                sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString("plugin-load-fail-message")
+                        .replace("{plugin}", plugin.getPluginManagementLibrary().getProperPluginName(pluginName))));
         } else
-        {
-            sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() +
-                    plugin.getConfig().getString
-                            ("no-permission-message")));
-        }
+            sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString("no-permission-message")));
     }
 
     // General command methods.

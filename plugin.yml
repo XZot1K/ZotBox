@@ -1,7 +1,7 @@
 name: ZotBox
-version: 1.3.9.1
+version: 1.4
 main: XZot1K.plugins.zb.ZotBox
-description: An advanced bukkit/spigot library/utility plugin that can make a variety of things easier!
+description: An advanced bukkit/spigot library plugin crossover that can make a variety of things easier!
 commands:
   zotbox:
     default: op

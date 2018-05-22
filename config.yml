@@ -6,6 +6,8 @@
 update-notifications: true
 # Tells the library if it needs to setup packets for plugins that are using it on enable.
 setup-packets: true
+# Should ZotBox take control and manage all of your server's worlds?
+use-world-manager: true
 
 # These are the plugins that can't be touched by ZotBox's plugin management systems.
 prevented-plugins: ["ZotBox"]
