@@ -26,17 +26,16 @@ public class LocationLibrary
      * @param xRadius     The X radius.
      * @param yRadius     The Y Radius.
      * @param zRadius     The Z Radius.
-     *
      * @return A list of all the blocks found.
      */
     public List<Block> getBlocksInRadius(Location centerPoint, int xRadius, int yRadius, int zRadius)
     {
         List<Block> blocks = new ArrayList<>();
-        for (int x = centerPoint.getBlockX() - xRadius; x < centerPoint.getBlockX() + xRadius; x++)
+        for (int x = (centerPoint.getBlockX() - xRadius) - 1; ++x < centerPoint.getBlockX() + xRadius; )
         {
-            for (int y = centerPoint.getBlockY() - yRadius; y < centerPoint.getBlockY() + yRadius; y++)
+            for (int y = (centerPoint.getBlockY() - yRadius) - 1; ++y < centerPoint.getBlockY() + yRadius; )
             {
-                for (int z = centerPoint.getBlockZ() - zRadius; z < centerPoint.getBlockZ() + zRadius; z++)
+                for (int z = (centerPoint.getBlockZ() - zRadius) - 1; ++z < centerPoint.getBlockZ() + zRadius; )
                 {
                     Block block = centerPoint.getWorld().getBlockAt(x, y, z);
                     blocks.add(block);
@@ -56,7 +55,7 @@ public class LocationLibrary
      * @param toData       The data that you want the blocks to change to.
      */
     @SuppressWarnings("deprecation")
-	public void replaceBlocks(List<Block> blocksList, Material fromMaterial, Material toMaterial, byte fromData,
+    public void replaceBlocks(List<Block> blocksList, Material fromMaterial, Material toMaterial, byte fromData,
                               byte toData)
     {
         for (int i = -1; ++i < blocksList.size(); )
@@ -76,20 +75,22 @@ public class LocationLibrary
      * @param location The location you want to check is between the two locations.
      * @param point1   The 1st location.
      * @param point2   The 2nd location.
-     *
      * @return Whether the location is in fact between the two locations or not.
      */
     public boolean isLocationBetweenTwoLocations(Location location, Location point1, Location point2)
     {
-        return location.toVector().isInAABB(point1.toVector(), point2.toVector())
-                || location.toVector().isInAABB(point2.toVector(), point1.toVector());
+        return ((location.getBlockX() <= point1.getBlockX() && location.getBlockX() >= point2.getBlockX())
+                || (location.getBlockX() <= point2.getBlockX() && location.getBlockX() >= point1.getBlockX()))
+                && ((location.getBlockY() <= point1.getBlockY() && location.getY() >= point2.getBlockY())
+                || (location.getBlockY() <= point2.getBlockY() && location.getBlockY() >= point1.getBlockY()))
+                && ((location.getBlockZ() <= point1.getZ() && location.getBlockZ() >= point2.getBlockZ())
+                || (location.getBlockZ() <= point2.getBlockZ() && location.getBlockZ() >= point1.getBlockZ()));
     }
 
     /**
      * Gets all the blocks in the specified chunk.
      *
      * @param chunk The chunk you want to get all blocks from.
-     *
      * @return A list of all the found blocks.
      */
     public List<Block> getBlocksInChunk(Chunk chunk)
@@ -98,11 +99,11 @@ public class LocationLibrary
         int bx = chunk.getX() << 4;
         int bz = chunk.getZ() << 4;
 
-        for (int xx = bx; xx < (bx + 16); xx++)
+        for (int xx = bx - 1; ++xx < (bx + 16); )
         {
-            for (int zz = bz; zz < (bz + 16); zz++)
+            for (int zz = bz - 1; ++zz < (bz + 16); )
             {
-                for (int yy = 0; yy < chunk.getWorld().getMaxHeight(); yy++)
+                for (int yy = -1; ++yy < chunk.getWorld().getMaxHeight(); )
                 {
                     Block block = chunk.getWorld().getBlockAt(xx, yy, zz);
                     blocks.add(block);
@@ -117,7 +118,6 @@ public class LocationLibrary
      *
      * @param centerLocation The center location to find entities around.
      * @param distance       The distance from the specified center location.
-     *
      * @return A list off all the found entities.
      */
     public List<Entity> getEntitiesInRadius(Location centerLocation, double distance)
@@ -127,9 +127,7 @@ public class LocationLibrary
         {
             Entity entity = centerLocation.getWorld().getEntities().get(i);
             if (entity.getLocation().distance(centerLocation) <= distance)
-            {
                 entities.add(entity);
-            }
         }
         return entities;
     }
@@ -138,33 +136,17 @@ public class LocationLibrary
      * Gets a direction based on the fed yaw value.
      *
      * @param yaw The yaw from a location (player or entity to be specific).
-     *
      * @return The direction that was found/calculated.
      */
     public Direction getDirection(float yaw)
     {
         double rotation = (yaw - 90.0F) % 360.0F;
-        if (rotation < 0.0D)
-        {
-            rotation += 360.0D;
-        }
-
-        if ((0.0D <= rotation) && (rotation < 45.0D))
-        {
-            return Direction.WEST;
-        } else if ((45.0D <= rotation) && (rotation < 135.0D))
-        {
-            return Direction.NORTH;
-        } else if ((135.0D <= rotation) && (rotation < 225.0D))
-        {
-            return Direction.EAST;
-        } else if ((225.0D <= rotation) && (rotation < 315.0D))
-        {
-            return Direction.SOUTH;
-        } else if ((315.0D <= rotation) && (rotation < 360.0D))
-        {
-            return Direction.WEST;
-        }
+        if (rotation < 0.0D) rotation += 360.0D;
+        if ((0.0D <= rotation) && (rotation < 45.0D)) return Direction.WEST;
+        else if ((45.0D <= rotation) && (rotation < 135.0D)) return Direction.NORTH;
+        else if ((135.0D <= rotation) && (rotation < 225.0D)) return Direction.EAST;
+        else if ((225.0D <= rotation) && (rotation < 315.0D)) return Direction.SOUTH;
+        else if ((315.0D <= rotation) && (rotation < 360.0D)) return Direction.WEST;
         return null;
     }
 
@@ -189,7 +171,7 @@ public class LocationLibrary
      * @param block2 The 2nd block you want to swap with the 1st.
      */
     @SuppressWarnings("deprecation")
-	public void swapBlocks(Block block1, Block block2, boolean useEffects)
+    public void swapBlocks(Block block1, Block block2, boolean useEffects)
     {
         Material block1Material = block1.getType();
         byte block1Data = block1.getData();
@@ -212,22 +194,21 @@ public class LocationLibrary
      * Gets a yaw value based on the block face fed to it.
      *
      * @param blockFace The blockface you want to calculate the yaw from.
-     *
      * @return The yaw that was calculated from the blockface.
      */
     public double getYaw(BlockFace blockFace)
     {
         switch (blockFace)
         {
-			case EAST:
-				return (float) 90;
-			case SOUTH:
-				return (float) 180;
-			case WEST:
-				return (float) 270;
-			default:
-				return (float) 0;
-		}
-	}
+            case EAST:
+                return (float) 90;
+            case SOUTH:
+                return (float) 180;
+            case WEST:
+                return (float) 270;
+            default:
+                return (float) 0;
+        }
+    }
 
 }

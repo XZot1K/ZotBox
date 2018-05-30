@@ -21,9 +21,7 @@ public class HologramListeners implements Listener
             Hologram hologram = plugin.getHologramManager().getHolograms().get(i);
             Location location = hologram.getLocation();
             if (location.getChunk().getX() == e.getChunk().getX() && location.getChunk().getZ() == e.getChunk().getZ())
-            {
                 hologram.showAll();
-            }
         }
     }
 
@@ -35,9 +33,7 @@ public class HologramListeners implements Listener
             Hologram hologram = plugin.getHologramManager().getHolograms().get(i);
             Location location = hologram.getLocation();
             if (location.getChunk().getX() == e.getChunk().getX() && location.getChunk().getZ() == e.getChunk().getZ())
-            {
                 hologram.hideAll();
-            }
         }
     }
 

@@ -23,15 +23,15 @@ public class CustomItem
     }
 
     @SuppressWarnings("deprecation")
-	public CustomItem(int materialId, int amount, short durability)
+    public CustomItem(int materialId, int amount, short durability)
     {
         setItemStack(new ItemStack(Material.getMaterial(materialId), amount, durability));
     }
 
     public CustomItem(String materialName, int amount, short durability)
     {
-        String formatedName = materialName.toUpperCase().replace(" ", "_").replace("-", "_");
-        setItemStack(new ItemStack(Material.getMaterial(formatedName), amount, durability));
+        String formattedName = materialName.toUpperCase().replace(" ", "_").replace("-", "_");
+        setItemStack(new ItemStack(Material.getMaterial(formattedName), amount, durability));
     }
 
     public ItemStack getItemStack()
@@ -67,9 +67,7 @@ public class CustomItem
         ItemMeta meta = getItemStack().getItemMeta();
         ArrayList<String> newLore = new ArrayList<>();
         for (int i = -1; ++i < lore.size(); )
-        {
             newLore.add(plugin.getGeneralLibrary().color(lore.get(i)));
-        }
         meta.setLore(newLore);
         getItemStack().setItemMeta(meta);
         return this;
@@ -77,13 +75,8 @@ public class CustomItem
 
     public CustomItem addEnchantment(Enchantment enchantment, int level, boolean ignoreLevelRestriction)
     {
-        if (ignoreLevelRestriction)
-        {
-            getItemStack().addUnsafeEnchantment(enchantment, level);
-        } else
-        {
-            getItemStack().addEnchantment(enchantment, level);
-        }
+        if (ignoreLevelRestriction) getItemStack().addUnsafeEnchantment(enchantment, level);
+        else getItemStack().addEnchantment(enchantment, level);
         return this;
     }
 
@@ -176,6 +169,7 @@ public class CustomItem
         return plugin.getInventoryLibrary().doItemsMatch(getItemStack(), itemStack);
     }
 
+    @Deprecated
     public void replaceInLore(String placeholder, String value)
     {
         if (getItemMeta().hasLore())
@@ -189,6 +183,7 @@ public class CustomItem
         }
     }
 
+    @Deprecated
     public void replaceInDisplayName(String placeholder, String value)
     {
         if (getItemMeta().hasDisplayName())

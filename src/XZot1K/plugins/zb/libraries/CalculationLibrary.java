@@ -38,10 +38,7 @@ public class CalculationLibrary
 
             boolean eat(int charToEat)
             {
-                while (ch == ' ')
-                {
-                    nextChar();
-                }
+                while (ch == ' ') nextChar();
                 if (ch == charToEat)
                 {
                     nextChar();
@@ -54,8 +51,7 @@ public class CalculationLibrary
             {
                 nextChar();
                 double x = parseExpression();
-                if (pos < formula.length())
-                    throw new RuntimeException("Unexpected: " + (char) ch);
+                if (pos < formula.length()) throw new RuntimeException("Unexpected: " + (char) ch);
                 return x;
             }
 
@@ -64,12 +60,9 @@ public class CalculationLibrary
                 double x = parseTerm();
                 for (; ; )
                 {
-                    if (eat('+'))
-                        x += parseTerm();
-                    else if (eat('-'))
-                        x -= parseTerm();
-                    else
-                        return x;
+                    if (eat('+')) x += parseTerm();
+                    else if (eat('-')) x -= parseTerm();
+                    else return x;
                 }
             }
 
@@ -78,41 +71,30 @@ public class CalculationLibrary
                 double x = parseFactor();
                 for (; ; )
                 {
-                    if (eat('*'))
-                        x *= parseFactor();
-                    else if (eat('/'))
-                        x /= parseFactor();
-                    else
-                        return x;
+                    if (eat('*')) x *= parseFactor();
+                    else if (eat('/')) x /= parseFactor();
+                    else return x;
                 }
             }
 
             double parseFactor()
             {
-                if (eat('+'))
-                    return parseFactor();
-                if (eat('-'))
-                    return -parseFactor();
-
+                if (eat('+')) return parseFactor();
+                if (eat('-')) return -parseFactor();
                 double x;
                 int startPos = this.pos;
+
                 if (eat('('))
                 {
                     x = parseExpression();
                     eat(')');
                 } else if ((ch >= '0' && ch <= '9') || ch == '.')
                 {
-                    while ((ch >= '0' && ch <= '9') || ch == '.')
-                    {
-                        nextChar();
-                    }
+                    while ((ch >= '0' && ch <= '9') || ch == '.') nextChar();
                     x = Double.parseDouble(formula.substring(startPos, this.pos));
                 } else if (ch >= 'a' && ch <= 'z')
                 {
-                    while (ch >= 'a' && ch <= 'z')
-                    {
-                        nextChar();
-                    }
+                    while (ch >= 'a' && ch <= 'z') nextChar();
                     String func = formula.substring(startPos, this.pos);
                     x = parseFactor();
                     switch (func)
@@ -132,14 +114,9 @@ public class CalculationLibrary
                         default:
                             throw new RuntimeException("Unknown function: " + func);
                     }
-                } else
-                {
-                    throw new RuntimeException("Unexpected: " + (char) ch);
-                }
+                } else throw new RuntimeException("Unexpected: " + (char) ch);
 
-                if (eat('^'))
-                    x = Math.pow(x, parseFactor());
-
+                if (eat('^')) x = Math.pow(x, parseFactor());
                 return x;
             }
 

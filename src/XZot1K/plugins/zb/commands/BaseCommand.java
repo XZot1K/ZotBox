@@ -54,8 +54,7 @@ public class BaseCommand implements CommandExecutor
         page3.add("");
         page3.add("&8&l*&r &e/zotbox <deletehologram/dh> <id> &8- &aDeletes a the defined hologram.");
         page3.add("&8&l*&r &e/zotbox <addhologramline/ahl> <id> <index> <text> &8- &aAdds a new line to the hologram.");
-        page3.add("&8&l*&r &e/zotbox <removehologramline/rhl> <id> <index> <text> &8- &aRemoves a line from the hologram" +
-                ".");
+        page3.add("&8&l*&r &e/zotbox <removehologramline/rhl> <id> <index> <text> &8- &aRemoves a line from the hologram.");
         page3.add("&8&l*&r &e/zotbox <relocatehologram/rh> <id> &8- &aRe-locates the hologram.");
         page3.add("");
         pages.put(3, page3);
@@ -64,13 +63,23 @@ public class BaseCommand implements CommandExecutor
         page4.add("");
         page4.add("&8<&m------------&r&8( &e&l*&r &bZot&7Box &bCommands &8[&7Page &e4&8] &e&l*&r &8)&m------------&r&8>");
         page4.add("");
-        page4.add(
-                "&8&l*&r &e/zotbox <sethologramlinespread/shls> <id> <value> &8- &aSets the spread amount for the " +
-                        "hologram's lines.");
-        page4.add(
-                "&8&l*&r &e/zotbox <modifyhologramline/mhl> <id> <index> <text> &8- &aModifies the line in the hologram.");
+        page4.add("&8&l*&r &e/zotbox <sethologramlinespread/shls> <id> <value> &8- &aSets the spread amount for the hologram's lines.");
+        page4.add("&8&l*&r &e/zotbox <modifyhologramline/mhl> <id> <index> <text> &8- &aModifies the line in the hologram.");
+        page4.add("&8&l*&r &e/zotbox <createworld/cw> <world-name> <generator:generator-settings:environment:world-type:generate-structures:seed> " +
+                "&8- &acreates a new world with special optional parameters.");
+        page4.add("&8&l*&r &e/zotbox <loadworld/lw> <world-name> &8- &aloads the provided world.");
         page4.add("");
         pages.put(4, page4);
+
+        ArrayList<String> page5 = new ArrayList<>();
+        page5.add("");
+        page5.add("&8<&m------------&r&8( &e&l*&r &bZot&7Box &bCommands &8[&7Page &e4&8] &e&l*&r &8)&m------------&r&8>");
+        page5.add("");
+        page5.add("&8&l*&r &e/zotbox <unloadworld/uw> <world-name> &8- &aunloads the provided world.");
+        page5.add("&8&l*&r &e/zotbox <syncworld/sw> <world-name> &8- &are-syncs the provided world.");
+        page5.add("&8&l*&r &e/zotbox <updateproperty/uwp> <world-name> <property> <boolean> &8- &aupdates the world's specified property.");
+        page5.add("");
+        pages.put(5, page5);
 
         this.helpPages = pages;
     }
@@ -139,6 +148,22 @@ public class BaseCommand implements CommandExecutor
                     {
                         relocateHologramCommand(sender, args[1]);
                         return true;
+                    } else if (args[0].equalsIgnoreCase("createWorld") || args[0].equalsIgnoreCase("cw"))
+                    {
+                        createWorldCommand(sender, args[1], null);
+                        return true;
+                    } else if (args[0].equalsIgnoreCase("unloadworld") || args[0].equalsIgnoreCase("uw"))
+                    {
+                        unloadWorldCommand(sender, args[1]);
+                        return true;
+                    } else if (args[0].equalsIgnoreCase("loadworld") || args[0].equalsIgnoreCase("lw"))
+                    {
+                        loadWorldCommand(sender, args[1]);
+                        return true;
+                    } else if (args[0].equalsIgnoreCase("syncworld") || args[0].equalsIgnoreCase("sw"))
+                    {
+                        syncWorldCommand(sender, args[1]);
+                        return true;
                     }
                 } else if (args.length == 3)
                 {
@@ -158,12 +183,20 @@ public class BaseCommand implements CommandExecutor
                     {
                         setHologramLineSpreadCommand(sender, args[1], args[2]);
                         return true;
+                    } else if (args[0].equalsIgnoreCase("createWorld") || args[0].equalsIgnoreCase("cw"))
+                    {
+                        createWorldCommand(sender, args[1], args[2]);
+                        return true;
                     }
                 } else if (args.length == 4)
                 {
                     if (args[0].equalsIgnoreCase("modifyhologramline") || args[0].equalsIgnoreCase("mhl"))
                     {
                         modifyHologramLineCommand(sender, args[1], args[2], args[3]);
+                        return true;
+                    } else if (args[0].equalsIgnoreCase("updateproperty") || args[0].equalsIgnoreCase("uwp"))
+                    {
+                        updateWorldPropertyCommand(sender, args[1], args[2], args[3]);
                         return true;
                     }
                 }
@@ -244,6 +277,57 @@ public class BaseCommand implements CommandExecutor
             sender.sendMessage(plugin.getGeneralLibrary().color("&8<&m-------------------------------------------------------&r&8>"));
         } else
             sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString("help-page-invalid-message")));
+    }
+
+    // World management methods.
+    private void updateWorldPropertyCommand(CommandSender sender, String worldName, String propertyTypeString, String booleanString)
+    {
+        if (sender.hasPermission("zotbox.worldmanagement"))
+        {
+            sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString(
+                    "coming-soon-message")));
+        } else sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString(
+                "no-permission-message")));
+    }
+
+    private void syncWorldCommand(CommandSender sender, String worldName)
+    {
+        if (sender.hasPermission("zotbox.worldmanagement"))
+        {
+            sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString(
+                    "coming-soon-message")));
+        } else sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString(
+                "no-permission-message")));
+    }
+
+    private void createWorldCommand(CommandSender sender, String worldName, String parameterString)
+    {
+        if (sender.hasPermission("zotbox.worldmanagement"))
+        {
+            sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString(
+                    "coming-soon-message")));
+        } else sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString(
+                "no-permission-message")));
+    }
+
+    private void unloadWorldCommand(CommandSender sender, String worldName)
+    {
+        if (sender.hasPermission("zotbox.worldmanagement"))
+        {
+            sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString(
+                    "coming-soon-message")));
+        } else sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString(
+                "no-permission-message")));
+    }
+
+    private void loadWorldCommand(CommandSender sender, String worldName)
+    {
+        if (sender.hasPermission("zotbox.worldmanagement"))
+        {
+            sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString(
+                    "coming-soon-message")));
+        } else sender.sendMessage(plugin.getGeneralLibrary().color(plugin.getPrefix() + plugin.getConfig().getString(
+                "no-permission-message")));
     }
 
     // Hologram command methods.

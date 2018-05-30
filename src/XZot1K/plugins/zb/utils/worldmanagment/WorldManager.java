@@ -7,7 +7,9 @@ import org.bukkit.WorldType;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class WorldManager
 {
@@ -23,13 +25,12 @@ public class WorldManager
     {
         this.pluginInstance = pluginInstance;
         worldSnapshots = new HashMap<>();
-        // if (pluginInstance.getConfig().getBoolean("use-world-manager")) loadWorldData();
     }
 
     private void loadWorldData()
     {
         File directory = new File(pluginInstance.getDataFolder(), "/worlds");
-        if (!directory.mkdirs()) return;
+        directory.mkdirs();
 
         File[] directoryFiles = directory.listFiles();
         if (directoryFiles == null) return;
@@ -51,6 +52,19 @@ public class WorldManager
                         environment, worldType, yaml.getLong("seed"));
                 worldSnap.setLoaded(yaml.getBoolean("loaded"));
 
+                List<String> properties = new ArrayList<>(yaml.getConfigurationSection("properties").getKeys(false));
+                for (int j = -1; ++j < properties.size(); )
+                {
+                    try
+                    {
+                        String propertyId = properties.get(j);
+                        worldSnap.updateWorldProperty(WorldProperty.valueOf(propertyId.toUpperCase()
+                                        .replace(" ", "_").replace("-", "_")),
+                                yaml.getBoolean("properties." + propertyId));
+                    } catch (Exception ignored) {}
+                }
+
+                pluginInstance.getGeneralLibrary().sendConsoleMessage("&aThe world &e" + worldSnap.getWorldName() + " &awas loaded. ");
                 getWorldSnapshots().put(worldSnap.getWorldName(), worldSnap);
 
                 if (worldSnap.isLoaded() && !isWorldLoaded(worldSnap.getWorldName()))
@@ -58,6 +72,59 @@ public class WorldManager
                             worldSnap.getEnvironment(), worldSnap.getSeed(), worldSnap.getWorldType(), worldSnap.getGeneratorSettings());
             }
         }
+    }
+
+    public void saveWorldData(boolean saveAsynchronously)
+    {
+        pluginInstance.getGeneralLibrary().sendConsoleMessage("&a" + getWorldSnapshots().toString());
+        List<String> worldNames = new ArrayList<>(getWorldSnapshots().keySet());
+        for (int i = -1; ++i < worldNames.size(); )
+        {
+            String worldName = worldNames.get(i);
+            WorldSnapshot worldSnapshot = getWorldSnapshot(worldName);
+            if (worldSnapshot != null) worldSnapshot.save(saveAsynchronously);
+        }
+    }
+
+    public void syncWorldData()
+    {
+        long startTime = System.currentTimeMillis();
+        pluginInstance.getGeneralLibrary().sendConsoleMessage("&aSyncing accessible world data...");
+        loadWorldData();
+
+        List<World> worldList = new ArrayList<>(pluginInstance.getServer().getWorlds());
+        for (int i = -1; ++i < worldList.size(); )
+        {
+            World world = worldList.get(i);
+            WorldSnapshot worldSnapshot = getWorldSnapshot(world.getName());
+            if (worldSnapshot == null)
+            {
+                WorldSnapshot newWorldSnapshot = new WorldSnapshot(world.getName(), "",
+                        "", world.canGenerateStructures(), world.getEnvironment(), world.getWorldType(), world.getSeed());
+                newWorldSnapshot.save(true);
+                getWorldSnapshots().put(world.getName(), newWorldSnapshot);
+                pluginInstance.getGeneralLibrary().sendConsoleMessage("&aCreated world snapshot for the world &e" + world.getName() + "&a. ");
+            }
+        }
+
+        List<String> worldNames = new ArrayList<>(getWorldSnapshots().keySet());
+        for (int i = -1; ++i < worldNames.size(); )
+        {
+            String worldName = worldNames.get(i);
+            WorldSnapshot worldSnapshot = getWorldSnapshot(worldName);
+            if (worldSnapshot != null && isWorldLoaded(worldName) && !worldSnapshot.isLoaded())
+            {
+                unloadWorld(worldName, true);
+                pluginInstance.getGeneralLibrary().sendConsoleMessage("&aUnloaded the world &e" + worldName + "&a.");
+            } else if (worldSnapshot != null && !isWorldLoaded(worldName) && worldSnapshot.isLoaded())
+            {
+                buildWorld(worldName, null, true, World.Environment.NORMAL, 0, WorldType.NORMAL, null);
+                pluginInstance.getGeneralLibrary().sendConsoleMessage("&aRe-Loaded the world &e" + worldName + "&a.");
+            }
+        }
+
+        long endTime = System.currentTimeMillis();
+        pluginInstance.getGeneralLibrary().sendConsoleMessage("&aFinished syncing world data! &a(Took &e" + (endTime - startTime) + "ms&a)");
     }
 
     public boolean isWorldLoaded(String worldName)
@@ -84,10 +151,14 @@ public class WorldManager
         if (generator != null) worldCreator.generator(generator);
         worldCreator.generateStructures(generateStructures);
         if (environment != null) worldCreator.environment(environment);
-        worldCreator.seed(seed);
+        if (seed != 0) worldCreator.seed(seed);
         if (worldType != null) worldCreator.type(worldType);
         if (generatorSettings != null) worldCreator.generatorSettings(generatorSettings);
-        worldCreator.createWorld();
+
+        World world = pluginInstance.getServer().createWorld(worldCreator);
+        WorldSnapshot worldSnapshot = new WorldSnapshot(worldName, generator, generatorSettings, generateStructures, environment, worldType, seed);
+        worldSnapshot.save(true);
+        getWorldSnapshots().put(world.getName(), worldSnapshot);
     }
 
     public World getWorldByName(String worldName)

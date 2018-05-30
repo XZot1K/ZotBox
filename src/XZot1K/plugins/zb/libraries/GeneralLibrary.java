@@ -24,7 +24,6 @@ public class GeneralLibrary
      * Color codes the given text.
      *
      * @param msg The message you want colored.
-     *
      * @return The message color coded.
      */
     public String color(String msg)
@@ -36,7 +35,6 @@ public class GeneralLibrary
      * Converts all color codes in every line of the string array.
      *
      * @param stringList The list of strings.
-     *
      * @return The colored version of the list of strings.
      */
     public List<String> colorLines(List<String> stringList)
@@ -53,7 +51,6 @@ public class GeneralLibrary
      * Converts all color codes in every line of the string array.
      *
      * @param stringList The array list of strings.
-     *
      * @return The colored version of the list of strings.
      */
     public ArrayList<String> colorLines(ArrayList<String> stringList)
@@ -72,7 +69,6 @@ public class GeneralLibrary
      * @param text        The text you want to replace the placeholder in.
      * @param placeHolder The placeholder you want to replace.
      * @param value       The value you want to replace the placeholder with.
-     *
      * @return The result.
      */
     public String replacePlaceHolder(String text, String placeHolder, String value)
@@ -86,7 +82,6 @@ public class GeneralLibrary
      * @param stringList  The list you want to replace the placeholder in.
      * @param placeHolder The placeholder you want to replace.
      * @param value       The value you want to replace the placeholder with.
-     *
      * @return The result.
      */
     public List<String> replacePlaceHolder(List<String> stringList, String placeHolder, String value)
@@ -105,7 +100,6 @@ public class GeneralLibrary
      * @param stringList  The array list you want to replace the placeholder in.
      * @param placeHolder The placeholder you want to replace.
      * @param value       The value you want to replace the placeholder with.
-     *
      * @return The result.
      */
     public ArrayList<String> replacePlaceHolder(ArrayList<String> stringList, String placeHolder, String value)
@@ -141,7 +135,6 @@ public class GeneralLibrary
      * Allows you to get a players ping/latency.
      *
      * @param player The player you want to get the ping from.
-     *
      * @return The player's ping/latency.
      */
     public int getPing(Player player)
@@ -153,25 +146,14 @@ public class GeneralLibrary
      * Allows you to get how strong the player's ping/latency is at ease.
      *
      * @param ping The player's ping/latency (Recommend feeding this method the getPing() method).
-     *
      * @return Whether the ping is very strong, strong, average, weak, or very weak.
      */
     public PingEffectivity getPingEffectivity(int ping)
     {
-        if (ping <= 30)
-        {
-            return PingEffectivity.VERY_STRONG;
-        } else if (ping > 30 && ping <= 130)
-        {
-            return PingEffectivity.STRONG;
-        } else if (ping > 130 && ping <= 230)
-        {
-            return PingEffectivity.AVERAGE;
-        } else if (ping > 230 && ping <= 330)
-        {
-            return PingEffectivity.WEAK;
-        }
-
+        if (ping <= 30) return PingEffectivity.VERY_STRONG;
+        else if (ping <= 130) return PingEffectivity.STRONG;
+        else if (ping <= 230) return PingEffectivity.AVERAGE;
+        else if (ping <= 330) return PingEffectivity.WEAK;
         return PingEffectivity.VERY_WEAK;
     }
 
@@ -183,9 +165,7 @@ public class GeneralLibrary
     public String getTimeStamp(String format)
     {
         if (format != null)
-        {
             return new SimpleDateFormat(format).format(Calendar.getInstance().getTime());
-        }
 
         return new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime());
     }
@@ -208,22 +188,15 @@ public class GeneralLibrary
             out.writeUTF(serverName);
             player.sendPluginMessage(plugin, "BungeeCord", byteArray.toByteArray());
             sendConsoleMessage(
-                    "&e" + player.getName() + " &awas successfully sent to the &e" + WordUtils.capitalize(serverName
-                            .toLowerCase()
-                            .replace(
-                                    "_",
-                                    " ")) +
-                            " &cServer!");
+                    "&e" + player.getName() + " &awas successfully sent to the &e"
+                            + WordUtils.capitalize(serverName.toLowerCase().replace("_", " ")) + " &cServer!");
         } catch (Exception ex)
         {
             sendConsoleMessage(
-                    "&e" + player.getName() + " was unable to be sent to the &e" + WordUtils.capitalize(serverName
-                            .toLowerCase()
-							.replace(
-									"_",
-									" ")) +
-							" &cServer. Please make sure the server you entered is valid amd online.");
-		}
-	}
+                    "&e" + player.getName() + " was unable to be sent to the &e"
+                            + WordUtils.capitalize(serverName.toLowerCase().replace("_", " "))
+                            + " &cServer. Please make sure the server you entered is valid amd online.");
+        }
+    }
 
 }

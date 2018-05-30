@@ -6,16 +6,16 @@
 update-notifications: true
 # Tells the library if it needs to setup packets for plugins that are using it on enable.
 setup-packets: true
-# Should ZotBox take control and manage all of your server's worlds?
-use-world-manager: true
 
 # These are the plugins that can't be touched by ZotBox's plugin management systems.
 prevented-plugins: ["ZotBox"]
 
 # --------------------------------------------------------------------------
-# ]-----------[ Here is where you can customize hologram stuff ]-----------[
+# ]-----------[ Here is where you can customize everything modular ]-----------[
 # --------------------------------------------------------------------------
 
+# Should ZotBox take control and manage all of your server's worlds?
+use-world-manager: true
 # Would you like holograms to auto-load, auto-save, and refresh asynchronously?
 use-hologram-task: true
 # This is where you can tell ZotBox if you want the hologram task to auto save and load.
@@ -34,6 +34,9 @@ must-be-player-message: "&cUnfortunately you must be a player to use this."
 invalid-player-message: "&cThe player you enter is either invalid or offline."
 message-sent-message: "&aYou have successfully sent &e{player} &athe message {message}&r&a!"
 help-page-invalid-message: "&cThe help page you entered was invalid."
+
+# world management related messages.
+coming-soon-message: "&cThis feature will be available soon."
 
 # Hologram related messages.
 hologram-exists-message: "&cA hologram with the id &e{id} &calready exists."

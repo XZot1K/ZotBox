@@ -64,16 +64,14 @@ public class CustomInventory
     }
 
     @SuppressWarnings("null")
-	public boolean isEmpty()
+    public boolean isEmpty()
     {
         for (int i = -1; ++i < getInventory().getSize(); )
         {
             ItemStack slot = getSlot(i);
-            if (slot != null || slot.getType() != Material.AIR)
-            {
-                return false;
-            }
+            if (slot.getType() != Material.AIR) return false;
         }
+
         return true;
     }
 

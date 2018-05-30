@@ -1,8 +1,71 @@
 name: ZotBox
-version: 1.4
+version: 1.4.1
 main: XZot1K.plugins.zb.ZotBox
 description: An advanced bukkit/spigot library plugin crossover that can make a variety of things easier!
 commands:
   zotbox:
     default: op
     aliases: [zotbox, zb]
+permissions:
+  zotbox.admin:
+    default: op
+    description: Gives access to all in-game utilities and commands.
+    children:
+      zotbox.worldmanagement: true
+      zotbox.holograms: true
+      zotbox.plugins: true
+      zotbox.info: true
+      zotbox.sendmessage: true
+  zotbox.holograms:
+    default: op
+    description: Provides the player with all hologram permission nodes.
+    children:
+      zotbox.createhologram: true
+      zotbox.deletehologram: true
+      zotbox.relocatehologram: true
+      zotbox.sethologramlinespread: true
+      zotbox.removehologramline: true
+      zotbox.modifyhologramline: true
+  zotbox.plugins:
+    default: op
+    description: Provides the player with all plugin management permission nodes.
+    children:
+      zotbox.reloadplugin: true
+      zotbox.unloadplugin: true
+      zotbox.loadplugin: true
+  zotbox.createhologram:
+    default: op
+    description: Allows the player to use /zotbox <createhologram/ch> <id>.
+  zotbox.deletehologram:
+    default: op
+    description: Allows the player to use /zotbox <deletehologram/dh> <id>.
+  zotbox.relocatehologram:
+    default: op
+    description: Allows the player to use /zotbox <relocatehologram/rh> <id>.
+  zotbox.addhologramline:
+    default: op
+    description: Allows the player to use /zotbox <addhologramline/ahl> <id> <index> <text>.
+  zotbox.removehologramline:
+    default: op
+    description: Allows the player to use /zotbox <removehologramline/rhl> <id> <index> <text>.
+  zotbox.modifyhologramline:
+    default: op
+    description: Allows the player to use /zotbox <modifyhologramline/mhl> <id> <index> <text>.
+  zotbox.sendmessage:
+    default: op
+    description: Allows the player to use the /zotbox sendmessage <player> <message> command.
+  zotbox.unloadplugin:
+    default: op
+    description: Allows the player to use /zotbox <unloadplugin/up> <plugin>.
+  zotbox.loadplugin:
+    default: op
+    description: Allows the player to use /zotbox <loadplugin/lp> <plugin>.
+  zotbox.reloadplugin:
+    default: op
+    description: Allows the player to use /zotbox <reloadplugin/rp> <plugin>.
+  zotbox.worldmanagement:
+    default: op
+    description: Provides the player with all in-game world management tools.
+  zotbox.info:
+    default: op
+    description: Allows the player to use /zotbox info.

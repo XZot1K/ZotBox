@@ -5,7 +5,7 @@ import XZot1K.plugins.zb.libraries.*;
 import XZot1K.plugins.zb.libraries.inventorylib.InventoryLibrary;
 import XZot1K.plugins.zb.libraries.locationlib.LocationLibrary;
 import XZot1K.plugins.zb.listeners.HologramListeners;
-import XZot1K.plugins.zb.packets.holograms.Hologram;
+import XZot1K.plugins.zb.listeners.WorldPropertyListeners;
 import XZot1K.plugins.zb.utils.UpdateChecker;
 import XZot1K.plugins.zb.utils.holograms.HologramManager;
 import XZot1K.plugins.zb.utils.holograms.HologramTask;
@@ -53,6 +53,12 @@ public class ZotBox extends JavaPlugin
         // Register Listeners.
         getServer().getPluginManager().registerEvents(new HologramListeners(), this);
 
+        if (getConfig().getBoolean("use-world-manager"))
+        {
+            getWorldManager().syncWorldData();
+            getServer().getPluginManager().registerEvents(new WorldPropertyListeners(), this);
+        }
+
         // Start tasks.
         taskStuff();
 
@@ -70,12 +76,8 @@ public class ZotBox extends JavaPlugin
     @Override
     public void onDisable()
     {
-        for (int i = -1; ++i < getHologramManager().getHolograms().size(); )
-        {
-            Hologram hologram = getHologramManager().getHolograms().get(i);
-            hologram.hideAll();
-            getHologramManager().saveHologram(hologram);
-        }
+        getWorldManager().saveWorldData(false);
+        getHologramManager().saveHolograms();
     }
 
     private void taskStuff()

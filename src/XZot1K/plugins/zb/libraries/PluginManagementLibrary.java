@@ -32,12 +32,10 @@ public class PluginManagementLibrary
         {
             Plugin pl = pluginsList[i];
             if (pl.getDescription().getName().equalsIgnoreCase(pluginName))
-            {
                 return true;
-            }
         }
 
-        return false;
+        return true;
     }
 
     @SuppressWarnings("unchecked")
@@ -68,31 +66,32 @@ public class PluginManagementLibrary
                 if (useDependDetector)
                 {
                     Plugin[] otherPlugins = plugin.getServer().getPluginManager().getPlugins();
-                    for (int j = -1; ++j < otherPlugins.length; )
-                    {
-                        Plugin otherPl = otherPlugins[j];
-                        if (otherPl.getDescription().getDepend().contains(pl.getDescription().getName()))
+                    if (otherPlugins != null && otherPlugins.length > 0)
+                        for (int j = -1; ++j < otherPlugins.length; )
                         {
-                            plugin.getGeneralLibrary().sendConsoleMessage("&aFound that &e" + otherPl.getDescription().getName()
-                                    + " &adepends on &e" + pl.getDescription().getName() + "&a. " + "Trying to un-load this plugin as well.");
-
-                            if (getPreventedPlugins().contains(pl.getDescription().getName()))
+                            Plugin otherPl = otherPlugins[j];
+                            if (otherPl.getDescription().getDepend().contains(pl.getDescription().getName()))
                             {
-                                plugin.getGeneralLibrary().sendConsoleMessage("&e" + pl.getDescription().getName()
-                                        + " &cwas in the integrated prevented plugins list. Skipping...");
-                                return false;
-                            }
+                                plugin.getGeneralLibrary().sendConsoleMessage("&aFound that &e" + otherPl.getDescription().getName()
+                                        + " &adepends on &e" + pl.getDescription().getName() + "&a. " + "Trying to un-load this plugin as well.");
 
-                            if (isPrevented(otherPl.getDescription().getName()))
-                            {
-                                plugin.getGeneralLibrary().sendConsoleMessage("&e" + pl.getDescription().getName()
-                                        + " &cwas in the prevented plugins list in the &econfig.yml&c. Skipping...");
-                                return false;
-                            }
+                                if (getPreventedPlugins().contains(pl.getDescription().getName()))
+                                {
+                                    plugin.getGeneralLibrary().sendConsoleMessage("&e" + pl.getDescription().getName()
+                                            + " &cwas in the integrated prevented plugins list. Skipping...");
+                                    return false;
+                                }
 
-                            unLoadPlugin(otherPl.getDescription().getName(), useDependDetector);
+                                if (isPrevented(otherPl.getDescription().getName()))
+                                {
+                                    plugin.getGeneralLibrary().sendConsoleMessage("&e" + pl.getDescription().getName()
+                                            + " &cwas in the prevented plugins list in the &econfig.yml&c. Skipping...");
+                                    return false;
+                                }
+
+                                unLoadPlugin(otherPl.getDescription().getName(), true);
+                            }
                         }
-                    }
                 }
 
                 String name = pl.getName();
@@ -101,7 +100,6 @@ public class PluginManagementLibrary
                 Map<String, Plugin> names;
                 Map<String, Command> commands;
                 Map<Event, SortedSet<RegisteredListener>> listeners = null;
-                boolean reloadListeners = true;
 
                 try
                 {
@@ -117,10 +115,7 @@ public class PluginManagementLibrary
                         Field listenersField = plugin.getServer().getPluginManager().getClass().getDeclaredField("listeners");
                         listenersField.setAccessible(true);
                         listeners = (Map<Event, SortedSet<RegisteredListener>>) listenersField.get(plugin.getServer().getPluginManager());
-                    } catch (Exception e)
-                    {
-                        reloadListeners = false;
-                    }
+                    } catch (Exception ignored) {}
 
                     Field commandMapField = plugin.getServer().getPluginManager().getClass().getDeclaredField("commandMap");
                     commandMapField.setAccessible(true);
@@ -136,20 +131,15 @@ public class PluginManagementLibrary
                 }
 
                 plugin.getServer().getPluginManager().disablePlugin(pl);
-                if (plugins != null)
-                {
-                    plugins.remove(pl);
-                }
+                if (plugins != null) plugins.remove(pl);
+                if (names != null) names.remove(name);
 
-                if (names != null)
+                if (listeners != null)
                 {
-                    names.remove(name);
-                }
-
-                if (listeners != null && reloadListeners)
-                {
-                    for (SortedSet<RegisteredListener> set : listeners.values())
+                    List<SortedSet<RegisteredListener>> lsList = new ArrayList(listeners.values());
+                    for (int j = -1; ++j < lsList.size(); )
                     {
+                        SortedSet<RegisteredListener> set = lsList.get(j);
                         set.removeIf(value -> value.getPlugin() == pl);
                     }
                 }
@@ -196,13 +186,14 @@ public class PluginManagementLibrary
 
     public boolean loadPlugin(String pluginName, boolean useDependDetector)
     {
-        if (!isPluginLoaded(pluginName))
+        if (isPluginLoaded(pluginName))
         {
             long startTime = System.currentTimeMillis();
             File pluginsFolder = new File("plugins");
             if (pluginsFolder.exists() && pluginsFolder.isDirectory())
             {
                 File[] files = pluginsFolder.listFiles();
+                if (files == null) return false;
                 for (int i = -1; ++i < files.length; )
                 {
                     File file = files[i];
@@ -233,7 +224,7 @@ public class PluginManagementLibrary
                                     for (int j = -1; ++j < depends.size(); )
                                     {
                                         String dependent = depends.get(j);
-                                        if (!isPluginLoaded(dependent))
+                                        if (isPluginLoaded(dependent))
                                         {
                                             plugin.getGeneralLibrary().sendConsoleMessage("&aFound that &e" + desc.getName() + " &adepends on &e" + dependent + "&a, but it is not installed. " +
                                                     "Trying to load the dependency if it is in the plugins folder.");
@@ -245,7 +236,7 @@ public class PluginManagementLibrary
                                                 return false;
                                             }
 
-                                            if (!loadPlugin(dependent, useDependDetector))
+                                            if (!loadPlugin(dependent, true))
                                             {
                                                 plugin.getGeneralLibrary().sendConsoleMessage("&cTried to load the dependencies for &e"
                                                         + desc.getName() + " &c, but was un-successful. Therefore &e" + desc.getName() + " &cwas not loaded.");
@@ -301,13 +292,7 @@ public class PluginManagementLibrary
     {
         List<String> prevented = plugin.getConfig().getStringList("prevented-plugins");
         for (int i = -1; ++i < prevented.size(); )
-        {
-            if (pluginName.equalsIgnoreCase(prevented.get(i)))
-            {
-                return true;
-            }
-        }
-
+            if (pluginName.equalsIgnoreCase(prevented.get(i))) return true;
         return false;
     }
 

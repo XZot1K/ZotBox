@@ -43,80 +43,46 @@ public class NewerBossBar
     }
 
     @SuppressWarnings("deprecation")
-	public NewerBossBar show()
+    public NewerBossBar show()
     {
-        switch (plugin.getServerVersion())
-        {
-            case "v1_9_R2":
-                getBossBar().show();
-                break;
-            case "v1_9_R1":
-                getBossBar().show();
-                break;
-            default:
-                getBossBar().setVisible(true);
-                break;
-        }
-
+        if (plugin.getServerVersion().equalsIgnoreCase("v1_9_R1") ||
+                plugin.getServerVersion().equalsIgnoreCase("v1_9_R2"))
+            getBossBar().show();
+        else getBossBar().setVisible(true);
         return this;
     }
 
     @SuppressWarnings("deprecation")
-	public NewerBossBar hide()
+    public NewerBossBar hide()
     {
-        switch (plugin.getServerVersion())
-        {
-            case "v1_9_R2":
-                getBossBar().hide();
-                break;
-            case "v1_9_R1":
-                getBossBar().hide();
-                break;
-            default:
-                getBossBar().setVisible(false);
-                break;
-        }
-
+        if (plugin.getServerVersion().equalsIgnoreCase("v1_9_R1") ||
+                plugin.getServerVersion().equalsIgnoreCase("v1_9_R2"))
+            getBossBar().hide();
+        else getBossBar().setVisible(false);
         return this;
     }
 
     public NewerBossBar addPlayer(Player player)
     {
-        if (getBossBar() != null)
-        {
-            getBossBar().addPlayer(player);
-        }
-
+        if (getBossBar() != null) getBossBar().addPlayer(player);
         return this;
     }
 
     public NewerBossBar removePlayer(Player player)
     {
-        if (getBossBar() != null)
-        {
-            getBossBar().removePlayer(player);
-        }
-
+        if (getBossBar() != null) getBossBar().removePlayer(player);
         return this;
     }
 
     public double getProgress()
     {
-        if (getBossBar() != null)
-        {
-            return getBossBar().getProgress();
-        }
-
+        if (getBossBar() != null) return getBossBar().getProgress();
         return 0.0;
     }
 
     public NewerBossBar setProgress(double progress)
     {
-        if (getBossBar() != null)
-        {
-            getBossBar().setProgress(progress);
-        }
-
+        if (getBossBar() != null) getBossBar().setProgress(progress);
         return this;
     }
 

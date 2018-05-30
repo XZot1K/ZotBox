@@ -21,6 +21,16 @@ public class HologramManager
         holograms = new ArrayList<>();
     }
 
+    public void saveHolograms()
+    {
+        for (int i = -1; ++i < getHolograms().size(); )
+        {
+            Hologram hologram = getHolograms().get(i);
+            hologram.hideAll();
+            saveHologram(hologram);
+        }
+    }
+
     public boolean doesHologramExist(String id)
     {
         for (int i = -1; ++i < getHolograms().size(); )
